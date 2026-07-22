@@ -8,20 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
-SK Job BD Admin Panel
+SK Job BD - Admin Panel
 </title>
 
 
 <link rel="stylesheet" href="admin.css">
-
-
-<script src="../config.js"></script>
-
-
-<script type="module" src="../firebase.js"></script>
-
-
-<script type="module" src="admin.js"></script>
 
 
 </head>
@@ -33,15 +24,14 @@ SK Job BD Admin Panel
 <header class="admin-header">
 
 <h1>
-SK Job BD Admin Panel
+SK Job BD
 </h1>
 
 <p>
-Career & Education Management System
+Admin Management Panel
 </p>
 
 </header>
-
 
 
 
@@ -49,13 +39,13 @@ Career & Education Management System
 
 
 
-<!-- Login Section -->
+<!-- LOGIN AREA -->
 
-<section class="box">
+<section class="box" id="loginBox">
 
 
 <h2>
-🔐 Admin Login | প্রশাসক লগইন
+🔐 Admin Login
 </h2>
 
 
@@ -86,8 +76,13 @@ Login
 
 
 
+<!-- ADMIN PANEL -->
 
-<!-- Dashboard -->
+
+<div id="panel" style="display:none;">
+
+
+
 
 
 <section class="box">
@@ -115,7 +110,6 @@ Jobs
 
 
 
-
 <div>
 
 <h3>
@@ -127,8 +121,6 @@ Companies
 </p>
 
 </div>
-
-
 
 
 
@@ -145,7 +137,6 @@ Applications
 </div>
 
 
-
 </div>
 
 
@@ -157,58 +148,47 @@ Applications
 
 
 
-<!-- Add Job -->
-
-
 <section class="box">
 
 
 <h2>
-➕ Add New Job
+➕ নতুন চাকরি পোস্ট করুন
 </h2>
 
 
-
-<input
-type="text"
+<input 
 id="jobTitle"
-placeholder="Job Title | চাকরির নাম">
+placeholder="চাকরির নাম">
 
 
-
-<input
-type="text"
+<input 
 id="company"
-placeholder="Company Name | প্রতিষ্ঠানের নাম">
+placeholder="প্রতিষ্ঠানের নাম">
 
 
 
 <textarea
 id="description"
-placeholder="Job Description | বিস্তারিত">
+placeholder="চাকরির বিস্তারিত">
 </textarea>
 
 
 
-<input
+<input 
 type="date"
 id="deadline">
 
 
 
 <input
-type="text"
 id="applyLink"
-placeholder="Apply Link">
+placeholder="আবেদন লিংক">
 
 
 
 <button onclick="addJob()">
-
-Add Job
-
+চাকরি প্রকাশ করুন
 </button>
-
 
 
 <p id="message"></p>
@@ -222,14 +202,12 @@ Add Job
 
 
 
-<!-- Job List -->
-
 
 <section class="box">
 
 
 <h2>
-📋 Published Jobs
+📋 প্রকাশিত চাকরি
 </h2>
 
 
@@ -244,7 +222,20 @@ Add Job
 
 
 
+
+<button onclick="logout()">
+Logout
+</button>
+
+
+
+</div>
+
+
+
+
 </main>
+
 
 
 
@@ -258,6 +249,11 @@ Add Job
 
 </footer>
 
+
+
+
+
+<script type="module" src="admin.js"></script>
 
 
 </body>
