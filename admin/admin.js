@@ -1,75 +1,56 @@
-/*
-================================================
-SK Job BD
-Admin Panel Logic
-Version 1.0
-================================================
-*/
+import { auth, db } from "../firebase.js";
 
 
-import { 
-    ref,
-    push,
-    set,
-    onValue,
-    get
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import {
 
+onAuthStateChanged,
+signOut
 
-import { 
-    signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
 
+import {
 
-// ==========================================
-// Admin Login
-// ==========================================
+collection,
+addDoc,
+getDocs,
+query,
+where,
+serverTimestamp
 
+}
 
-window.adminLogin = function(){
+from
 
-
-let email =
-document.getElementById("adminEmail").value;
-
-
-let password =
-document.getElementById("adminPassword").value;
-
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
-signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-)
 
 
-.then(()=>{
+// Section Control
+
+window.showSection = function(id){
 
 
-document.getElementById("loginMessage")
-.innerHTML =
-"✅ Login Successful";
+let sections =
+document.querySelectorAll(".section");
 
 
-})
+sections.forEach(section=>{
 
-
-.catch((error)=>{
-
-
-document.getElementById("loginMessage")
-.innerHTML =
-"❌ Login Failed";
-
-
-console.log(error);
-
+section.classList.add("hidden");
 
 });
+
+
+
+document.getElementById(id)
+.classList.remove("hidden");
 
 
 };
@@ -79,162 +60,166 @@ console.log(error);
 
 
 
+// Admin Check
 
-// ==========================================
+
+onAuthStateChanged(auth, async(user)=>{
+
+
+if(!user){
+
+
+alert("Please Login First");
+
+
+window.location.href="../login.html";
+
+
+return;
+
+}
+
+
+
+console.log("Admin Login:",user.email);
+
+
+
+loadDashboard();
+
+loadUsers();
+
+loadCompanies();
+
+loadJobs();
+
+
+
+});
+
+
+
+
+
+
+
+// Logout
+
+
+window.logout=function(){
+
+
+signOut(auth)
+.then(()=>{
+
+
+window.location.href="../login.html";
+
+
+});
+
+
+}
+
+
+
+
+
+
+
 // Add Job
-// ==========================================
 
 
-window.addJob = function(){
+window.addJob = async function(){
+
 
 
 let title =
 document.getElementById("jobTitle").value;
 
 
+
 let company =
-document.getElementById("company").value;
+document.getElementById("jobCompany").value;
+
 
 
 let description =
-document.getElementById("description").value;
+document.getElementById("jobDescription").value;
+
 
 
 let deadline =
-document.getElementById("deadline").value;
-
-
-let applyLink =
-document.getElementById("applyLink").value;
+document.getElementById("jobDeadline").value;
 
 
 
 
-if(
-title==="" ||
-company===""
-){
+
+if(!title || !company){
 
 
-alert(
-"Job Title এবং Company Name প্রয়োজন"
-);
+alert("Job Title এবং Company দিন");
 
 
 return;
 
-
 }
 
 
 
-let jobID =
-push(jobsRef).key;
 
 
 
-let jobData = {
+try{
 
 
-id: jobID,
+await addDoc(
+
+collection(db,"jobs"),
+
+{
 
 
 title:title,
 
-
 company:company,
-
 
 description:description,
 
-
 deadline:deadline,
 
+status:"approved",
 
-applyLink:applyLink,
-
-
-status:"active",
+createdAt:serverTimestamp()
 
 
-createdAt:
-new Date().toISOString()
+}
 
 
-
-};
-
-
-
-
-
-set(
-ref(database,"jobs/"+jobID),
-jobData
-
-)
-
-
-.then(()=>{
-
-
-document.getElementById("message")
-.innerHTML =
-"✅ Job Added Successfully";
-
-
-
-clearJobForm();
-
-
-
-})
-
-
-.catch((error)=>{
-
-
-console.log(error);
-
-
-alert(
-"Job Add Failed"
 );
 
 
-});
+
+alert("✅ Job Added Successfully");
 
 
 
-};
+loadJobs();
+
+
+}
 
 
 
+catch(error){
 
 
+alert(error.message);
 
 
-// ==========================================
-// Clear Form
-// ==========================================
+}
 
-
-function clearJobForm(){
-
-
-document.getElementById("jobTitle").value="";
-
-
-document.getElementById("company").value="";
-
-
-document.getElementById("description").value="";
-
-
-document.getElementById("deadline").value="";
-
-
-document.getElementById("applyLink").value="";
 
 
 }
@@ -245,74 +230,69 @@ document.getElementById("applyLink").value="";
 
 
 
-// ==========================================
+
+
 // Load Jobs
-// ==========================================
 
 
-function loadJobs(){
+async function loadJobs(){
 
 
-onValue(
-jobsRef,
-(snapshot)=>{
 
-
-let list =
+const list =
 document.getElementById("jobList");
 
 
-let count =
-document.getElementById("jobCount");
+
+if(!list) return;
 
 
 
 list.innerHTML="";
 
 
-let total=0;
+
+const snapshot =
+await getDocs(collection(db,"jobs"));
 
 
 
-snapshot.forEach(
-(child)=>{
+let count=0;
 
 
-total++;
+
+snapshot.forEach(doc=>{
 
 
-let job =
-child.val();
+count++;
+
+
+
+let data=doc.data();
 
 
 
 list.innerHTML += `
 
-<div class="job">
+
+<div class="card">
 
 
-<h3>
-${job.title}
-</h3>
+<h3>${data.title}</h3>
 
 
 <p>
-🏢 ${job.company}
+${data.company}
 </p>
 
 
 <p>
-📅 Deadline:
-${job.deadline}
-</p>
-
-
-<p>
-${job.description}
+Deadline: ${data.deadline}
 </p>
 
 
 </div>
+
 
 `;
 
@@ -321,20 +301,205 @@ ${job.description}
 });
 
 
-if(count){
 
-count.innerHTML=total;
+let total =
+document.getElementById("totalJobs");
+
+
+if(total)
+
+total.innerHTML=count;
+
+
 
 }
 
 
 
+
+
+
+
+
+
+// Load Users
+
+
+async function loadUsers(){
+
+
+
+const list =
+document.getElementById("userList");
+
+
+
+if(!list) return;
+
+
+
+list.innerHTML="";
+
+
+
+const snapshot =
+await getDocs(collection(db,"users"));
+
+
+
+let count=0;
+
+
+
+snapshot.forEach(doc=>{
+
+
+count++;
+
+
+let data=doc.data();
+
+
+
+list.innerHTML += `
+
+
+<div class="card">
+
+
+<h3>${data.name}</h3>
+
+
+<p>
+${data.mobile}
+</p>
+
+
+<p>
+Type: ${data.accountType}
+</p>
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+
+let total =
+document.getElementById("totalUsers");
+
+if(total)
+
+total.innerHTML=count;
+
+
+
 }
+
+
+
+
+
+
+
+
+
+// Load Companies
+
+
+async function loadCompanies(){
+
+
+
+const list =
+document.getElementById("companyList");
+
+
+
+if(!list) return;
+
+
+
+list.innerHTML="";
+
+
+
+const q =
+query(
+
+collection(db,"users"),
+
+where("accountType","==","company")
 
 );
 
 
 
+const snapshot =
+await getDocs(q);
+
+
+
+let count=0;
+
+
+
+snapshot.forEach(doc=>{
+
+
+count++;
+
+
+let data=doc.data();
+
+
+
+list.innerHTML += `
+
+
+<div class="card">
+
+
+<h3>
+${data.institution}
+</h3>
+
+
+<p>
+${data.mobile}
+</p>
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+
+
+let total =
+document.getElementById("totalCompany");
+
+
+if(total)
+
+total.innerHTML=count;
+
+
+
 }
 
 
@@ -342,86 +507,20 @@ count.innerHTML=total;
 
 
 
-// ==========================================
-// Dashboard Count
-// ==========================================
-
-
-function loadDashboard(){
-
-
-onValue(
-companiesRef,
-(snapshot)=>{
-
-
-let count =
-document.getElementById("companyCount");
-
-
-if(count){
-
-count.innerHTML =
-snapshot.size || 0;
-
-}
-
-
-}
-
-);
 
 
 
+// Dashboard Load
 
 
-onValue(
-applicationsRef,
-(snapshot)=>{
+async function loadDashboard(){
 
 
-let count =
-document.getElementById("applicationCount");
+loadUsers();
 
-
-if(count){
-
-count.innerHTML =
-snapshot.size || 0;
-
-}
-
-
-}
-
-);
-
-
-}
-
-
-
-
-
-
-
-// Start
-
-
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
-
+loadCompanies();
 
 loadJobs();
 
 
-loadDashboard();
-
-
-console.log(
-"✅ Admin Panel Ready"
-);
-
-
-});
+}
