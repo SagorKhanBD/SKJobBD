@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+SK Job BD Registration
+</title>
+
+
+<link rel="stylesheet" href="register.css">
+
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+SK Job BD
+</h1>
+
+<h3>
+Account Registration
+</h3>
+
+</header>
+
+
+
+
+<div class="container">
+
+
+<h2>
+📝 নতুন একাউন্ট তৈরি করুন
+</h2>
+
+
+
+<label>
+Account Type
+</label>
+
+
+<select id="accountType">
+
+<option value="">
+Select Account Type
+</option>
+
+<option value="candidate">
+Candidate (চাকরি প্রার্থী)
+</option>
+
+
+<option value="company">
+Company (প্রতিষ্ঠান)
+</option>
+
+
+<option value="school">
+Education Institute (শিক্ষা প্রতিষ্ঠান)
+</option>
+
+
+</select>
+
+
+
+
+
+
+<input 
+id="name"
+placeholder="আপনার নাম">
+
+
+
+
+
+<input 
+id="mobile"
+placeholder="মোবাইল নম্বর">
+
+
+
+
+
+
+<input 
+id="email"
+placeholder="Email Address">
+
+
+
+
+
+
+
+<input 
+id="institution"
+placeholder="প্রতিষ্ঠানের নাম (যদি থাকে)">
+
+
+
+
+
+<input 
+id="institutionCode"
+placeholder="প্রতিষ্ঠানের কোড (যদি থাকে)">
+
+
+
+
+
+<input 
+type="password"
+id="password"
+placeholder="গোপনীয় Password (কমপক্ষে ৮ ডিজিট)">
+
+
+
+
+
+
+<button onclick="registerUser()">
+
+Register Account
+
+</button>
+
+
+
+
+<p id="message"></p>
+
+
+
+</div>
+
+
+
+
+
+
+<script type="module" src="register.js"></script>
+
+
+</body>
+
+</html>
