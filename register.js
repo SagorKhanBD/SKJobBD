@@ -1,149 +1,94 @@
 import { auth, db } from "./firebase.js";
 
+import {
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 import {
-createUserWithEmailAndPassword
-}
-from 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
+window.registerUser = async function () {
 
+    const type = document.getElementById("accountType").value;
+    const name = document.getElementById("name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const institution = document.getElementById("institution").value.trim();
+    const institutionCode = document.getElementById("institutionCode").value.trim();
+    const password = document.getElementById("password").value;
 
-import {
+    const message = document.getElementById("message");
 
-doc,
-setDoc
+    message.innerHTML = "";
 
-}
+    if(type===""){
+        message.innerHTML="❌ Account Type নির্বাচন করুন";
+        return;
+    }
 
-from
+    if(name===""){
+        message.innerHTML="❌ নাম লিখুন";
+        return;
+    }
 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    if(mobile===""){
+        message.innerHTML="❌ মোবাইল নম্বর লিখুন";
+        return;
+    }
 
+    if(email===""){
+        message.innerHTML="❌ Email লিখুন";
+        return;
+    }
 
+    if(password.length<8){
+        message.innerHTML="❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে";
+        return;
+    }
 
+    try{
 
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
 
+        const user=userCredential.user;
 
+        await setDoc(doc(db,"users",user.uid),{
 
-window.registerUser = async function(){
+            uid:user.uid,
+            accountType:type,
+            name:name,
+            mobile:mobile,
+            email:email,
+            institution:institution,
+            institutionCode:institutionCode,
 
+            status:"pending",
 
+            createdAt:serverTimestamp()
 
-let type =
-document.getElementById("accountType").value;
+        });
 
+        message.innerHTML="✅ Registration Successful";
 
+        setTimeout(()=>{
+            window.location.href="login.html";
+        },1500);
 
-let name =
-document.getElementById("name").value;
+    }
 
+    catch(error){
 
+        console.error(error);
 
-let mobile =
-document.getElementById("mobile").value;
+        message.innerHTML="❌ "+error.code;
 
-
-
-let email =
-document.getElementById("email").value;
-
-
-
-let institution =
-document.getElementById("institution").value;
-
-
-
-let institutionCode =
-document.getElementById("institutionCode").value;
-
-
-
-let password =
-document.getElementById("password").value;
-
-
-
-
-
-if(password.length < 8){
-
-document.getElementById("message").innerHTML =
-"❌ Password কমপক্ষে ৮ ডিজিট হতে হবে";
-
-return;
-
-}
-
-
-
-
-
-try{
-
-
-const userCredential =
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-
-
-const user =
-userCredential.user;
-
-
-
-
-await setDoc(
-doc(db,"users",user.uid),
-{
-
-
-name:name,
-
-mobile:mobile,
-
-email:email,
-
-accountType:type,
-
-institution:institution,
-
-institutionCode:institutionCode,
-
-status:"pending",
-
-createdAt:new Date()
-
-
-}
-
-);
-
-
-
-
-document.getElementById("message").innerHTML=
-"✅ Registration Successful";
-
-
-
-}
-
-
-catch(error){
-
-
-document.getElementById("message").innerHTML=
-"❌ "+error.message;
-
-
-}
-
-
+    }
 
 }
