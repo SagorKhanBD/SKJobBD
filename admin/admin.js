@@ -1,56 +1,212 @@
-import { auth, db } from "../firebase.js";
+import { db } from "../firebase.js";
 
 
 import {
 
-onAuthStateChanged,
-signOut
+    collection,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc,
+    orderBy,
+    query
+
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+
+
+const userList = document.getElementById("userList");
+
+
+
+
+// Load Users
+
+async function loadUsers(){
+
+
+    userList.innerHTML = "Loading Users...";
+
+
+
+    try{
+
+
+        const q = query(
+
+            collection(db,"users"),
+
+            orderBy("createdAt","desc")
+
+        );
+
+
+
+        const snapshot = await getDocs(q);
+
+
+
+        userList.innerHTML = "";
+
+
+
+        if(snapshot.empty){
+
+
+            userList.innerHTML =
+            "<p>কোন User পাওয়া যায়নি।</p>";
+
+
+            return;
+
+
+        }
+
+
+
+
+        snapshot.forEach((item)=>{
+
+
+            const user = item.data();
+
+            const id = item.id;
+
+
+
+
+            userList.innerHTML += `
+
+
+            <div class="user-card">
+
+
+            <p>
+            <strong>নাম:</strong>
+            ${user.name}
+            </p>
+
+
+
+            <p>
+            <strong>মোবাইল:</strong>
+            ${user.mobile}
+            </p>
+
+
+
+            <p>
+            <strong>Account Type:</strong>
+            ${user.accountType}
+            </p>
+
+
+
+            <p>
+            <strong>প্রতিষ্ঠান:</strong>
+            ${user.institution}
+            </p>
+
+
+
+            <p>
+            <strong>Status:</strong>
+            ${user.status}
+            </p>
+
+
+
+            <button 
+            class="approve"
+            onclick="approveUser('${id}')">
+
+            ✅ Approve
+
+            </button>
+
+
+
+
+            <button 
+            class="delete"
+            onclick="deleteUser('${id}')">
+
+            🗑 Delete
+
+            </button>
+
+
+
+            </div>
+
+
+            `;
+
+
+
+        });
+
+
+
+    }
+
+
+    catch(error){
+
+
+        console.error(error);
+
+
+        userList.innerHTML =
+        "❌ Error: "+error.message;
+
+
+    }
+
 
 }
 
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
 
-import {
-
-collection,
-addDoc,
-getDocs,
-query,
-where,
-serverTimestamp
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// Approve User
 
 
+window.approveUser = async function(id){
 
 
-// Section Control
-
-window.showSection = function(id){
+    try{
 
 
-let sections =
-document.querySelectorAll(".section");
+        await updateDoc(
+
+            doc(db,"users",id),
+
+            {
+
+                status:"approved"
+
+            }
+
+        );
 
 
-sections.forEach(section=>{
-
-section.classList.add("hidden");
-
-});
+        alert("✅ User Approved");
 
 
+        loadUsers();
 
-document.getElementById(id)
-.classList.remove("hidden");
+
+    }
+
+
+    catch(error){
+
+
+        alert(error.message);
+
+
+    }
 
 
 };
@@ -59,468 +215,61 @@ document.getElementById(id)
 
 
 
-
-// Admin Check
-
-
-onAuthStateChanged(auth, async(user)=>{
+// Delete User
 
 
-if(!user){
+window.deleteUser = async function(id){
 
 
-alert("Please Login First");
-
-
-window.location.href="../login.html";
-
-
-return;
-
-}
+    const confirmDelete =
+    confirm("আপনি কি এই User Delete করতে চান?");
 
 
 
-console.log("Admin Login:",user.email);
+    if(!confirmDelete){
+
+        return;
+
+    }
 
 
 
-loadDashboard();
+
+    try{
+
+
+        await deleteDoc(
+
+            doc(db,"users",id)
+
+        );
+
+
+
+        alert("🗑 User Deleted");
+
+
+        loadUsers();
+
+
+    }
+
+
+    catch(error){
+
+
+        alert(error.message);
+
+
+    }
+
+
+};
+
+
+
+
+
+// Start
 
 loadUsers();
-
-loadCompanies();
-
-loadJobs();
-
-
-
-});
-
-
-
-
-
-
-
-// Logout
-
-
-window.logout=function(){
-
-
-signOut(auth)
-.then(()=>{
-
-
-window.location.href="../login.html";
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-// Add Job
-
-
-window.addJob = async function(){
-
-
-
-let title =
-document.getElementById("jobTitle").value;
-
-
-
-let company =
-document.getElementById("jobCompany").value;
-
-
-
-let description =
-document.getElementById("jobDescription").value;
-
-
-
-let deadline =
-document.getElementById("jobDeadline").value;
-
-
-
-
-
-if(!title || !company){
-
-
-alert("Job Title এবং Company দিন");
-
-
-return;
-
-}
-
-
-
-
-
-
-try{
-
-
-await addDoc(
-
-collection(db,"jobs"),
-
-{
-
-
-title:title,
-
-company:company,
-
-description:description,
-
-deadline:deadline,
-
-status:"approved",
-
-createdAt:serverTimestamp()
-
-
-}
-
-
-);
-
-
-
-alert("✅ Job Added Successfully");
-
-
-
-loadJobs();
-
-
-}
-
-
-
-catch(error){
-
-
-alert(error.message);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// Load Jobs
-
-
-async function loadJobs(){
-
-
-
-const list =
-document.getElementById("jobList");
-
-
-
-if(!list) return;
-
-
-
-list.innerHTML="";
-
-
-
-const snapshot =
-await getDocs(collection(db,"jobs"));
-
-
-
-let count=0;
-
-
-
-snapshot.forEach(doc=>{
-
-
-count++;
-
-
-
-let data=doc.data();
-
-
-
-list.innerHTML += `
-
-
-<div class="card">
-
-
-<h3>${data.title}</h3>
-
-
-<p>
-${data.company}
-</p>
-
-
-<p>
-Deadline: ${data.deadline}
-</p>
-
-
-</div>
-
-
-`;
-
-
-
-});
-
-
-
-let total =
-document.getElementById("totalJobs");
-
-
-if(total)
-
-total.innerHTML=count;
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// Load Users
-
-
-async function loadUsers(){
-
-
-
-const list =
-document.getElementById("userList");
-
-
-
-if(!list) return;
-
-
-
-list.innerHTML="";
-
-
-
-const snapshot =
-await getDocs(collection(db,"users"));
-
-
-
-let count=0;
-
-
-
-snapshot.forEach(doc=>{
-
-
-count++;
-
-
-let data=doc.data();
-
-
-
-list.innerHTML += `
-
-
-<div class="card">
-
-
-<h3>${data.name}</h3>
-
-
-<p>
-${data.mobile}
-</p>
-
-
-<p>
-Type: ${data.accountType}
-</p>
-
-
-</div>
-
-
-`;
-
-
-
-});
-
-
-
-
-let total =
-document.getElementById("totalUsers");
-
-if(total)
-
-total.innerHTML=count;
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// Load Companies
-
-
-async function loadCompanies(){
-
-
-
-const list =
-document.getElementById("companyList");
-
-
-
-if(!list) return;
-
-
-
-list.innerHTML="";
-
-
-
-const q =
-query(
-
-collection(db,"users"),
-
-where("accountType","==","company")
-
-);
-
-
-
-const snapshot =
-await getDocs(q);
-
-
-
-let count=0;
-
-
-
-snapshot.forEach(doc=>{
-
-
-count++;
-
-
-let data=doc.data();
-
-
-
-list.innerHTML += `
-
-
-<div class="card">
-
-
-<h3>
-${data.institution}
-</h3>
-
-
-<p>
-${data.mobile}
-</p>
-
-
-</div>
-
-
-`;
-
-
-
-});
-
-
-
-
-
-let total =
-document.getElementById("totalCompany");
-
-
-if(total)
-
-total.innerHTML=count;
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// Dashboard Load
-
-
-async function loadDashboard(){
-
-
-loadUsers();
-
-loadCompanies();
-
-loadJobs();
-
-
-}
