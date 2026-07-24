@@ -4,73 +4,182 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SK BD User Dashboard</title>
+<title>
+SK BD Dashboard
+</title>
+
 
 <link rel="stylesheet" href="dashboard.css">
 
+
 </head>
+
 
 <body>
 
+
 <header>
 
-<h1>SK BD</h1>
+<h1>
+SK BD
+</h1>
 
-<h3>User Dashboard</h3>
+<p>
+User Dashboard
+</p>
 
 </header>
 
-<div class="dashboard">
 
-<div class="card">
 
-<h2>👤 User Information</h2>
+
+<div class="dashboard-container">
+
+
+
+<div class="profile-card">
+
+
+<h2>
+👤 My Profile
+</h2>
+
 
 <hr>
 
-<p><strong>নাম :</strong> <span id="userName"></span></p>
 
-<p><strong>মোবাইল :</strong> <span id="userMobile"></span></p>
 
-<p><strong>Account Type :</strong> <span id="userType"></span></p>
+<p>
+<strong>নাম:</strong>
 
-<p><strong>প্রতিষ্ঠানের নাম :</strong> <span id="userInstitution"></span></p>
+<span id="name"></span>
 
-<p><strong>Email :</strong> <span id="userEmail"></span></p>
+</p>
 
-<p><strong>Status :</strong> <span id="userStatus"></span></p>
+
+
+
+<p>
+<strong>মোবাইল:</strong>
+
+<span id="mobile"></span>
+
+</p>
+
+
+
+
+<p>
+<strong>Account Type:</strong>
+
+<span id="accountType"></span>
+
+</p>
+
+
+
+
+<p>
+<strong>প্রতিষ্ঠান:</strong>
+
+<span id="institution"></span>
+
+</p>
+
+
+
+
+<p>
+<strong>Email:</strong>
+
+<span id="email"></span>
+
+</p>
+
+
+
+
+<p>
+<strong>Status:</strong>
+
+<span id="status"></span>
+
+</p>
+
+
 
 </div>
 
-<div class="card">
 
-<h2>⚙️ Quick Menu</h2>
+
+
+
+<div class="menu-card">
+
+
+<h2>
+⚙️ Menu
+</h2>
+
 
 <hr>
 
-<button onclick="window.location.href='index.html'">
+
+
+<button onclick="goHome()">
+
 🏠 Home
+
 </button>
 
-<button onclick="window.location.href='profile.html'">
-👤 My Profile
+
+
+
+<button onclick="myJobs()">
+
+💼 My Applications
+
 </button>
 
-<button onclick="window.location.href='jobs.html'">
-💼 Job List
+
+
+
+
+<button onclick="editProfile()">
+
+✏️ Edit Profile
+
 </button>
+
+
+
+
 
 <button onclick="logout()">
+
 🚪 Logout
+
 </button>
 
-</div>
+
 
 </div>
 
-<script src="dashboard.js"></script>
+
+
+
+</div>
+
+
+
+
+
+<script type="module" src="dashboard.js"></script>
+
+
 
 </body>
 
