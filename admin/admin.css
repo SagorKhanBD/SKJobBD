@@ -1,20 +1,16 @@
 *{
-
-box-sizing:border-box;
-
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
-
 
 
 body{
 
-margin:0;
+    background:#edf9ee;
 
-font-family:"Hind Siliguri",Arial,sans-serif;
-
-background:#edf9ee;
-
-color:#333;
+    min-height:100vh;
 
 }
 
@@ -22,346 +18,173 @@ color:#333;
 
 /* Header */
 
-.admin-header{
+header{
 
-background:linear-gradient(135deg,#56CCF2,#2F80ED);
+    background:linear-gradient(135deg,#56CCF2,#2F80ED);
 
-color:white;
+    color:white;
 
-text-align:center;
+    text-align:center;
 
-padding:25px;
+    padding:25px 10px;
+
+}
+
+
+header h1{
+
+    font-size:35px;
+
+}
+
+
+header p{
+
+    margin-top:8px;
+
+    font-size:18px;
 
 }
 
 
 
-.admin-header h1{
+/* Main Container */
 
-margin:0;
+.container{
 
-font-size:32px;
+    width:95%;
 
-}
+    max-width:1000px;
 
+    margin:30px auto;
 
+    background:white;
 
-.admin-header p{
+    padding:25px;
 
-margin-top:8px;
+    border-radius:15px;
 
-font-size:18px;
-
-}
-
-
-
-
-
-
-/* Layout */
-
-.admin-layout{
-
-display:flex;
-
-min-height:calc(100vh - 120px);
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
 
 }
 
 
 
+.container h2{
 
+    text-align:center;
 
-/* Sidebar */
+    color:#0b7a32;
 
-.sidebar{
-
-width:260px;
-
-background:#0b3d91;
-
-padding:20px;
-
-color:white;
+    margin-bottom:25px;
 
 }
 
 
 
-.sidebar h2{
+/* User Card */
 
-text-align:center;
+.user-card{
 
-margin-bottom:20px;
+    background:#f8fff8;
 
-}
+    border-left:5px solid #0b7a32;
 
+    padding:18px;
 
+    margin-bottom:15px;
 
-.sidebar button{
+    border-radius:10px;
 
-width:100%;
-
-padding:12px;
-
-margin:8px 0;
-
-border:none;
-
-border-radius:6px;
-
-background:#ffffff;
-
-color:#0b3d91;
-
-font-size:16px;
-
-cursor:pointer;
-
-transition:.3s;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
 
 }
 
 
 
-.sidebar button:hover{
+.user-card p{
 
-background:#56CCF2;
+    margin:8px 0;
 
-color:white;
-
-}
-
-
-
-
-
-
-
-/* Main Content */
-
-.content{
-
-flex:1;
-
-padding:25px;
+    color:#333;
 
 }
 
 
 
+.user-card strong{
 
-
-.section{
-
-background:white;
-
-padding:25px;
-
-border-radius:12px;
-
-box-shadow:0 0 10px rgba(0,0,0,.15);
-
-margin-bottom:20px;
+    color:#0b7a32;
 
 }
 
 
 
+/* Buttons */
 
+button{
 
-.hidden{
+    padding:10px 15px;
 
-display:none;
+    margin:8px 5px 0 0;
 
-}
+    border:none;
 
+    border-radius:6px;
 
+    cursor:pointer;
 
+    color:white;
 
-
-
-/* Dashboard Cards */
-
-.cards{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-
-gap:20px;
+    font-size:14px;
 
 }
 
 
 
+.approve{
 
-
-.card{
-
-background:#f1f8ff;
-
-padding:25px;
-
-border-radius:10px;
-
-text-align:center;
-
-border-left:5px solid #2F80ED;
+    background:#0b7a32;
 
 }
 
 
 
-.card h3{
+.delete{
 
-margin:0;
-
-color:#2F80ED;
+    background:#d63031;
 
 }
 
 
 
-.card p{
+button:hover{
 
-font-size:30px;
-
-font-weight:bold;
+    opacity:.85;
 
 }
 
 
 
+/* Mobile */
 
+@media(max-width:600px){
 
 
+    .container{
 
+        width:92%;
 
-/* Form */
+        padding:18px;
 
-input,
-textarea{
+    }
 
-width:100%;
 
-padding:12px;
+    header h1{
 
-margin:8px 0;
+        font-size:28px;
 
-border:1px solid #ccc;
-
-border-radius:6px;
-
-font-size:16px;
-
-}
-
-
-
-textarea{
-
-height:120px;
-
-resize:none;
-
-}
-
-
-
-
-
-.content button{
-
-background:#2F80ED;
-
-color:white;
-
-border:none;
-
-padding:12px 20px;
-
-border-radius:6px;
-
-cursor:pointer;
-
-font-size:16px;
-
-}
-
-
-
-.content button:hover{
-
-background:#1b5fb8;
-
-}
-
-
-
-
-
-
-
-/* List Box */
-
-#jobList,
-#companyList,
-#userList,
-#applicationList{
-
-margin-top:20px;
-
-padding:15px;
-
-background:#f8f8f8;
-
-border-radius:8px;
-
-}
-
-
-
-
-
-
-
-
-/* Mobile Responsive */
-
-
-@media(max-width:768px){
-
-
-.admin-layout{
-
-flex-direction:column;
-
-}
-
-
-
-.sidebar{
-
-width:100%;
-
-}
-
-
-
-.content{
-
-padding:15px;
-
-}
-
-
-.admin-header h1{
-
-font-size:24px;
-
-}
+    }
 
 
 }
