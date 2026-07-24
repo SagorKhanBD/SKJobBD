@@ -1,220 +1,68 @@
-import { auth, db } from "./firebase.js";
-
-
-import {
-
-signInWithEmailAndPassword
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-
+import { db } from "./firebase.js";
 
 import {
+    collection,
+    query,
+    where,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-doc,
-getDoc
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
 
-}
+form.addEventListener("submit", async (e) => {
 
-from
+    e.preventDefault();
 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    message.innerHTML = "";
 
+    const mobile = document.getElementById("mobile").value.trim();
+    const password = document.getElementById("password").value;
 
+    if (mobile === "" || password === "") {
+        message.innerHTML = "❌ মোবাইল নম্বর এবং Password লিখুন।";
+        return;
+    }
 
+    try {
 
+        const q = query(
+            collection(db, "users"),
+            where("mobile", "==", mobile)
+        );
 
-window.loginUser = async function(){
+        const snapshot = await getDocs(q);
 
+        if (snapshot.empty) {
+            message.innerHTML = "❌ এই মোবাইল নম্বরের কোনো অ্যাকাউন্ট নেই।";
+            return;
+        }
 
+        const user = snapshot.docs[0].data();
 
-const email =
-document.getElementById("email").value;
+        if (user.password !== password) {
+            message.innerHTML = "❌ ভুল Password।";
+            return;
+        }
 
+        if (user.status !== "approved") {
+            message.innerHTML = "⏳ আপনার অ্যাকাউন্ট এখনো Admin দ্বারা অনুমোদিত হয়নি।";
+            return;
+        }
 
+        localStorage.setItem("loginUser", JSON.stringify(user));
 
-const password =
-document.getElementById("password").value;
+        message.innerHTML = "✅ Login Successful...";
 
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 1000);
 
+    } catch (error) {
 
-const message =
-document.getElementById("message");
+        console.error(error);
 
+        message.innerHTML = "❌ " + error.message;
+    }
 
-
-
-
-if(!email || !password){
-
-message.innerHTML =
-"❌ Email এবং Password দিন";
-
-return;
-
-}
-
-
-
-
-
-
-
-try{
-
-
-const userCredential =
-
-await signInWithEmailAndPassword(
-
-auth,
-
-email,
-
-password
-
-);
-
-
-
-
-const user = userCredential.user;
-
-
-
-
-
-const userDoc = await getDoc(
-
-doc(db,"users",user.uid)
-
-);
-
-
-
-
-
-
-if(userDoc.exists()){
-
-
-
-const data = userDoc.data();
-
-
-
-message.innerHTML =
-"✅ Login Successful";
-
-
-
-
-
-
-// Admin
-
-if(data.accountType === "admin"){
-
-
-window.location.href =
-"admin/admin.html";
-
-
-}
-
-
-
-
-
-// Company
-
-else if(data.accountType === "company"){
-
-
-window.location.href =
-"company/dashboard.html";
-
-
-}
-
-
-
-
-
-// Candidate
-
-else if(data.accountType === "candidate"){
-
-
-window.location.href =
-"candidate/dashboard.html";
-
-
-}
-
-
-
-
-
-// School
-
-else if(data.accountType === "school"){
-
-
-window.location.href =
-"school/dashboard.html";
-
-
-}
-
-
-
-
-
-else{
-
-
-message.innerHTML =
-"⚠️ Account Type পাওয়া যায়নি";
-
-
-}
-
-
-
-
-}
-
-else{
-
-
-message.innerHTML =
-"❌ User Data পাওয়া যায়নি";
-
-
-}
-
-
-
-}
-
-
-
-catch(error){
-
-
-
-message.innerHTML =
-"❌ Login Failed: "+error.message;
-
-
-
-}
-
-
-
-}
+});
