@@ -1,94 +1,90 @@
-import { auth, db } from "./firebase.js";
+import { db } from "./firebase.js";
 
 import {
-  createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
-import {
-  doc,
-  setDoc,
-  serverTimestamp
+    collection,
+    query,
+    where,
+    getDocs,
+    addDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-window.registerUser = async function () {
+const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
 
-    const type = document.getElementById("accountType").value;
-    const name = document.getElementById("name").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const institution = document.getElementById("institution").value.trim();
-    const institutionCode = document.getElementById("institutionCode").value.trim();
-    const password = document.getElementById("password").value;
-
-    const message = document.getElementById("message");
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
     message.innerHTML = "";
 
-    if(type===""){
-        message.innerHTML="❌ Account Type নির্বাচন করুন";
+    const accountType = document.getElementById("accountType").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const institution = document.getElementById("institution").value.trim();
+    const institutionCode = document.getElementById("institutionCode").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (
+        accountType === "" ||
+        name === "" ||
+        mobile === "" ||
+        institution === "" ||
+        password === ""
+    ) {
+        message.innerHTML = "❌ সকল বাধ্যতামূলক তথ্য পূরণ করুন।";
         return;
     }
 
-    if(name===""){
-        message.innerHTML="❌ নাম লিখুন";
+    if (mobile.length !== 11) {
+        message.innerHTML = "❌ সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।";
         return;
     }
 
-    if(mobile===""){
-        message.innerHTML="❌ মোবাইল নম্বর লিখুন";
+    if (password.length < 8) {
+        message.innerHTML = "❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে।";
         return;
     }
 
-    if(email===""){
-        message.innerHTML="❌ Email লিখুন";
+    if (password !== confirmPassword) {
+        message.innerHTML = "❌ Password মিলছে না।";
         return;
     }
 
-    if(password.length<8){
-        message.innerHTML="❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে";
-        return;
-    }
+    try {
 
-    try{
-
-        const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
+        const q = query(
+            collection(db, "users"),
+            where("mobile", "==", mobile)
         );
 
-        const user=userCredential.user;
+        const snapshot = await getDocs(q);
 
-        await setDoc(doc(db,"users",user.uid),{
+        if (!snapshot.empty) {
+            message.innerHTML = "❌ এই মোবাইল নম্বর দিয়ে ইতোমধ্যে একাউন্ট রয়েছে।";
+            return;
+        }
 
-            uid:user.uid,
-            accountType:type,
-            name:name,
-            mobile:mobile,
-            email:email,
-            institution:institution,
-            institutionCode:institutionCode,
-
-            status:"pending",
-
-            createdAt:serverTimestamp()
-
+        await addDoc(collection(db, "users"), {
+            accountType,
+            name,
+            mobile,
+            institution,
+            institutionCode,
+            email,
+            password,
+            status: "pending",
+            role: "user",
+            createdAt: serverTimestamp()
         });
 
-        message.innerHTML="✅ Registration Successful";
+        message.innerHTML = "✅ Registration Successful. Admin Approval Pending.";
 
-        setTimeout(()=>{
-            window.location.href="login.html";
-        },1500);
+        form.reset();
 
-    }
-
-    catch(error){
-
+    } catch (error) {
         console.error(error);
-
-        message.innerHTML="❌ "+error.code;
-
+        message.innerHTML = "❌ " + error.message;
     }
-
-}
+});
