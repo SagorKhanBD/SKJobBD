@@ -7,9 +7,7 @@ import {
     getDocs,
     updateDoc,
     deleteDoc,
-    doc,
-    orderBy,
-    query
+    doc
 
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
@@ -20,29 +18,21 @@ const userList = document.getElementById("userList");
 
 
 
-// Load Users
+// Load All Users
 
 async function loadUsers(){
-
-
-    userList.innerHTML = "Loading Users...";
-
 
 
     try{
 
 
-        const q = query(
+        userList.innerHTML = "⏳ Loading Users...";
 
-            collection(db,"users"),
 
-            orderBy("createdAt","desc")
 
+        const usersSnapshot = await getDocs(
+            collection(db,"users")
         );
-
-
-
-        const snapshot = await getDocs(q);
 
 
 
@@ -50,75 +40,87 @@ async function loadUsers(){
 
 
 
-        if(snapshot.empty){
+
+        if(usersSnapshot.empty){
 
 
             userList.innerHTML =
-            "<p>কোন User পাওয়া যায়নি।</p>";
+            "<h3>কোন User পাওয়া যায়নি</h3>";
 
 
             return;
-
 
         }
 
 
 
 
-        snapshot.forEach((item)=>{
+
+        usersSnapshot.forEach((userDoc)=>{
 
 
-            const user = item.data();
+            const user = userDoc.data();
 
-            const id = item.id;
-
-
+            const userId = userDoc.id;
 
 
-            userList.innerHTML += `
 
 
-            <div class="user-card">
+            const card = document.createElement("div");
+
+
+            card.className = "user-card";
+
+
+
+            card.innerHTML = `
 
 
             <p>
             <strong>নাম:</strong>
-            ${user.name}
+            ${user.name || ""}
             </p>
 
 
 
             <p>
             <strong>মোবাইল:</strong>
-            ${user.mobile}
+            ${user.mobile || ""}
             </p>
 
 
 
             <p>
             <strong>Account Type:</strong>
-            ${user.accountType}
+            ${user.accountType || ""}
             </p>
 
 
 
             <p>
             <strong>প্রতিষ্ঠান:</strong>
-            ${user.institution}
+            ${user.institution || ""}
+            </p>
+
+
+
+            <p>
+            <strong>Email:</strong>
+            ${user.email || "নেই"}
             </p>
 
 
 
             <p>
             <strong>Status:</strong>
-            ${user.status}
+            ${user.status || "pending"}
             </p>
 
 
 
             <button 
             class="approve"
-            onclick="approveUser('${id}')">
+            onclick="approveUser('${userId}')">
 
             ✅ Approve
 
@@ -126,10 +128,9 @@ async function loadUsers(){
 
 
 
-
             <button 
             class="delete"
-            onclick="deleteUser('${id}')">
+            onclick="deleteUser('${userId}')">
 
             🗑 Delete
 
@@ -137,10 +138,11 @@ async function loadUsers(){
 
 
 
-            </div>
-
-
             `;
+
+
+
+            userList.appendChild(card);
 
 
 
@@ -158,13 +160,24 @@ async function loadUsers(){
 
 
         userList.innerHTML =
-        "❌ Error: "+error.message;
+
+        `
+        <h3>
+        ❌ Error
+        </h3>
+
+        <p>
+        ${error.message}
+        </p>
+        `;
 
 
     }
 
 
+
 }
+
 
 
 
@@ -173,6 +186,7 @@ async function loadUsers(){
 
 
 window.approveUser = async function(id){
+
 
 
     try{
@@ -191,10 +205,12 @@ window.approveUser = async function(id){
         );
 
 
+
         alert("✅ User Approved");
 
 
         loadUsers();
+
 
 
     }
@@ -203,13 +219,16 @@ window.approveUser = async function(id){
     catch(error){
 
 
-        alert(error.message);
+        alert(
+            "Error: "+error.message
+        );
 
 
     }
 
 
-};
+
+}
 
 
 
@@ -221,8 +240,12 @@ window.approveUser = async function(id){
 window.deleteUser = async function(id){
 
 
-    const confirmDelete =
-    confirm("আপনি কি এই User Delete করতে চান?");
+
+    let confirmDelete = confirm(
+
+        "আপনি কি এই User Delete করতে চান?"
+
+    );
 
 
 
@@ -231,6 +254,7 @@ window.deleteUser = async function(id){
         return;
 
     }
+
 
 
 
@@ -252,19 +276,23 @@ window.deleteUser = async function(id){
         loadUsers();
 
 
+
     }
 
 
     catch(error){
 
 
-        alert(error.message);
+        alert(
+            "Error: "+error.message
+        );
 
 
     }
 
 
-};
+
+}
 
 
 
