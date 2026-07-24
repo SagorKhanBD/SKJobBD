@@ -2,157 +2,152 @@
 <html lang="bn">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>SK BD | Registration</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>
-SK Job BD Registration
-</title>
-
-
-<link rel="stylesheet" href="register.css">
-
-
+    <link rel="stylesheet" href="register.css">
 </head>
-
 
 <body>
 
+    <div class="container">
 
-<header>
+        <div class="logo">
+            <h1>SK BD</h1>
+            <p>Create Your Account</p>
+        </div>
 
-<h1>
-SK Job BD
-</h1>
+        <form id="registerForm">
 
-<h3>
-Account Registration
-</h3>
+            <h2>নতুন একাউন্ট নিবন্ধন</h2>
 
-</header>
+            <!-- Account Type -->
+            <label>Account Type <span>*</span></label>
 
+            <select id="accountType" required>
 
+                <option value="">-- নির্বাচন করুন --</option>
 
+                <option value="candidate">
+                    চাকরি প্রার্থী
+                </option>
 
-<div class="container">
+                <option value="company">
+                    কোম্পানি / প্রতিষ্ঠান
+                </option>
 
+                <option value="education">
+                    শিক্ষা প্রতিষ্ঠান
+                </option>
 
-<h2>
-📝 নতুন একাউন্ট তৈরি করুন
-</h2>
+            </select>
 
+            <!-- Name -->
 
+            <label>আপনার নাম <span>*</span></label>
 
-<label>
-Account Type
-</label>
+            <input
+                type="text"
+                id="name"
+                placeholder="সম্পূর্ণ নাম লিখুন"
+                required>
 
+            <!-- Mobile -->
 
-<select id="accountType">
+            <label>মোবাইল নম্বর <span>*</span></label>
 
-<option value="">
-Select Account Type
-</option>
+            <input
+                type="tel"
+                id="mobile"
+                placeholder="01XXXXXXXXX"
+                maxlength="11"
+                required>
 
-<option value="candidate">
-Candidate (চাকরি প্রার্থী)
-</option>
+            <!-- Institution -->
 
+            <label>প্রতিষ্ঠানের নাম <span>*</span></label>
 
-<option value="company">
-Company (প্রতিষ্ঠান)
-</option>
+            <input
+                type="text"
+                id="institution"
+                placeholder="প্রতিষ্ঠানের নাম লিখুন"
+                required>
 
+            <!-- Institution Code -->
 
-<option value="school">
-Education Institute (শিক্ষা প্রতিষ্ঠান)
-</option>
+            <label>প্রতিষ্ঠানের কোড (যদি থাকে)</label>
 
+            <input
+                type="text"
+                id="institutionCode"
+                placeholder="Institution Code">
 
-</select>
+            <!-- Email -->
 
+            <label>Email (Optional)</label>
 
+            <input
+                type="email"
+                id="email"
+                placeholder="example@gmail.com">
 
+            <!-- Password -->
 
+            <label>Password <span>*</span></label>
 
+            <input
+                type="password"
+                id="password"
+                placeholder="কমপক্ষে ৮ অক্ষর"
+                minlength="8"
+                required>
 
-<input 
-id="name"
-placeholder="আপনার নাম">
+            <!-- Confirm Password -->
 
+            <label>Confirm Password <span>*</span></label>
 
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="পুনরায় Password লিখুন"
+                minlength="8"
+                required>
 
+            <!-- Register Button -->
 
+            <button
+                type="submit"
+                id="registerBtn">
 
-<input 
-id="mobile"
-placeholder="মোবাইল নম্বর">
+                Register Account
 
+            </button>
 
+            <p id="message"></p>
 
+        </form>
 
+        <div class="bottom">
 
+            <p>
 
-<input 
-id="email"
-placeholder="Email Address">
+                ইতিমধ্যে একাউন্ট আছে?
 
+                <a href="login.html">
 
+                    Login করুন
 
+                </a>
 
+            </p>
 
+        </div>
 
+    </div>
 
-<input 
-id="institution"
-placeholder="প্রতিষ্ঠানের নাম (যদি থাকে)">
-
-
-
-
-
-<input 
-id="institutionCode"
-placeholder="প্রতিষ্ঠানের কোড (যদি থাকে)">
-
-
-
-
-
-<input 
-type="password"
-id="password"
-placeholder="গোপনীয় Password (কমপক্ষে ৮ ডিজিট)">
-
-
-
-
-
-
-<button onclick="registerUser()">
-
-Register Account
-
-</button>
-
-
-
-
-<p id="message"></p>
-
-
-
-</div>
-
-
-
-
-
-
-<script type="module" src="register.js"></script>
-
+    <script type="module" src="register.js"></script>
 
 </body>
 
