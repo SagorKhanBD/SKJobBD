@@ -1,44 +1,106 @@
-// Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
-import { 
-    getFirestore 
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+// SK BD Dashboard JS
 
 
-// Firebase Configuration
-
-const firebaseConfig = {
-
-    apiKey: "AIzaSyBunjHskHSpPQHyyoaf1eMdx2E3ygw8Amw",
-
-    authDomain: "sk-job-bd.firebaseapp.com",
-
-    databaseURL: "https://sk-job-bd-default-rtdb.firebaseio.com",
-
-    projectId: "sk-job-bd",
-
-    storageBucket: "sk-job-bd.firebasestorage.app",
-
-    messagingSenderId: "548971925971",
-
-    appId: "1:548971925971:web:3526256d6b25456ed01f26",
-
-    measurementId: "G-TFG7JG25GG"
-
-};
+const userData = localStorage.getItem("loginUser");
 
 
-// Initialize Firebase
+// Login না থাকলে Login Page
 
-const app = initializeApp(firebaseConfig);
+if(!userData){
+
+    window.location.href = "login.html";
+
+}
 
 
-// Firestore
+// User Data Parse
 
-const db = getFirestore(app);
+const user = JSON.parse(userData);
 
 
-// Export
 
-export { db };
+
+// Show User Information
+
+
+document.getElementById("name").innerText =
+user.name || "N/A";
+
+
+document.getElementById("mobile").innerText =
+user.mobile || "N/A";
+
+
+document.getElementById("accountType").innerText =
+user.accountType || "N/A";
+
+
+document.getElementById("institution").innerText =
+user.institution || "N/A";
+
+
+document.getElementById("email").innerText =
+user.email || "Not Provided";
+
+
+document.getElementById("status").innerText =
+user.status || "Pending";
+
+
+
+
+// Logout Function
+
+
+window.logout = function(){
+
+
+    localStorage.removeItem("loginUser");
+
+
+    window.location.href = "login.html";
+
+
+}
+
+
+
+
+// Home Button
+
+
+window.goHome = function(){
+
+
+    window.location.href = "index.html";
+
+
+}
+
+
+
+
+// My Applications
+
+
+window.myJobs = function(){
+
+
+    alert("My Applications System Coming Soon");
+
+
+}
+
+
+
+
+// Edit Profile
+
+
+window.editProfile = function(){
+
+
+    alert("Profile Edit System Coming Soon");
+
+
+}
