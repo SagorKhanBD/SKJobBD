@@ -2,68 +2,187 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:"Arial",sans-serif;
 }
+
 
 body{
-    background:#eef8ee;
+
+    background:#edf9ee;
+
+    min-height:100vh;
+
 }
+
+
+
+/* Header */
 
 header{
-    background:#0d6efd;
-    color:#fff;
+
+    background:linear-gradient(135deg,#56CCF2,#2F80ED);
+
+    color:white;
+
     text-align:center;
-    padding:20px;
+
+    padding:25px 10px;
+
 }
+
 
 header h1{
-    font-size:32px;
+
+    font-size:35px;
+
 }
 
-header h3{
+
+header p{
+
     margin-top:8px;
-    font-weight:normal;
+
+    font-size:18px;
+
 }
 
-.dashboard{
-    max-width:1000px;
+
+
+/* Dashboard */
+
+.dashboard-container{
+
+    width:95%;
+
+    max-width:900px;
+
     margin:30px auto;
+
     display:grid;
+
     grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
     gap:20px;
-    padding:15px;
+
 }
 
-.card{
-    background:#fff;
-    border-radius:12px;
-    padding:20px;
-    box-shadow:0 4px 10px rgba(0,0,0,.15);
+
+
+/* Card */
+
+.profile-card,
+.menu-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+
 }
 
-.card h2{
-    color:#0d6efd;
-    margin-bottom:10px;
+
+
+h2{
+
+    color:#0b7a32;
+
+    text-align:center;
+
+    margin-bottom:15px;
+
 }
 
-.card p{
-    margin:12px 0;
+
+
+hr{
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+p{
+
+    margin:15px 0;
+
     font-size:16px;
+
+    color:#333;
+
 }
+
+
+
+
+strong{
+
+    color:#0b7a32;
+
+}
+
+
+
+
+/* Buttons */
 
 button{
+
+
     width:100%;
-    padding:12px;
-    margin-top:10px;
+
+    padding:13px;
+
+    margin-top:12px;
+
     border:none;
+
     border-radius:8px;
-    background:#0d6efd;
-    color:#fff;
-    cursor:pointer;
+
+    background:#0b7a32;
+
+    color:white;
+
     font-size:16px;
-    transition:.3s;
+
+    cursor:pointer;
+
+
 }
 
+
+
 button:hover{
-    background:#084298;
+
+
+    background:#075522;
+
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:500px){
+
+
+    .dashboard-container{
+
+        width:92%;
+
+    }
+
+
+    header h1{
+
+        font-size:28px;
+
+    }
+
+
 }
