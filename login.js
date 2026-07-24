@@ -1,68 +1,174 @@
 import { db } from "./firebase.js";
 
+
 import {
+
     collection,
     query,
     where,
     getDocs
+
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
+
+
 const form = document.getElementById("loginForm");
+
 const message = document.getElementById("message");
 
-form.addEventListener("submit", async (e) => {
+
+
+form.addEventListener("submit", async (e)=>{
+
 
     e.preventDefault();
 
+
     message.innerHTML = "";
 
-    const mobile = document.getElementById("mobile").value.trim();
-    const password = document.getElementById("password").value;
 
-    if (mobile === "" || password === "") {
-        message.innerHTML = "❌ মোবাইল নম্বর এবং Password লিখুন।";
+
+    const mobile = 
+    document.getElementById("mobile").value.trim();
+
+
+
+    const password = 
+    document.getElementById("password").value;
+
+
+
+
+    if(mobile === "" || password === ""){
+
+
+        message.innerHTML =
+        "❌ মোবাইল নম্বর এবং Password লিখুন।";
+
+
         return;
+
     }
 
-    try {
+
+
+
+
+    try{
+
 
         const q = query(
-            collection(db, "users"),
-            where("mobile", "==", mobile)
+
+            collection(db,"users"),
+
+            where("mobile","==",mobile)
+
         );
+
+
 
         const snapshot = await getDocs(q);
 
-        if (snapshot.empty) {
-            message.innerHTML = "❌ এই মোবাইল নম্বরের কোনো অ্যাকাউন্ট নেই।";
+
+
+
+        if(snapshot.empty){
+
+
+            message.innerHTML =
+            "❌ এই মোবাইল নম্বরে কোনো Account নেই।";
+
+
             return;
+
         }
 
-        const user = snapshot.docs[0].data();
 
-        if (user.password !== password) {
-            message.innerHTML = "❌ ভুল Password।";
+
+
+        const userData = snapshot.docs[0].data();
+
+
+
+
+
+        if(userData.password !== password){
+
+
+            message.innerHTML =
+            "❌ ভুল Password।";
+
+
             return;
+
+
         }
 
-        if (user.status !== "approved") {
-            message.innerHTML = "⏳ আপনার অ্যাকাউন্ট এখনো Admin দ্বারা অনুমোদিত হয়নি।";
+
+
+
+        if(userData.status !== "approved"){
+
+
+            message.innerHTML =
+            "⏳ আপনার Account এখনো Admin Approval Pending আছে।";
+
+
             return;
+
+
         }
 
-        localStorage.setItem("loginUser", JSON.stringify(user));
 
-        message.innerHTML = "✅ Login Successful...";
 
-        setTimeout(() => {
-            window.location.href = "dashboard.html";
-        }, 1000);
 
-    } catch (error) {
+
+        // Save Login User
+
+
+        localStorage.setItem(
+
+            "loginUser",
+
+            JSON.stringify(userData)
+
+        );
+
+
+
+        message.innerHTML =
+        "✅ Login Successful...";
+
+
+
+
+        setTimeout(()=>{
+
+
+            window.location.href =
+            "dashboard.html";
+
+
+        },1000);
+
+
+
+
+    }
+
+
+    catch(error){
+
 
         console.error(error);
 
-        message.innerHTML = "❌ " + error.message;
+
+        message.innerHTML =
+        "❌ Error: " + error.message;
+
+
     }
+
+
 
 });
