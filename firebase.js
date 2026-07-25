@@ -1,106 +1,41 @@
-// SK BD Dashboard JS
+// firebase.js
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 
-const userData = localStorage.getItem("loginUser");
+import {
+    getFirestore
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
-// Login না থাকলে Login Page
+// আপনার Firebase Config এখানে বসান
 
-if(!userData){
+const firebaseConfig = {
 
-    window.location.href = "login.html";
+    apiKey: "YOUR_API_KEY",
 
-}
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
 
+    projectId: "YOUR_PROJECT_ID",
 
-// User Data Parse
+    storageBucket: "YOUR_PROJECT.appspot.com",
 
-const user = JSON.parse(userData);
+    messagingSenderId: "YOUR_SENDER_ID",
 
+    appId: "YOUR_APP_ID"
 
+};
 
 
-// Show User Information
+// Initialize Firebase
 
+const app = initializeApp(firebaseConfig);
 
-document.getElementById("name").innerText =
-user.name || "N/A";
 
+// Firestore
 
-document.getElementById("mobile").innerText =
-user.mobile || "N/A";
+const db = getFirestore(app);
 
 
-document.getElementById("accountType").innerText =
-user.accountType || "N/A";
+// Export
 
-
-document.getElementById("institution").innerText =
-user.institution || "N/A";
-
-
-document.getElementById("email").innerText =
-user.email || "Not Provided";
-
-
-document.getElementById("status").innerText =
-user.status || "Pending";
-
-
-
-
-// Logout Function
-
-
-window.logout = function(){
-
-
-    localStorage.removeItem("loginUser");
-
-
-    window.location.href = "login.html";
-
-
-}
-
-
-
-
-// Home Button
-
-
-window.goHome = function(){
-
-
-    window.location.href = "index.html";
-
-
-}
-
-
-
-
-// My Applications
-
-
-window.myJobs = function(){
-
-
-    alert("My Applications System Coming Soon");
-
-
-}
-
-
-
-
-// Edit Profile
-
-
-window.editProfile = function(){
-
-
-    alert("Profile Edit System Coming Soon");
-
-
-}
+export { db };
