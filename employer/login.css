@@ -1,1 +1,356 @@
+/* ===================================================
+   SK Job BD
+   Employer Login
+   login.css (Part 1)
+=================================================== */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Hind Siliguri',sans-serif;
+
+    background:#f4f8fb;
+
+    color:#333;
+
+}
+
+/* ================= HEADER ================= */
+
+.topHeader{
+
+    background:linear-gradient(135deg,#1565C0,#0D47A1);
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:35px 20px;
+
+}
+
+.logoArea h1{
+
+    font-size:38px;
+
+    font-weight:700;
+
+}
+
+.logoArea p{
+
+    margin-top:8px;
+
+    font-size:16px;
+
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+
+    width:100%;
+
+    max-width:500px;
+
+    margin:40px auto;
+
+    padding:15px;
+
+}
+
+/* ================= CARD ================= */
+
+.loginCard{
+
+    background:#fff;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.12);
+
+    padding:30px;
+
+}
+
+/* ================= TITLE ================= */
+
+.titleArea{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.titleArea h2{
+
+    font-size:28px;
+
+    color:#1565C0;
+
+    margin-bottom:10px;
+
+}
+
+.titleArea p{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+/* ================= INPUT ================= */
+
+.inputBox{
+
+    margin-bottom:18px;
+
+}
+
+.inputBox label{
+
+    display:block;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+    color:#333;
+
+}
+
+.inputBox input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.inputBox input:focus{
+
+    border:1px solid #1565C0;
+
+    box-shadow:0 0 5px rgba(21,101,192,.25);
+
+}
+
+/* ================= REMEMBER ================= */
+
+.rememberArea{
+
+    margin-bottom:20px;
+
+    font-size:15px;
+
+}
+
+/* ================= MESSAGE ================= */
+
+.messageBox{
+
+    text-align:center;
+
+    color:red;
+
+    margin-bottom:15px;
+
+    font-weight:600;
+
+}
+
+/* ================= LOGIN BUTTON ================= */
+
+.loginBtn{
+
+    width:100%;
+
+    background:#1565C0;
+
+    color:#fff;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.loginBtn:hover{
+
+    background:#0D47A1;
+
+}
+/* ================= LINKS ================= */
+
+.linkArea{
+
+    text-align:center;
+
+    margin-top:20px;
+
+}
+
+.linkArea a{
+
+    color:#1565C0;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.linkArea a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ================= REGISTER ================= */
+
+.registerArea{
+
+    margin-top:25px;
+
+    text-align:center;
+
+}
+
+.registerArea p{
+
+    margin-bottom:12px;
+
+    color:#555;
+
+}
+
+.registerBtn{
+
+    display:inline-block;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.registerBtn:hover{
+
+    background:#1B5E20;
+
+}
+
+/* ================= HOME ================= */
+
+.homeArea{
+
+    margin-top:20px;
+
+    text-align:center;
+
+}
+
+.homeBtn{
+
+    display:inline-block;
+
+    color:#1565C0;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.homeBtn:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    margin-top:35px;
+
+    padding:20px;
+
+    text-align:center;
+
+    color:#666;
+
+    font-size:14px;
+
+}
+
+footer strong{
+
+    color:#1565C0;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:600px){
+
+    .loginCard{
+
+        padding:20px;
+
+    }
+
+    .logoArea h1{
+
+        font-size:30px;
+
+    }
+
+    .titleArea h2{
+
+        font-size:24px;
+
+    }
+
+    .loginBtn{
+
+        font-size:16px;
+
+    }
+
+}
