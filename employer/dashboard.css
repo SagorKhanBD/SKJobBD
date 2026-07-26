@@ -1,1 +1,421 @@
+/* ===================================================
+   SK Job BD
+   Employer Dashboard
+   dashboard.css (Part 1)
+=================================================== */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Hind Siliguri',sans-serif;
+
+    background:#f4f7fb;
+
+    color:#333;
+
+}
+
+/* ================= HEADER ================= */
+
+.topHeader{
+
+    background:linear-gradient(135deg,#1565C0,#0D47A1);
+
+    color:#fff;
+
+    padding:20px;
+
+    text-align:center;
+
+}
+
+.logoArea h1{
+
+    font-size:36px;
+
+    font-weight:700;
+
+}
+
+.logoArea p{
+
+    margin-top:8px;
+
+    font-size:15px;
+
+}
+
+/* ================= LAYOUT ================= */
+
+.dashboardContainer{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+
+    width:260px;
+
+    background:#1E293B;
+
+    color:#fff;
+
+    padding:25px;
+
+}
+
+.sidebar h2{
+
+    margin-bottom:25px;
+
+    text-align:center;
+
+}
+
+.sidebar ul{
+
+    list-style:none;
+
+}
+
+.sidebar li{
+
+    margin-bottom:12px;
+
+}
+
+.sidebar a{
+
+    display:block;
+
+    padding:12px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    transition:.3s;
+
+}
+
+.sidebar a:hover{
+
+    background:#1565C0;
+
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+
+    flex:1;
+
+    padding:30px;
+
+}
+/* ================= WELCOME CARD ================= */
+
+.welcomeCard{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    margin-bottom:25px;
+
+}
+
+.welcomeCard h2{
+
+    color:#1565C0;
+
+    margin-bottom:10px;
+
+}
+
+.welcomeCard p{
+
+    color:#666;
+
+    line-height:1.7;
+
+}
+
+/* ================= STATISTICS ================= */
+
+.statsGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+.card{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.card h3{
+
+    color:#444;
+
+    margin-bottom:12px;
+
+}
+
+.card span{
+
+    font-size:32px;
+
+    font-weight:bold;
+
+    color:#1565C0;
+
+}
+
+/* ================= QUICK ACTION ================= */
+
+.quickActions{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+}
+
+.quickActions button{
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#1565C0;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.quickActions button:hover{
+
+    background:#0D47A1;
+
+}
+/* ================= RECENT JOBS ================= */
+
+.recentJobs{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.recentJobs h2{
+
+    color:#1565C0;
+
+    margin-bottom:20px;
+
+}
+
+#jobList{
+
+    color:#555;
+
+    line-height:1.8;
+
+}
+
+/* ================= COMPANY CARD ================= */
+
+.companyCard{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.companyCard h2{
+
+    color:#1565C0;
+
+    margin-bottom:20px;
+
+}
+
+.companyCard table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.companyCard td{
+
+    padding:12px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.companyCard td:first-child{
+
+    width:220px;
+
+    color:#444;
+
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    background:#fff;
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#666;
+
+    border-top:1px solid #ddd;
+
+}
+
+.footer strong{
+
+    color:#1565C0;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .dashboardContainer{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        width:100%;
+
+    }
+
+    .content{
+
+        padding:20px;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .logoArea h1{
+
+        font-size:28px;
+
+    }
+
+    .welcomeCard h2{
+
+        font-size:22px;
+
+    }
+
+    .companyCard td{
+
+        display:block;
+
+        width:100%;
+
+        padding:8px 0;
+
+        border:none;
+
+    }
+
+    .companyCard tr{
+
+        display:block;
+
+        margin-bottom:15px;
+
+        border-bottom:1px solid #eee;
+
+    }
+
+    .quickActions{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .statsGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
