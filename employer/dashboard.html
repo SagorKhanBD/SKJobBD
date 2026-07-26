@@ -1,1 +1,229 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employer Dashboard | SK Job BD</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topHeader">
+
+        <div class="logoArea">
+
+            <h1>SK Job BD</h1>
+
+            <p>Employer Dashboard</p>
+
+        </div>
+
+    </header>
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <main class="dashboardContainer">
+
+        <!-- Left Menu -->
+
+        <aside class="sidebar">
+
+            <h2>Dashboard</h2>
+
+            <ul>
+
+                <li><a href="#" id="dashboardHome">🏠 Dashboard</a></li>
+
+                <li><a href="#" id="profileBtn">👤 Company Profile</a></li>
+
+                <li><a href="#" id="addJobBtn">➕ Add New Job</a></li>
+
+                <li><a href="#" id="myJobsBtn">📋 My Jobs</a></li>
+
+                <li><a href="#" id="applicationsBtn">👥 Applications</a></li>
+
+                <li><a href="#" id="admitCardBtn">📄 Admit Card</a></li>
+
+                <li><a href="#" id="noticeBtn">📢 Notice</a></li>
+
+                <li><a href="#" id="paymentBtn">💳 Payment</a></li>
+
+                <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+
+            </ul>
+
+        </aside>
+
+        <!-- Right Content -->
+
+        <section class="content">
+
+            <div class="welcomeCard">
+
+                <h2>Welcome to SK Job BD Employer Panel</h2>
+
+                <p>
+
+                    আপনার প্রতিষ্ঠানের সকল চাকরির কার্যক্রম এখান থেকে পরিচালনা করুন।
+
+                </p>
+
+            </div>
+
+            <!-- Statistics -->
+
+            <div class="statsGrid">
+
+                <div class="card">
+
+                    <h3>Total Jobs</h3>
+
+                    <span id="totalJobs">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Applications</h3>
+
+                    <span id="totalApplications">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Pending Jobs</h3>
+
+                    <span id="pendingJobs">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Approved Jobs</h3>
+
+                    <span id="approvedJobs">0</span>
+
+                </div>
+
+            </div>
+                        <!-- ================= QUICK ACTION ================= -->
+
+            <div class="quickActions">
+
+                <button id="btnAddJob">
+                    ➕ Post New Job
+                </button>
+
+                <button id="btnManageJobs">
+                    📋 Manage Jobs
+                </button>
+
+                <button id="btnApplications">
+                    👥 View Applications
+                </button>
+
+                <button id="btnPayment">
+                    💳 Payment History
+                </button>
+
+            </div>
+
+            <!-- ================= RECENT JOBS ================= -->
+
+            <div class="recentJobs">
+
+                <h2>Recent Job Posts</h2>
+
+                <div id="jobList">
+
+                    <p>
+                        এখনও কোনো চাকরি পোস্ট করা হয়নি।
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- ================= COMPANY PROFILE ================= -->
+
+            <div class="companyCard">
+
+                <h2>Company Information</h2>
+
+                <table>
+
+                    <tr>
+                        <td><strong>Organization</strong></td>
+                        <td id="companyName">Loading...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Contact Person</strong></td>
+                        <td id="contactPerson">Loading...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Mobile</strong></td>
+                        <td id="mobileNumber">Loading...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Email</strong></td>
+                        <td id="emailAddress">Loading...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Status</strong></td>
+                        <td id="accountStatus">Pending</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+        <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <p>
+
+            © 2026 SK Job BD | Employer Dashboard
+
+        </p>
+
+        <small>
+
+            Powered by <strong>SK Job BD</strong>
+
+        </small>
+
+    </footer>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script type="module" src="dashboard.js"></script>
+
+</body>
+
+</html>
