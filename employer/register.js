@@ -1,10 +1,10 @@
 // ======================================================
 // SK Job BD
-// Employer Registration
+// Employer Registration System
 // register.js (Part 1)
 // ======================================================
 
-import { db, auth } from "../firebase.js";
+import { db } from "../firebase.js";
 
 import {
     collection,
@@ -15,22 +15,18 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-import {
-    createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
-// =======================================
+// =====================================
 
 const form = document.getElementById("registerForm");
-
 const message = document.getElementById("message");
 
-// =======================================
+// =====================================
 
 form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
+    message.style.color = "red";
     message.innerHTML = "";
 
     const accountType =
@@ -66,16 +62,15 @@ form.addEventListener("submit", async (e) => {
     const agree =
         document.getElementById("agree").checked;
 
-    // ===========================
+    // =====================================
     // Required Validation
-    // ===========================
+    // =====================================
 
     if (
         accountType === "" ||
         organization === "" ||
         contactPerson === "" ||
         mobile === "" ||
-        email === "" ||
         address === "" ||
         password === "" ||
         confirmPassword === ""
@@ -100,7 +95,7 @@ form.addEventListener("submit", async (e) => {
     if (!/^01[0-9]{9}$/.test(mobile)) {
 
         message.innerHTML =
-            "❌ সঠিক মোবাইল নম্বর লিখুন।";
+            "❌ সঠিক ১১ সংখ্যার মোবাইল নম্বর লিখুন।";
 
         return;
 
@@ -126,13 +121,12 @@ form.addEventListener("submit", async (e) => {
 
     try {
 
-        // Continue Part 2...
-        // ===================================
+        // Continue Part 2...        // =====================================
         // Duplicate Mobile Check
-        // ===================================
+        // =====================================
 
         const mobileQuery = query(
-            collection(db, "users"),
+            collection(db, "employers"),
             where("mobile", "==", mobile)
         );
 
@@ -141,54 +135,84 @@ form.addEventListener("submit", async (e) => {
         if (!mobileSnapshot.empty) {
 
             message.innerHTML =
-                "❌ এই মোবাইল নম্বর দিয়ে ইতোমধ্যে একটি Account রয়েছে।";
+                "❌ এই মোবাইল নম্বর দিয়ে ইতোমধ্যে একটি Account রয়েছে।";
 
             return;
 
         }
 
-        // ===================================
+        // =====================================
         // Duplicate Email Check
-        // ===================================
+        // =====================================
 
-        const emailQuery = query(
-            collection(db, "users"),
-            where("email", "==", email)
-        );
+        if (email !== "") {
 
-        const emailSnapshot = await getDocs(emailQuery);
-
-        if (!emailSnapshot.empty) {
-
-            message.innerHTML =
-                "❌ এই Email দিয়ে ইতোমধ্যে একটি Account রয়েছে।";
-
-            return;
-
-        }
-
-        // ===================================
-        // Firebase Authentication
-        // ===================================
-
-        const userCredential =
-            await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
+            const emailQuery = query(
+                collection(db, "employers"),
+                where("email", "==", email)
             );
 
-        const uid = userCredential.user.uid;
+            const emailSnapshot = await getDocs(emailQuery);
 
-        // ===================================
+            if (!emailSnapshot.empty) {
+
+                message.innerHTML =
+                    "❌ এই Email দিয়ে ইতোমধ্যে একটি Account রয়েছে।";
+
+                return;
+
+            }
+
+        }
+
+        // =====================================
+        // Account Type Validation
+        // =====================================
+
+        if (accountType === "company" && tradeLicense === "") {
+
+            message.innerHTML =
+                "❌ কোম্পানির জন্য Trade License নম্বর দিন।";
+
+            return;
+
+        }
+
+        if (accountType === "school" && eiin === "") {
+
+            message.innerHTML =
+                "❌ স্কুলের EIIN নম্বর দিন।";
+
+            return;
+
+        }
+
+        if (accountType === "college" && eiin === "") {
+
+            message.innerHTML =
+                "❌ কলেজের EIIN নম্বর দিন।";
+
+            return;
+
+        }
+
+        if (accountType === "madrasa" && eiin === "") {
+
+            message.innerHTML =
+                "❌ মাদ্রাসার EIIN নম্বর দিন।";
+
+            return;
+
+        }
+
+        // =====================================
+        // Continue Part 3...        // =====================================
         // Save Employer Information
-        // ===================================
+        // =====================================
 
         await addDoc(
-            collection(db, "users"),
+            collection(db, "employers"),
             {
-
-                uid: uid,
 
                 accountType: accountType,
 
@@ -206,6 +230,8 @@ form.addEventListener("submit", async (e) => {
 
                 eiin: eiin,
 
+                password: password,
+
                 role: "employer",
 
                 status: "pending",
@@ -213,7 +239,59 @@ form.addEventListener("submit", async (e) => {
                 createdAt: serverTimestamp()
 
             }
-
         );
 
-        // Continue Part 3...
+        // =====================================
+        // Registration Success
+        // =====================================
+
+        message.style.color = "green";
+
+        message.innerHTML =
+            "✅ Registration Successful. আপনার আবেদন Admin Approval-এর জন্য পাঠানো হয়েছে।";
+
+        form.reset();
+
+        // =====================================
+        // Redirect Login Page
+        // =====================================
+
+        setTimeout(() => {
+
+            window.location.href =
+                "login.html";
+
+        }, 2000);
+
+        // Continue Part 4...    }
+
+    // =====================================
+    // Error Handling
+    // =====================================
+
+    catch (error) {
+
+        console.error("Employer Registration Error:", error);
+
+        message.style.color = "red";
+
+        if (error.code === "permission-denied") {
+
+            message.innerHTML =
+                "❌ Permission Denied. Firestore Rules পরীক্ষা করুন।";
+
+        } else {
+
+            message.innerHTML =
+                "❌ " + error.message;
+
+        }
+
+    }
+
+});
+
+// ======================================================
+// End of employer/register.js
+// SK Job BD Version 2
+// ======================================================
