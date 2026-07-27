@@ -1,0 +1,323 @@
+/* ===================================================
+   SK Job BD
+   Employer Add Job
+   add-job.css (Part 1)
+=================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Hind Siliguri',sans-serif;
+
+    background:#f4f7fb;
+
+    color:#333;
+
+}
+
+/* ================= HEADER ================= */
+
+.topHeader{
+
+    background:linear-gradient(135deg,#1565C0,#0D47A1);
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:25px;
+
+}
+
+.topHeader h1{
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+.topHeader p{
+
+    margin-top:8px;
+
+    font-size:15px;
+
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+
+    max-width:900px;
+
+    margin:30px auto;
+
+    padding:20px;
+
+}
+
+.card{
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.card h2{
+
+    text-align:center;
+
+    color:#1565C0;
+
+    margin-bottom:25px;
+
+}
+
+/* ================= FORM ================= */
+
+.inputBox{
+
+    margin-bottom:20px;
+
+}
+
+.inputBox label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.inputBox input,
+.inputBox select,
+.inputBox textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    font-family:'Hind Siliguri',sans-serif;
+
+}
+
+.inputBox textarea{
+
+    resize:vertical;
+
+    min-height:160px;
+
+}
+
+/* ================= BUTTON ================= */
+
+#submitJobBtn{
+
+    width:100%;
+
+    background:#1565C0;
+
+    color:#fff;
+
+    border:none;
+
+    padding:15px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#submitJobBtn:hover{
+
+    background:#0D47A1;
+
+    transform:translateY(-2px);
+
+}
+
+/* ================= MESSAGE ================= */
+
+#message{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+/* ================= INPUT FOCUS ================= */
+
+.inputBox input:focus,
+.inputBox select:focus,
+.inputBox textarea:focus{
+
+    outline:none;
+
+    border-color:#1565C0;
+
+    box-shadow:0 0 6px rgba(21,101,192,.25);
+
+}
+
+/* ================= CARD ANIMATION ================= */
+
+.card{
+
+    animation:fadeIn .5s ease-in-out;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    border-top:1px solid #ddd;
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#666;
+
+}
+
+.footer strong{
+
+    color:#1565C0;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px){
+
+    .container{
+
+        padding:15px;
+
+    }
+
+    .card{
+
+        padding:20px;
+
+    }
+
+    .topHeader h1{
+
+        font-size:28px;
+
+    }
+
+    .card h2{
+
+        font-size:22px;
+
+    }
+
+    #submitJobBtn{
+
+        font-size:16px;
+
+        padding:14px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .topHeader{
+
+        padding:20px;
+
+    }
+
+    .topHeader h1{
+
+        font-size:24px;
+
+    }
+
+    .topHeader p{
+
+        font-size:14px;
+
+    }
+
+    .card{
+
+        padding:15px;
+
+    }
+
+    .inputBox input,
+    .inputBox select,
+    .inputBox textarea{
+
+        font-size:14px;
+
+    }
+
+    #submitJobBtn{
+
+        font-size:15px;
+
+    }
+
+}
