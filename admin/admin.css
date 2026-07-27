@@ -1,190 +1,384 @@
+/* ===================================================
+   SK BD Admin Panel
+   admin.css (Part 1)
+=================================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
 }
-
 
 body{
 
-    background:#edf9ee;
+    font-family:'Hind Siliguri',sans-serif;
 
-    min-height:100vh;
-
-}
-
-
-
-/* Header */
-
-header{
-
-    background:linear-gradient(135deg,#56CCF2,#2F80ED);
-
-    color:white;
-
-    text-align:center;
-
-    padding:25px 10px;
-
-}
-
-
-header h1{
-
-    font-size:35px;
-
-}
-
-
-header p{
-
-    margin-top:8px;
-
-    font-size:18px;
-
-}
-
-
-
-/* Main Container */
-
-.container{
-
-    width:95%;
-
-    max-width:1000px;
-
-    margin:30px auto;
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:15px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-
-}
-
-
-
-.container h2{
-
-    text-align:center;
-
-    color:#0b7a32;
-
-    margin-bottom:25px;
-
-}
-
-
-
-/* User Card */
-
-.user-card{
-
-    background:#f8fff8;
-
-    border-left:5px solid #0b7a32;
-
-    padding:18px;
-
-    margin-bottom:15px;
-
-    border-radius:10px;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
-
-}
-
-
-
-.user-card p{
-
-    margin:8px 0;
+    background:#f4f7fb;
 
     color:#333;
 
 }
 
+/* ================= HEADER ================= */
 
+.topHeader{
 
-.user-card strong{
+    background:linear-gradient(135deg,#1565C0,#0D47A1);
 
-    color:#0b7a32;
+    color:#fff;
+
+    text-align:center;
+
+    padding:25px;
 
 }
 
+.topHeader h1{
 
+    font-size:34px;
 
-/* Buttons */
+    font-weight:700;
+
+}
+
+.topHeader p{
+
+    margin-top:8px;
+
+    font-size:16px;
+
+}
+
+/* ================= LAYOUT ================= */
+
+.dashboard{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+
+    width:260px;
+
+    background:#1E293B;
+
+    color:#fff;
+
+    padding:25px;
+
+}
+
+.sidebar h2{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.sidebar ul{
+
+    list-style:none;
+
+}
+
+.sidebar li{
+
+    margin-bottom:12px;
+
+}
+
+.sidebar a{
+
+    display:block;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.sidebar a:hover{
+
+    background:#1565C0;
+
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+
+    flex:1;
+
+    padding:30px;
+
+}
+
+/* ================= WELCOME CARD ================= */
+
+.welcomeCard{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    margin-bottom:25px;
+
+}
+
+.welcomeCard h2{
+
+    color:#1565C0;
+
+    margin-bottom:10px;
+
+}
+
+.welcomeCard p{
+
+    color:#666;
+
+    line-height:1.7;
+
+}
+
+/* ================= STATISTICS ================= */
+
+.statsGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+.card{
+
+    background:#fff;
+
+    padding:25px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.card h3{
+
+    color:#444;
+
+    margin-bottom:12px;
+
+}
+
+.card span{
+
+    font-size:32px;
+
+    font-weight:bold;
+
+    color:#1565C0;
+
+}
+
+/* ================= ADMIN SECTION ================= */
+
+.adminSection{
+
+    background:#fff;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.adminSection h2{
+
+    color:#1565C0;
+
+    margin-bottom:20px;
+
+}
+
+/* ================= BUTTON ================= */
 
 button{
 
-    padding:10px 15px;
+    background:#1565C0;
 
-    margin:8px 5px 0 0;
+    color:#fff;
 
     border:none;
 
-    border-radius:6px;
+    padding:12px 18px;
+
+    border-radius:8px;
 
     cursor:pointer;
 
-    color:white;
+    font-size:15px;
 
-    font-size:14px;
-
-}
-
-
-
-.approve{
-
-    background:#0b7a32;
+    transition:.3s;
 
 }
-
-
-
-.delete{
-
-    background:#d63031;
-
-}
-
-
 
 button:hover{
 
-    opacity:.85;
+    background:#0D47A1;
 
 }
 
+/* ================= LIST AREA ================= */
 
+#pendingJobList,
+#userList,
+#companyList,
+#paymentList,
+#resultList{
 
-/* Mobile */
+    margin-top:15px;
 
-@media(max-width:600px){
+    padding:15px;
 
+    background:#F8FAFC;
 
-    .container{
+    border:1px solid #E2E8F0;
 
-        width:92%;
+    border-radius:10px;
 
-        padding:18px;
+    min-height:80px;
+
+}
+
+/* ================= NOTICE ================= */
+
+#noticeText{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    resize:vertical;
+
+    min-height:140px;
+
+    font-family:'Hind Siliguri',sans-serif;
+
+    margin-bottom:15px;
+
+}
+
+.settingBox{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    background:#fff;
+
+    border-top:1px solid #ddd;
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#666;
+
+}
+
+.footer strong{
+
+    color:#1565C0;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .dashboard{
+
+        flex-direction:column;
 
     }
 
+    .sidebar{
 
-    header h1{
+        width:100%;
+
+    }
+
+    .content{
+
+        padding:20px;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topHeader h1{
 
         font-size:28px;
 
     }
 
+    .statsGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .settingBox{
+
+        flex-direction:column;
+
+    }
+
+    button{
+
+        width:100%;
+
+    }
 
 }
