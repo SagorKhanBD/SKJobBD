@@ -2,139 +2,210 @@
 ================================================
 SK Job BD
 Main JavaScript
-Version 2.0
+Version 3.0
 ================================================
 */
 
-
 "use strict";
 
+// ==============================================
+// Firebase
+// ==============================================
 
-// ===============================================
+import { db } from "./firebase.js";
+
+import {
+    collection,
+    getDocs,
+    query,
+    where,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+// ==============================================
 // Website Loaded
-// ===============================================
+// ==============================================
 
-document.addEventListener(
-"DOMContentLoaded",
-function(){
+document.addEventListener("DOMContentLoaded", () => {
 
+    console.log("✅ SK Job BD Loaded");
 
-console.log(
-"✅ SK Job BD Website Loaded"
-);
+    const year = document.getElementById("year");
 
+    if (year) {
 
+        year.textContent = new Date().getFullYear();
 
-// Footer Year Update
+    }
 
-let year =
-document.getElementById("year");
-
-
-if(year){
-
-    year.innerHTML =
-    new Date().getFullYear();
-
-}
-
-
+    loadApprovedJobs();
 
 });
 
+// ==============================================
+// Approved Job Load
+// ==============================================
 
+async function loadApprovedJobs() {
 
+    const jobContainer =
+        document.getElementById("jobList");
 
-// ===============================================
-// Language System Ready
-// ===============================================
+    if (!jobContainer) return;
 
+    jobContainer.innerHTML =
+        "<p>Loading Jobs...</p>";
 
-function changeLanguage(language){
+    try {
 
+        const q = query(
+            collection(db, "jobs"),
+            where("status", "==", "approved"),
+            orderBy("createdAt", "desc")
+        );
 
-console.log(
-"Selected Language:",
-language
-);
+        const snapshot = await getDocs(q);
 
+        jobContainer.innerHTML = "";
 
-// Future Translation System
-// এখানে পরে বাংলা/English/हिन्दी পরিবর্তন যুক্ত হবে
+        if (snapshot.empty) {
 
+            jobContainer.innerHTML =
+                "<p>কোনো চাকরির বিজ্ঞপ্তি পাওয়া যায়নি।</p>";
+
+            return;
+
+        }
+
+        // Continue Part 2...        snapshot.forEach((doc) => {
+
+            const job = doc.data();
+
+            jobContainer.innerHTML += `
+
+            <div class="job-card">
+
+                <h3>${job.jobTitle}</h3>
+
+                <p><strong>🏢 প্রতিষ্ঠান:</strong> ${job.companyName}</p>
+
+                <p><strong>📂 বিভাগ:</strong> ${job.jobCategory}</p>
+
+                <p><strong>📍 কর্মস্থল:</strong> ${job.jobLocation}</p>
+
+                <p><strong>🎓 শিক্ষাগত যোগ্যতা:</strong> ${job.education || "-"}</p>
+
+                <p><strong>💰 বেতন:</strong> ${job.salary || "আলোচনা সাপেক্ষে"}</p>
+
+                <p><strong>📅 আবেদনের শেষ তারিখ:</strong> ${job.deadline}</p>
+
+                <a
+                    href="${job.applyLink || "#"}"
+                    target="_blank"
+                    class="apply-btn"
+                >
+                    আবেদন করুন
+                </a>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error("Load Job Error:", error);
+
+        jobContainer.innerHTML =
+            "<p>❌ চাকরির তথ্য লোড করা যায়নি।</p>";
+
+    }
 
 }
 
-
-
-window.changeLanguage =
-changeLanguage;
-
-
-
-
-
-// ===============================================
+// Continue Part 3...// ==============================================
 // Search Function
-// ===============================================
+// ==============================================
 
+function searchJob() {
 
-function searchJob(){
+    const keyword =
+        document.querySelector(".hero input")?.value
+            .trim()
+            .toLowerCase();
 
+    if (!keyword) {
 
-let search =
-document.querySelector(".hero input").value;
+        alert("চাকরির নাম লিখুন।");
 
+        return;
 
+    }
 
-if(search===""){
+    const jobs =
+        document.querySelectorAll(".job-card");
 
+    let found = false;
 
-alert(
-"Please enter job name / চাকরির নাম লিখুন"
-);
+    jobs.forEach((job) => {
 
+        const text =
+            job.innerText.toLowerCase();
 
-return;
+        if (text.includes(keyword)) {
 
+            job.style.display = "block";
+
+            found = true;
+
+        } else {
+
+            job.style.display = "none";
+
+        }
+
+    });
+
+    if (!found) {
+
+        alert("কোনো মিল পাওয়া যায়নি।");
+
+    }
 
 }
 
+window.searchJob = searchJob;
 
+// ==============================================
+// Language Function
+// ==============================================
 
-console.log(
-"Searching:",
-search
-);
+function changeLanguage(language) {
 
+    console.log("Selected Language:", language);
 
-// Future Firebase Job Search Here
-
+    // Future Translation System
 
 }
 
+window.changeLanguage = changeLanguage;
 
-
-window.searchJob =
-searchJob;
-
-
-
-
-
-// ===============================================
+// ==============================================
 // Message Function
-// ===============================================
+// ==============================================
 
+function showMessage(message) {
 
-function showMessage(message){
-
-
-alert(message);
-
+    alert(message);
 
 }
 
+window.showMessage = showMessage;
 
-window.showMessage =
-showMessage;
+// ==============================================
+// End of File
+// SK Job BD Version 3.0
+// ==============================================
