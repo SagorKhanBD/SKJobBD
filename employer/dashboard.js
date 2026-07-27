@@ -1,178 +1,173 @@
-
 // ======================================================
 // SK Job BD
-// Employer Login
-// login.js (Part 1)
+// Employer Dashboard
+// dashboard.js (Part 1)
 // ======================================================
 
 import { db } from "../firebase.js";
 
 import {
-
-    collection,
-
-    query,
-
-    where,
-
-    getDocs
-
+    doc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 // ======================================
-
-const form = document.getElementById("loginForm");
-
-const message = document.getElementById("message");
-
+// Check Login Session
 // ======================================
 
-form.addEventListener("submit", async (e) => {
+const employer = JSON.parse(
+    localStorage.getItem("employerLogin")
+) ||
+JSON.parse(
+    sessionStorage.getItem("employerLogin")
+);
 
-    e.preventDefault();
+if (!employer) {
 
-    message.innerHTML = "";
+    window.location.href = "login.html";
 
-    const mobile =
-        document.getElementById("mobile").value.trim();
+}
 
-    const password =
-        document.getElementById("password").value;
+// ======================================
+// HTML Elements
+// ======================================
 
-    const remember =
-        document.getElementById("rememberMe").checked;
+const companyName =
+    document.getElementById("companyName");
 
-    // ===========================
-    // Validation
-    // ===========================
+const contactPerson =
+    document.getElementById("contactPerson");
 
-    if (mobile === "" || password === "") {
+const mobileNumber =
+    document.getElementById("mobileNumber");
 
-        message.innerHTML =
-            "❌ মোবাইল নম্বর এবং Password লিখুন।";
+const emailAddress =
+    document.getElementById("emailAddress");
 
-        return;
+const accountStatus =
+    document.getElementById("accountStatus");
 
-    }
+// ======================================
+// Load Employer Information
+// ======================================
 
-    if (!/^01[0-9]{9}$/.test(mobile)) {
-
-        message.innerHTML =
-            "❌ সঠিক ১১ সংখ্যার মোবাইল নম্বর লিখুন।";
-
-        return;
-
-    }
+async function loadEmployerProfile() {
 
     try {
 
+        const ref = doc(db, "employers", employer.id);
+
+        const snap = await getDoc(ref);
+
+        if (!snap.exists()) {
+
+            alert("Employer তথ্য পাওয়া যায়নি।");
+
+            return;
+
+        }
+
+        const data = snap.data();
+
         // Continue Part 2...        // ======================================
-        // Search Employer
+        // Company Profile
         // ======================================
 
-        const q = query(
-            collection(db, "employers"),
-            where("mobile", "==", mobile)
-        );
+        companyName.textContent =
+            data.organization || "-";
 
-        const snapshot = await getDocs(q);
+        contactPerson.textContent =
+            data.contactPerson || "-";
 
-        if (snapshot.empty) {
+        mobileNumber.textContent =
+            data.mobile || "-";
 
-            message.innerHTML =
-                "❌ এই মোবাইল নম্বরের কোনো Employer Account পাওয়া যায়নি।";
+        emailAddress.textContent =
+            data.email || "-";
 
-            return;
-
-        }
-
-        let employerData = null;
-
-        snapshot.forEach((doc) => {
-
-            employerData = {
-
-                id: doc.id,
-
-                ...doc.data()
-
-            };
-
-        });
+        accountStatus.textContent =
+            data.status || "Pending";
 
         // ======================================
-        // Password Verification
+        // Dashboard Statistics
         // ======================================
 
-        if (employerData.password !== password) {
+        document.getElementById("totalJobs").textContent =
+            data.totalJobs || 0;
 
-            message.innerHTML =
-                "❌ Password সঠিক নয়।";
+        document.getElementById("totalApplications").textContent =
+            data.totalApplications || 0;
 
-            return;
+        document.getElementById("pendingJobs").textContent =
+            data.pendingJobs || 0;
 
-        }
-
-        // ======================================
-        // Admin Approval Check
-        // ======================================
-
-        if (employerData.status !== "approved") {
-
-            message.innerHTML =
-                "⏳ আপনার Account এখনও Admin দ্বারা অনুমোদিত হয়নি।";
-
-            return;
-
-        }
-
-        // Continue Part 3...        // ======================================
-        // Remember Me
-        // ======================================
-
-        if (remember) {
-
-            localStorage.setItem(
-                "employerLogin",
-                JSON.stringify(employerData)
-            );
-
-        } else {
-
-            sessionStorage.setItem(
-                "employerLogin",
-                JSON.stringify(employerData)
-            );
-
-        }
-
-        // ======================================
-        // Login Success
-        // ======================================
-
-        message.style.color = "green";
-
-        message.innerHTML =
-            "✅ Login Successful...";
-
-        setTimeout(() => {
-
-            window.location.href =
-                "dashboard.html";
-
-        }, 1000);
+        document.getElementById("approvedJobs").textContent =
+            data.approvedJobs || 0;
 
     }
 
     catch (error) {
 
-        console.error(error);
+        console.error("Dashboard Error:", error);
 
-        message.style.color = "red";
+        alert("ড্যাশবোর্ড লোড করতে সমস্যা হয়েছে।");
 
-        message.innerHTML =
-            "❌ " + error.message;
+    }
+
+}
+
+// ======================================
+// Load Dashboard
+// ======================================
+
+loadEmployerProfile();
+
+// Continue Part 3...// ======================================
+// Logout
+// ======================================
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+
+    if (confirm("আপনি কি Logout করতে চান?")) {
+
+        localStorage.removeItem("employerLogin");
+
+        sessionStorage.removeItem("employerLogin");
+
+        window.location.href = "login.html";
 
     }
 
 });
+
+// ======================================
+// Quick Action Buttons
+// ======================================
+
+document.getElementById("btnAddJob").addEventListener("click", () => {
+
+    window.location.href = "add-job.html";
+
+});
+
+document.getElementById("btnManageJobs").addEventListener("click", () => {
+
+    window.location.href = "my-jobs.html";
+
+});
+
+document.getElementById("btnApplications").addEventListener("click", () => {
+
+    window.location.href = "applications.html";
+
+});
+
+document.getElementById("btnPayment").addEventListener("click", () => {
+
+    window.location.href = "payment.html";
+
+});
+
+// ======================================
+// End of File
+// ======================================
