@@ -7,60 +7,249 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-SK BD Admin Panel
-</title>
-
+<title>SK BD Admin Panel</title>
 
 <link rel="stylesheet" href="admin.css">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
-
 <body>
 
+<header class="topHeader">
 
-<header>
+<h1>SK BD</h1>
 
-<h1>
-SK BD
-</h1>
-
-<p>
-Admin Control Panel
-</p>
+<p>Super Admin Control Panel</p>
 
 </header>
 
+<div class="dashboard">
 
+<!-- ================= LEFT MENU ================= -->
 
+<aside class="sidebar">
 
-<div class="container">
+<h2>Admin Menu</h2>
 
+<ul>
 
-<h2>
-👥 User Management
-</h2>
+<li><a href="#" id="dashboardBtn">🏠 Dashboard</a></li>
 
+<li><a href="#" id="usersBtn">👥 User Management</a></li>
 
+<li><a href="#" id="companyBtn">🏢 Company Management</a></li>
 
-<div id="userList">
+<li><a href="#" id="jobBtn">💼 Job Approval</a></li>
 
-Loading Users...
+<li><a href="#" id="paymentBtn">💳 Payment</a></li>
+
+<li><a href="#" id="noticeBtn">📢 Notice</a></li>
+
+<li><a href="#" id="resultBtn">🎓 Result</a></li>
+
+<li><a href="#" id="settingsBtn">⚙ Settings</a></li>
+
+<li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+
+</ul>
+
+</aside>
+
+<!-- ================= CONTENT ================= -->
+
+<main class="content">
+
+<div class="welcomeCard">
+
+<h2>Welcome Super Admin</h2>
+
+<p>
+
+SK Job BD এর সকল নিয়ন্ত্রণ এখান থেকে পরিচালনা করুন।
+
+</p>
 
 </div>
 
+<div class="statsGrid">
 
+<div class="card">
+
+<h3>Total Users</h3>
+
+<span id="totalUsers">0</span>
 
 </div>
 
+<div class="card">
 
+<h3>Total Companies</h3>
 
+<span id="totalCompanies">0</span>
 
+</div>
+
+<div class="card">
+
+<h3>Pending Jobs</h3>
+
+<span id="pendingJobs">0</span>
+
+</div>
+
+<div class="card">
+
+<h3>Approved Jobs</h3>
+
+<span id="approvedJobs">0</span>
+
+</div>
+
+</div>
+
+  <!-- ================= PENDING JOB APPROVAL ================= -->
+
+<section class="adminSection">
+
+    <h2>💼 Pending Job Approval</h2>
+
+    <div id="pendingJobList">
+
+        <p>Loading Pending Jobs...</p>
+
+    </div>
+
+</section>
+
+<!-- ================= USER MANAGEMENT ================= -->
+
+<section class="adminSection">
+
+    <h2>👥 User Management</h2>
+
+    <div id="userList">
+
+        <p>Loading Users...</p>
+
+    </div>
+
+</section>
+
+<!-- ================= COMPANY MANAGEMENT ================= -->
+
+<section class="adminSection">
+
+    <h2>🏢 Company Management</h2>
+
+    <div id="companyList">
+
+        <p>Loading Companies...</p>
+
+    </div>
+
+</section>
+
+<!-- ================= PAYMENT ================= -->
+
+<section class="adminSection">
+
+    <h2>💳 Payment Control</h2>
+
+    <div id="paymentList">
+
+        <p>No Payment Data</p>
+
+    </div>
+
+</section>
+
+<!-- ================= NOTICE ================= -->
+
+<section class="adminSection">
+
+    <h2>📢 Notice Management</h2>
+
+    <textarea
+        id="noticeText"
+        rows="6"
+        placeholder="নতুন নোটিশ লিখুন..."
+    ></textarea>
+
+    <br><br>
+
+    <button id="publishNoticeBtn">
+
+        📢 Publish Notice
+
+    </button>
+
+</section>
+
+  <!-- ================= RESULT MANAGEMENT ================= -->
+
+<section class="adminSection">
+
+    <h2>🎓 Result Management</h2>
+
+    <div id="resultList">
+
+        <p>No Result Published.</p>
+
+    </div>
+
+    <button id="publishResultBtn">
+
+        ➕ Publish Result
+
+    </button>
+
+</section>
+
+<!-- ================= SETTINGS ================= -->
+
+<section class="adminSection">
+
+    <h2>⚙ System Settings</h2>
+
+    <div class="settingBox">
+
+        <button id="backupBtn">
+            💾 Backup Database
+        </button>
+
+        <button id="refreshBtn">
+            🔄 Refresh Dashboard
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 SK BD Admin Panel
+    </p>
+
+    <small>
+        Powered by <strong>SK Job BD</strong>
+    </small>
+
+</footer>
 
 <script type="module" src="admin.js"></script>
-
 
 </body>
 
