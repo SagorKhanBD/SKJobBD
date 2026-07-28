@@ -1,9 +1,3 @@
-// ======================================================
-// SK Job BD
-// Employer Add Job
-// add-job.js (Part 1)
-// ======================================================
-
 import { db } from "../firebase.js";
 
 import {
@@ -95,11 +89,7 @@ form.addEventListener("submit", async (e) => {
 
     try {
 
-        // Continue Part 2...        // ======================================
-        // Save Job Information
-        // ======================================
-
-        await addDoc(
+             await addDoc(
             collection(db, "jobs"),
             {
 
@@ -193,6 +183,6 @@ form.addEventListener("submit", async (e) => {
 });
 
 // ======================================================
-// End of employer/add-job.js
 // SK Job BD
+// Employer Add Job System
 // ======================================================
