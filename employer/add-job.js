@@ -194,5 +194,5 @@ form.addEventListener("submit", async (e) => {
 
 // ======================================================
 // End of employer/add-job.js
-// SK Job BD Version 2
+// SK Job BD
 // ======================================================
