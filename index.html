@@ -7,286 +7,554 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>
 SK Job BD | Career & Education Platform
 </title>
 
-
 <link rel="stylesheet" href="style.css">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="config.js"></script>
 
 <script type="module" src="firebase.js"></script>
 
-
 </head>
-
 
 <body>
 
+<!-- ===========================
+Top Header
+=========================== -->
+
+<div class="top-bar">
+
+<div class="container top-flex">
+
+<div>
+
+📧 support@skjobbd.com
+
+&nbsp; |
+
+&nbsp;
+
+📞 +8801794917925
+
+</div>
+
+<div>
+
+<a href="#">বাংলা</a>
+
+|
+
+<a href="#">English</a>
+
+|
+
+<a href="#">हिन्दी</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===========================
+Header
+=========================== -->
 
 <header>
 
+<div class="container header-flex">
 
-<div class="container">
-
+<div class="logo">
 
 <h1>
-SK Job BD
+
+SK JOB BD
+
 </h1>
 
-
 <p>
-Career & Education Platform
-<br>
-বাংলাদেশের বিশ্বস্ত চাকরি ও শিক্ষা সেবা প্ল্যাটফর্ম
+
+সঠিক চাকরি, সফল ভবিষ্যৎ
+
 </p>
 
-
-
-<div class="language">
-
-🌐
-<a href="#">
-বাংলা
-</a>
-
-|
-
-<a href="#">
-English
-</a>
-
-|
-
-<a href="#">
-हिन्दी
-</a>
-
-
 </div>
-
-
 
 <nav>
 
-
 <a href="#">
-🏠 Home | হোম
+
+🏠 হোম
+
 </a>
 
-
 <a href="#">
-💼 Jobs | চাকরি
+
+🏛 সরকারি চাকরি
+
 </a>
 
-
 <a href="#">
-🏢 Company | কোম্পানি
+
+🏢 এনজিও চাকরি
+
 </a>
 
-
 <a href="#">
-🎓 Education | শিক্ষা
+
+🏦 ব্যাংক চাকরি
+
 </a>
 
-
 <a href="#">
-📞 Contact | যোগাযোগ
+
+📄 অ্যাডমিট কার্ড
+
 </a>
 
+<a href="#">
 
+📊 ফলাফল
+
+</a>
+
+<a href="#">
+
+☎ যোগাযোগ
+
+</a>
 
 </nav>
 
-
 </div>
-
 
 </header>
 
-
-
-
+<!-- ===========================
+Hero Section
+=========================== -->
 
 <section class="hero">
 
-
 <div class="container">
 
-
 <h2>
-আপনার স্বপ্নের চাকরি খুঁজুন
+
+আপনার
+
+<span>
+
+স্বপ্নের চাকরি
+
+</span>
+
+খুঁজুন
+
 </h2>
 
-
 <p>
-Find your dream job with SK Job BD
+
+সরকারি, এনজিও, ব্যাংক ও বেসরকারি চাকরির সেরা ঠিকানা
+
 </p>
 
+<div class="search-box">
 
-<input 
+<input
+
 type="text"
-placeholder="Search Job | চাকরি খুঁজুন"
+
+placeholder="চাকরির শিরোনাম লিখুন"
+
 >
 
+<button onclick="searchJob()">
 
-<button>
-Search
+খুঁজুন
+
 </button>
 
+</div>
 
 </div>
 
-
 </section>
 
+  <!-- ===========================
+Our Services
+=========================== -->
 
-
-
-
-<section>
-
+<section class="services">
 
 <div class="container">
 
-
 <h2>
+
 Our Services | আমাদের সেবা
+
 </h2>
 
+<div class="service-grid">
 
+<div class="service-card">
 
-<div class="cards">
+<div class="icon">💼</div>
 
-
-<div class="card">
-
-<h3>
-💼 Jobs
-</h3>
+<h3>Jobs</h3>
 
 <p>
-চাকরি খুঁজুন এবং আবেদন করুন
+
+সরকারি, এনজিও, ব্যাংক ও বেসরকারি চাকরি খুঁজুন
+
 </p>
+
+<a href="#">
+
+বিস্তারিত দেখুন →
+
+</a>
 
 </div>
 
+<div class="service-card">
 
+<div class="icon">🏢</div>
 
-
-<div class="card">
-
-<h3>
-🏢 Company
-</h3>
+<h3>Company</h3>
 
 <p>
-প্রতিষ্ঠান চাকরি প্রকাশ করুন
+
+প্রতিষ্ঠান প্রোফাইল দেখুন এবং চাকরি পোস্ট করুন
+
 </p>
+
+<a href="#">
+
+বিস্তারিত দেখুন →
+
+</a>
 
 </div>
 
+<div class="service-card">
 
+<div class="icon">🎓</div>
 
-
-
-<div class="card">
-
-<h3>
-🎓 Education
-</h3>
+<h3>Education</h3>
 
 <p>
-বিদ্যালয়ের ফলাফল প্রকাশ করুন
+
+ফলাফল, রুটিন, অ্যাডমিট কার্ড এবং শিক্ষাসংক্রান্ত তথ্য
+
 </p>
 
-</div>
+<a href="#">
 
+বিস্তারিত দেখুন →
 
-
-
-</div>
-
+</a>
 
 </div>
 
+</div>
+
+</div>
 
 </section>
 
+<!-- ===========================
+Latest Jobs
+=========================== -->
 
-
-
-
-<section>
-
+<section class="latest-jobs">
 
 <div class="container">
 
-
 <h2>
-Managing Director
+
+Latest Jobs | সর্বশেষ চাকরি
+
 </h2>
 
+<div id="jobList">
 
-<p>
+<div class="loading">
 
-Name:
+লোড হচ্ছে...
+
+</div>
+
+</div>
+
+<div class="all-job-btn">
+
+<a href="#">
+
+সব চাকরি দেখুন →
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+  <!-- ===========================
+Managing Director
+=========================== -->
+
+<section class="director-section">
+
+<div class="container">
+
+<h2>
+
+Managing Director
+
+</h2>
+
+<div class="director-card">
+
+<div class="director-image">
+
+<img
+src="images/managing-director.jpg"
+alt="Managing Director">
+
+</div>
+
+<div class="director-details">
+
+<h3>
+
 Rokunuzzaman
 
-</p>
+</h3>
 
+<h4>
+
+Managing Director
+
+</h4>
 
 <p>
 
-Mobile:
+SK Job BD
+
+</p>
+
+<hr>
+
+<p>
+
+📞 <strong>Mobile:</strong>
+
 +8801794917925
 
 </p>
 
-
 <p>
 
-Email:
+📧 <strong>Email:</strong>
+
 sagorkhan251996@gmail.com
 
 </p>
 
+<p>
 
+🌐 <strong>Website:</strong>
+
+www.skjobbd.com
+
+</p>
+
+<p>
+
+বাংলাদেশের চাকরি ও শিক্ষা খাতে একটি নির্ভরযোগ্য ও আধুনিক ডিজিটাল প্ল্যাটফর্ম গড়ে তোলাই আমাদের লক্ষ্য।
+
+</p>
+
+<a href="#">
+
+যোগাযোগ করুন
+
+</a>
 
 </div>
 
+</div>
+
+</div>
 
 </section>
 
+<!-- ===========================
+Contact Section
+=========================== -->
 
+<section class="contact-section">
 
+<div class="container">
 
+<h2>
 
-<footer>
+যোগাযোগ
 
+</h2>
+
+<div class="contact-grid">
+
+<div>
+
+<h3>
+
+অফিস
+
+</h3>
 
 <p>
 
-© 2026 SK Job BD
+লালমনিরহাট, বাংলাদেশ
 
 </p>
 
+</div>
+
+<div>
+
+<h3>
+
+মোবাইল
+
+</h3>
 
 <p>
 
-Career & Education Platform
++8801794917925
 
 </p>
 
+</div>
+
+<div>
+
+<h3>
+
+ইমেইল
+
+</h3>
+
+<p>
+
+sagorkhan251996@gmail.com
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+  <!-- ===========================
+Footer
+=========================== -->
+
+<footer class="footer">
+
+<div class="container">
+
+<div class="footer-grid">
+
+<div>
+
+<h3>
+
+SK Job BD
+
+</h3>
+
+<p>
+
+বাংলাদেশের নির্ভরযোগ্য চাকরি ও শিক্ষা সেবা প্ল্যাটফর্ম।
+
+</p>
+
+</div>
+
+<div>
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<ul>
+
+<li><a href="#">🏠 হোম</a></li>
+
+<li><a href="#">💼 চাকরি</a></li>
+
+<li><a href="#">🏢 কোম্পানি</a></li>
+
+<li><a href="#">🎓 শিক্ষা</a></li>
+
+<li><a href="#">📞 যোগাযোগ</a></li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>
+
+Follow Us
+
+</h3>
+
+<p>📘 Facebook</p>
+
+<p>▶️ YouTube</p>
+
+<p>💬 WhatsApp</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<p class="copyright">
+
+© <span id="year"></span> SK Job BD. All Rights Reserved.
+
+</p>
+
+</div>
 
 </footer>
 
+<!-- ===========================
+Scripts
+=========================== -->
 
+<script type="module" src="script.js"></script>
 
 </body>
-
 
 </html>
