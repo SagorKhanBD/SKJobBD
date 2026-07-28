@@ -1,362 +1,724 @@
-/*
-================================================
+/* ======================================================
 SK Job BD
-Professional Website Style
-Version 2.0
-================================================
-*/
-
-
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
-
+Final Professional Design
+====================================================== */
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
-
 
 body{
 
-    font-family:
-    'Hind Siliguri',
-    'Poppins',
-    sans-serif;
+font-family:'Hind Siliguri',sans-serif;
 
-    background:#f3f8f3;
+background:#f5f8fc;
 
-    color:#222;
+color:#333;
 
-    line-height:1.6;
+line-height:1.6;
 
 }
-
-
 
 .container{
 
-    width:90%;
+width:90%;
 
-    max-width:1200px;
+max-width:1200px;
 
-    margin:auto;
+margin:auto;
 
 }
 
+a{
 
+text-decoration:none;
 
+}
 
+img{
 
-/* Header */
+max-width:100%;
 
+display:block;
+
+}
+
+/* ==============================
+Top Bar
+============================== */
+
+.top-bar{
+
+background:#0b8d0b;
+
+color:#fff;
+
+padding:8px 0;
+
+font-size:14px;
+
+}
+
+.top-flex{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+}
+
+.top-bar a{
+
+color:#fff;
+
+margin-left:8px;
+
+}
+
+/* ==============================
+Header
+============================== */
 
 header{
 
-    background:
-    linear-gradient(
-    135deg,
-    #0f9b0f,
-    #00c853
-    );
+background:#ffffff;
 
-    color:white;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
 
-    padding:25px 0;
+padding:20px 0;
 
-    text-align:center;
+position:sticky;
 
-}
+top:0;
 
-
-
-header h1{
-
-    font-size:42px;
-
-    font-weight:700;
+z-index:999;
 
 }
 
+.header-flex{
 
+display:flex;
 
-header p{
+justify-content:space-between;
 
-    font-size:18px;
+align-items:center;
 
-}
-
-
-
-
-
-.language{
-
-    margin:15px 0;
+flex-wrap:wrap;
 
 }
 
+.logo h1{
 
-.language a{
+font-size:34px;
 
-    color:white;
+color:#0077cc;
 
-    text-decoration:none;
-
-    margin:5px;
-
-    font-weight:bold;
+font-weight:700;
 
 }
 
+.logo p{
 
+font-size:15px;
 
-
-
-/* Navigation */
-
-
-nav{
-
-    margin-top:20px;
+color:#666;
 
 }
-
 
 nav a{
 
-    display:inline-block;
+margin-left:18px;
 
-    color:white;
+font-weight:600;
 
-    text-decoration:none;
+color:#333;
 
-    margin:8px;
-
-    padding:8px 15px;
-
-    border-radius:20px;
-
-    background:
-    rgba(255,255,255,0.15);
+transition:.3s;
 
 }
-
 
 nav a:hover{
 
-    background:white;
-
-    color:#0f9b0f;
+color:#008000;
 
 }
 
-
-
-
-
-/* Hero Section */
-
+/* ==============================
+Hero Section
+============================== */
 
 .hero{
 
-    padding:60px 0;
+background:linear-gradient(135deg,#0b8d0b,#00b894);
 
-    text-align:center;
+color:#fff;
+
+padding:80px 20px;
+
+text-align:center;
 
 }
-
-
 
 .hero h2{
 
-    font-size:38px;
+font-size:46px;
 
-    color:#d60000;
+margin-bottom:15px;
 
 }
 
+.hero span{
 
+color:#ffe600;
+
+}
 
 .hero p{
 
-    font-size:20px;
+font-size:20px;
+
+margin-bottom:30px;
 
 }
 
+.search-box{
 
+display:flex;
 
-.hero input{
+justify-content:center;
 
-    width:60%;
+gap:10px;
 
-    padding:15px;
-
-    margin-top:20px;
-
-    border-radius:30px;
-
-    border:1px solid #ccc;
-
-    font-size:16px;
+flex-wrap:wrap;
 
 }
 
+.search-box input{
 
+width:420px;
 
-.hero button{
+max-width:100%;
 
-    padding:15px 30px;
+padding:15px;
 
-    border:none;
+border:none;
 
-    border-radius:30px;
+border-radius:8px;
 
-    background:#0f9b0f;
+font-size:17px;
 
-    color:white;
-
-    cursor:pointer;
-
-    font-size:16px;
+outline:none;
 
 }
 
+.search-box button{
 
+padding:15px 30px;
 
+border:none;
 
+background:#ff9800;
 
-/* Cards */
+color:#fff;
 
+font-size:17px;
 
-.cards{
+font-weight:bold;
 
-    display:flex;
+border-radius:8px;
 
-    gap:25px;
+cursor:pointer;
 
-    justify-content:center;
-
-    margin-top:30px;
-
-    flex-wrap:wrap;
-
-}
-
-
-
-.card{
-
-    background:white;
-
-    width:300px;
-
-    padding:30px;
-
-    border-radius:15px;
-
-    box-shadow:
-    0 5px 15px rgba(0,0,0,0.1);
-
-    text-align:center;
+transition:.3s;
 
 }
 
+.search-box button:hover{
 
-
-.card h3{
-
-    color:#0f9b0f;
-
-    font-size:25px;
+background:#e68900;
 
 }
 
+/* ==============================
+Services
+============================== */
 
+.services{
 
-
-
-/* Director Section */
-
-
-section{
-
-    padding:40px 0;
+padding:70px 0;
 
 }
 
+.services h2{
 
+text-align:center;
 
-section h2{
+margin-bottom:40px;
 
-    text-align:center;
+font-size:34px;
 
-    margin-bottom:20px;
-
-    color:#0f9b0f;
-
-}
-
-
-
-
-
-/* Footer */
-
-
-footer{
-
-    background:#222;
-
-    color:white;
-
-    text-align:center;
-
-    padding:25px;
-
-    margin-top:40px;
+color:#0b8d0b;
 
 }
 
+.service-grid{
 
+display:grid;
 
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 
+gap:25px;
 
-/* Mobile Responsive */
+}
 
+.service-card{
+
+background:#fff;
+
+padding:30px;
+
+border-radius:15px;
+
+box-shadow:0 5px 18px rgba(0,0,0,.10);
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.service-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.service-card .icon{
+
+font-size:55px;
+
+margin-bottom:20px;
+
+}
+
+.service-card h3{
+
+margin-bottom:15px;
+
+color:#0077cc;
+
+}
+
+.service-card p{
+
+margin-bottom:20px;
+
+color:#555;
+
+}
+
+.service-card a{
+
+font-weight:bold;
+
+color:#0b8d0b;
+
+}
+
+/* ==============================
+Latest Jobs
+============================== */
+
+.latest-jobs{
+
+padding:70px 0;
+
+background:#eef8ef;
+
+}
+
+.latest-jobs h2{
+
+text-align:center;
+
+margin-bottom:35px;
+
+font-size:34px;
+
+color:#0b8d0b;
+
+}
+
+#jobList{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+gap:20px;
+
+}
+
+.loading{
+
+text-align:center;
+
+font-size:18px;
+
+padding:30px;
+
+}
+
+.all-job-btn{
+
+text-align:center;
+
+margin-top:35px;
+
+}
+
+.all-job-btn a{
+
+display:inline-block;
+
+background:#0b8d0b;
+
+color:#fff;
+
+padding:14px 28px;
+
+border-radius:8px;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.all-job-btn a:hover{
+
+background:#087208;
+
+}
+
+/* ==============================
+Managing Director
+============================== */
+
+.director-section{
+
+padding:80px 0;
+
+background:#ffffff;
+
+}
+
+.director-section h2{
+
+text-align:center;
+
+font-size:36px;
+
+color:#0b8d0b;
+
+margin-bottom:40px;
+
+}
+
+.director-card{
+
+max-width:950px;
+
+margin:auto;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:40px;
+
+background:#ffffff;
+
+padding:40px;
+
+border-radius:20px;
+
+box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+}
+
+.director-image{
+
+flex:1;
+
+text-align:center;
+
+}
+
+.director-image img{
+
+width:240px;
+
+height:240px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:8px solid #0b8d0b;
+
+box-shadow:0 5px 20px rgba(0,0,0,.25);
+
+margin:auto;
+
+}
+
+.director-details{
+
+flex:2;
+
+}
+
+.director-details h3{
+
+font-size:34px;
+
+color:#0077cc;
+
+margin-bottom:10px;
+
+}
+
+.director-details h4{
+
+font-size:22px;
+
+color:#0b8d0b;
+
+margin-bottom:15px;
+
+}
+
+.director-details p{
+
+font-size:18px;
+
+margin-bottom:10px;
+
+color:#444;
+
+}
+
+.director-details hr{
+
+margin:20px 0;
+
+border:0;
+
+height:1px;
+
+background:#ddd;
+
+}
+
+.director-details a{
+
+display:inline-block;
+
+margin-top:20px;
+
+padding:14px 30px;
+
+background:#0b8d0b;
+
+color:#fff;
+
+border-radius:8px;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.director-details a:hover{
+
+background:#087208;
+
+}
+
+/* ==============================
+Contact Section
+============================== */
+
+.contact-section{
+
+padding:70px 0;
+
+background:#eef8ef;
+
+}
+
+.contact-section h2{
+
+text-align:center;
+
+font-size:34px;
+
+margin-bottom:35px;
+
+color:#0b8d0b;
+
+}
+
+.contact-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:25px;
+
+text-align:center;
+
+}
+
+.contact-grid div{
+
+background:#fff;
+
+padding:25px;
+
+border-radius:12px;
+
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+
+}
+
+/* ==============================
+Footer
+============================== */
+
+.footer{
+
+background:#222;
+
+color:#fff;
+
+padding:50px 0 20px;
+
+}
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:30px;
+
+margin-bottom:30px;
+
+}
+
+.footer h3{
+
+margin-bottom:15px;
+
+color:#ffe600;
+
+}
+
+.footer ul{
+
+list-style:none;
+
+}
+
+.footer ul li{
+
+margin-bottom:10px;
+
+}
+
+.footer a{
+
+color:#fff;
+
+}
+
+.footer hr{
+
+margin:20px 0;
+
+border:0;
+
+height:1px;
+
+background:#555;
+
+}
+
+.copyright{
+
+text-align:center;
+
+}
+
+/* ==============================
+Responsive
+============================== */
 
 @media(max-width:768px){
 
+.header-flex{
 
-header h1{
-
-    font-size:32px;
+flex-direction:column;
 
 }
 
+nav{
+
+margin-top:20px;
+
+}
 
 nav a{
 
-    display:block;
+display:block;
+
+margin:10px 0;
 
 }
 
+.hero h2{
 
-.hero input{
-
-    width:90%;
-
-}
-
-
-.cards{
-
-    flex-direction:column;
-
-    align-items:center;
+font-size:32px;
 
 }
 
+.director-card{
 
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.director-image img{
+
+width:180px;
+
+height:180px;
+
+}
 
 }
