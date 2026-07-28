@@ -1,297 +1,347 @@
-// ======================================================
-// SK Job BD
-// Employer Registration System
-// register.js (Part 1)
-// ======================================================
+/*
+================================================
+SK Job BD
+Company Registration System
+register.js
+Part 1
+================================================
+*/
+
 
 import { db } from "../firebase.js";
 
+
 import {
+
     collection,
-    query,
-    where,
-    getDocs,
+
     addDoc,
+
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// =====================================
+}
 
-const form = document.getElementById("registerForm");
-const message = document.getElementById("message");
+from
+"https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// =====================================
 
-form.addEventListener("submit", async (e) => {
 
-    e.preventDefault();
+// ==============================================
+// Register Form
+// ==============================================
 
-    message.style.color = "red";
-    message.innerHTML = "";
+const registerForm =
+document.getElementById("registerForm");
 
-    const accountType =
-        document.getElementById("accountType").value.trim();
 
-    const organization =
-        document.getElementById("organization").value.trim();
+const message =
+document.getElementById("message");
 
-    const contactPerson =
-        document.getElementById("contactPerson").value.trim();
 
-    const mobile =
-        document.getElementById("mobile").value.trim();
 
-    const email =
-        document.getElementById("email").value.trim();
 
-    const address =
-        document.getElementById("address").value.trim();
+// ==============================================
+// Submit Event
+// ==============================================
 
-    const tradeLicense =
-        document.getElementById("tradeLicense").value.trim();
 
-    const eiin =
-        document.getElementById("eiin").value.trim();
+registerForm.addEventListener(
 
-    const password =
-        document.getElementById("password").value;
+"submit",
 
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
+async function(e){
 
-    const agree =
-        document.getElementById("agree").checked;
 
-    // =====================================
-    // Required Validation
-    // =====================================
+e.preventDefault();
 
-    if (
-        accountType === "" ||
-        organization === "" ||
-        contactPerson === "" ||
-        mobile === "" ||
-        address === "" ||
-        password === "" ||
-        confirmPassword === ""
-    ) {
 
-        message.innerHTML =
-            "❌ সকল বাধ্যতামূলক তথ্য পূরণ করুন।";
 
-        return;
+message.style.color = "red";
 
-    }
+message.innerHTML = "";
 
-    if (!agree) {
 
-        message.innerHTML =
-            "❌ শর্তাবলীতে সম্মতি দিন।";
 
-        return;
+// ==============================================
+// Get Values
+// ==============================================
 
-    }
 
-    if (!/^01[0-9]{9}$/.test(mobile)) {
+const companyName =
 
-        message.innerHTML =
-            "❌ সঠিক ১১ সংখ্যার মোবাইল নম্বর লিখুন।";
+document.getElementById("companyName")
+.value
+.trim();
 
-        return;
 
-    }
 
-    if (password.length < 8) {
+const institutionCode =
 
-        message.innerHTML =
-            "❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে।";
+document.getElementById("institutionCode")
+.value
+.trim();
 
-        return;
 
-    }
 
-    if (password !== confirmPassword) {
+const ownerName =
 
-        message.innerHTML =
-            "❌ Password মিলছে না।";
+document.getElementById("ownerName")
+.value
+.trim();
 
-        return;
 
-    }
 
-    try {
+const mobile =
 
-        // Continue Part 2...        // =====================================
-        // Duplicate Mobile Check
-        // =====================================
+document.getElementById("mobile")
+.value
+.trim();
 
-        const mobileQuery = query(
-            collection(db, "employers"),
-            where("mobile", "==", mobile)
-        );
 
-        const mobileSnapshot = await getDocs(mobileQuery);
 
-        if (!mobileSnapshot.empty) {
+const email =
 
-            message.innerHTML =
-                "❌ এই মোবাইল নম্বর দিয়ে ইতোমধ্যে একটি Account রয়েছে।";
+document.getElementById("email")
+.value
+.trim();
 
-            return;
 
-        }
 
-        // =====================================
-        // Duplicate Email Check
-        // =====================================
+const password =
 
-        if (email !== "") {
+document.getElementById("password")
+.value;
 
-            const emailQuery = query(
-                collection(db, "employers"),
-                where("email", "==", email)
-            );
 
-            const emailSnapshot = await getDocs(emailQuery);
 
-            if (!emailSnapshot.empty) {
+const confirmPassword =
 
-                message.innerHTML =
-                    "❌ এই Email দিয়ে ইতোমধ্যে একটি Account রয়েছে।";
+document.getElementById("confirmPassword")
+.value;
 
-                return;
 
-            }
 
-        }
+// ==============================================
+// Validation
+// ==============================================
 
-        // =====================================
-        // Account Type Validation
-        // =====================================
 
-        if (accountType === "company" && tradeLicense === "") {
+if(
 
-            message.innerHTML =
-                "❌ কোম্পানির জন্য Trade License নম্বর দিন।";
+companyName === "" ||
 
-            return;
+ownerName === "" ||
 
-        }
+mobile === "" ||
 
-        if (accountType === "school" && eiin === "") {
+password === "" ||
 
-            message.innerHTML =
-                "❌ স্কুলের EIIN নম্বর দিন।";
+confirmPassword === ""
 
-            return;
+){
 
-        }
 
-        if (accountType === "college" && eiin === "") {
+message.innerHTML =
 
-            message.innerHTML =
-                "❌ কলেজের EIIN নম্বর দিন।";
+"❌ সকল বাধ্যতামূলক তথ্য পূরণ করুন।";
 
-            return;
 
-        }
+return;
 
-        if (accountType === "madrasa" && eiin === "") {
 
-            message.innerHTML =
-                "❌ মাদ্রাসার EIIN নম্বর দিন।";
+}
 
-            return;
 
-        }
 
-        // =====================================
-        // Continue Part 3...        // =====================================
-        // Save Employer Information
-        // =====================================
+// Mobile Check
 
-        await addDoc(
-            collection(db, "employers"),
-            {
+const mobilePattern =
+/^01[3-9]\d{8}$/;
 
-                accountType: accountType,
 
-                organization: organization,
 
-                contactPerson: contactPerson,
+if(!mobilePattern.test(mobile)){
 
-                mobile: mobile,
 
-                email: email,
+message.innerHTML =
 
-                address: address,
+"❌ সঠিক মোবাইল নম্বর লিখুন।";
 
-                tradeLicense: tradeLicense,
 
-                eiin: eiin,
+return;
 
-                password: password,
 
-                role: "employer",
+}
 
-                status: "pending",
 
-                createdAt: serverTimestamp()
 
-            }
-        );
+// Password Check
 
-        // =====================================
-        // Registration Success
-        // =====================================
+if(password.length < 8){
 
-        message.style.color = "green";
 
-        message.innerHTML =
-            "✅ Registration Successful. আপনার আবেদন Admin Approval-এর জন্য পাঠানো হয়েছে।";
+message.innerHTML =
 
-        form.reset();
+"❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে।";
 
-        // =====================================
-        // Redirect Login Page
-        // =====================================
 
-        setTimeout(() => {
+return;
 
-            window.location.href =
-                "login.html";
 
-        }, 2000);
+}
 
-        // Continue Part 4...    }
 
-    // =====================================
-    // Error Handling
-    // =====================================
 
-    catch (error) {
+// Confirm Password
 
-        console.error("Employer Registration Error:", error);
+if(password !== confirmPassword){
 
-        message.style.color = "red";
 
-        if (error.code === "permission-denied") {
+message.innerHTML =
 
-            message.innerHTML =
-                "❌ Permission Denied. Firestore Rules পরীক্ষা করুন।";
+"❌ Password মিলছে না।";
 
-        } else {
 
-            message.innerHTML =
-                "❌ " + error.message;
+return;
 
-        }
 
-    }
+}
+
+    // ==============================================
+// Save Company Data to Firestore
+// ==============================================
+
+try{
+
+
+const companyData = {
+
+
+    companyName: companyName,
+
+    institutionCode: institutionCode,
+
+    ownerName: ownerName,
+
+    mobile: mobile,
+
+    email: email || "",
+
+    accountType: "company",
+
+    status: "pending",
+
+    createdAt: serverTimestamp()
+
+
+};
+
+
+
+// Save Data
+
+await addDoc(
+
+    collection(db,"companies"),
+
+    companyData
+
+);
+
+
+
+// ==============================================
+// Success Message
+// ==============================================
+
+
+message.style.color = "green";
+
+
+message.innerHTML =
+
+"✅ কোম্পানি একাউন্ট সফলভাবে তৈরি হয়েছে। Admin Approval-এর পরে সুবিধা চালু হবে।";
+
+
+
+// Reset Form
+
+registerForm.reset();
+
+
+
+// Redirect Login
+
+setTimeout(()=>{
+
+
+window.location.href =
+"login.html";
+
+
+},3000);
+
+
+
+}
+
+
+// ==============================================
+// Error Handling
+// ==============================================
+
+
+catch(error){
+
+
+console.error(
+
+"Company Registration Error:",
+
+error
+
+);
+
+
+
+message.style.color = "red";
+
+
+message.innerHTML =
+
+"❌ Registration Error: "
+
++ error.message;
+
+
+
+}
+
+
 
 });
 
-// ======================================================
-// End of employer/register.js
-// SK Job BD Version 2
-// ======================================================
+// ==============================================
+// Final Security Check
+// ==============================================
+
+
+// Prevent Empty Form Error
+
+if(!registerForm){
+
+    console.error(
+        "Register Form Not Found"
+    );
+
+}
+
+
+
+// ==============================================
+// SK Job BD
+// Company Registration Complete
+// ==============================================
+
+
+// End of Script
