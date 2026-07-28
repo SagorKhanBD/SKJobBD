@@ -1,8 +1,8 @@
-/* =====================================================
-   SK Job BD
-   Employer Registration
-   register.css (Part 1)
-===================================================== */
+/* ==========================================
+SK Job BD
+Company Registration
+register.css
+========================================== */
 
 *{
     margin:0;
@@ -14,243 +14,169 @@ body{
 
     font-family:'Hind Siliguri',sans-serif;
 
-    background:#eef8ef;
+    background:#edf9ee;
 
     color:#222;
 
 }
 
-.page{
+/* ==========================================
+Header
+========================================== */
 
-    width:100%;
+header{
 
-    min-height:100vh;
-
-}
-
-/* ================= HEADER ================= */
-
-.topHeader{
-
-    width:100%;
-
-    padding:30px 20px;
-
-    background:linear-gradient(135deg,#0D47A1,#1976D2);
-
-    text-align:center;
+    background:linear-gradient(135deg,#2F80ED,#56CCF2);
 
     color:#fff;
 
-}
+    text-align:center;
 
-.logoArea h1{
-
-    font-size:38px;
-
-    font-weight:700;
-
-    letter-spacing:1px;
+    padding:30px 15px;
 
 }
 
-.logoArea p{
+.header-container h1{
 
-    margin-top:8px;
+    font-size:34px;
 
-    font-size:16px;
-
-    opacity:.95;
+    font-weight:bold;
 
 }
 
-/* ================= REGISTER SECTION ================= */
+.header-container p{
 
-.registerSection{
+    margin-top:10px;
 
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:40px 15px;
+    font-size:18px;
 
 }
 
-.registerCard{
+/* ==========================================
+Container
+========================================== */
 
-    width:100%;
+.container{
 
-    max-width:980px;
+    width:95%;
+
+    max-width:650px;
+
+    margin:35px auto;
 
     background:#fff;
 
-    border-radius:18px;
+    padding:30px;
 
-    box-shadow:0 10px 35px rgba(0,0,0,.12);
+    border-radius:12px;
 
-    padding:35px;
+    box-shadow:0 8px 25px rgba(0,0,0,.10);
 
 }
 
-.titleArea{
+.container h2{
 
     text-align:center;
 
-    margin-bottom:30px;
-
-}
-
-.titleArea h2{
-
-    font-size:30px;
-
-    color:#1565C0;
-
     margin-bottom:10px;
 
+    color:#2F80ED;
+
 }
 
-.titleArea p{
+.subtitle{
+
+    text-align:center;
+
+    margin-bottom:25px;
 
     color:#666;
 
-    font-size:16px;
+    font-size:15px;
 
 }
 
-/* ================= FORM ================= */
+/* ==========================================
+Form
+========================================== */
 
-#registerForm{
+.form-group{
 
-    width:100%;
-
-}
-
-.row{
-
-    display:flex;
-
-    gap:20px;
-
-    margin-bottom:22px;
+    margin-bottom:18px;
 
 }
 
-.inputBox{
+label{
 
-    flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-}
-
-.inputBox label{
+    display:block;
 
     font-weight:600;
 
     margin-bottom:8px;
 
-    color:#333;
+}
+
+.required{
+
+    color:red;
+
+    font-size:18px;
+
+    font-weight:bold;
 
 }
 
-.inputBox input,
+/* ==========================================
+Input
+========================================== */
 
-.inputBox select{
+input,
+select{
 
     width:100%;
 
-    padding:14px 15px;
+    padding:14px;
 
-    border:1px solid #d8d8d8;
+    border:1px solid #ccc;
 
-    border-radius:10px;
+    border-radius:8px;
+
+    font-size:16px;
 
     outline:none;
 
-    font-size:15px;
-
-    transition:.30s;
+    transition:.3s;
 
     background:#fff;
 
 }
 
-.inputBox input:focus,
+input:focus,
+select:focus{
 
-.inputBox select:focus{
+    border-color:#2F80ED;
 
-    border-color:#1565C0;
-
-    box-shadow:0 0 0 4px rgba(21,101,192,.10);
-
-}
-
-/* =====================================================
-   SK Job BD
-   Employer Registration
-   register.css (Part 2)
-===================================================== */
-
-/* ================= CHECKBOX ================= */
-
-.checkboxArea{
-
-    margin:15px 0 20px;
-
-    font-size:15px;
-
-    color:#444;
-
-    line-height:1.6;
+    box-shadow:0 0 8px rgba(47,128,237,.20);
 
 }
 
-.checkboxArea label{
+/* ==========================================
+File Upload
+========================================== */
 
-    display:flex;
+input[type=file]{
 
-    align-items:flex-start;
+    padding:10px;
 
-    gap:10px;
-
-}
-
-.checkboxArea input{
-
-    margin-top:4px;
-
-    width:18px;
-
-    height:18px;
-
-    cursor:pointer;
+    background:#f8f8f8;
 
 }
 
-/* ================= MESSAGE ================= */
+/* ==========================================
+Register Button
+========================================== */
 
-.messageBox{
-
-    width:100%;
-
-    min-height:24px;
-
-    margin-bottom:18px;
-
-    font-weight:600;
-
-    color:#d32f2f;
-
-}
-
-/* ================= BUTTON ================= */
-
-.registerBtn{
+.register-btn{
 
     width:100%;
 
@@ -258,190 +184,194 @@ body{
 
     border:none;
 
-    border-radius:10px;
+    border-radius:8px;
 
-    background:#1565C0;
+    background:#28a745;
 
     color:#fff;
 
-    font-size:17px;
+    font-size:18px;
 
-    font-weight:700;
+    font-weight:bold;
 
     cursor:pointer;
 
-    transition:.30s;
+    transition:.3s;
+
+    margin-top:15px;
 
 }
 
-.registerBtn:hover{
+.register-btn:hover{
 
-    background:#0D47A1;
-
-    transform:translateY(-2px);
+    background:#218838;
 
 }
 
-/* ================= LOGIN AREA ================= */
+/* ==========================================
+Message
+========================================== */
 
-.loginArea{
+#message{
 
-    margin-top:25px;
+    margin-top:18px;
 
     text-align:center;
 
-}
-
-.loginArea p{
-
-    margin-bottom:10px;
-
-    color:#555;
+    font-weight:bold;
 
 }
 
-.loginArea a{
+/* ==========================================
+Login Link
+========================================== */
+
+.login-link{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    font-size:16px;
+
+}
+
+.login-link a{
+
+    color:#2F80ED;
 
     text-decoration:none;
 
-    color:#1565C0;
-
-    font-weight:700;
-
-    transition:.30s;
+    font-weight:bold;
 
 }
 
-.loginArea a:hover{
-
-    color:#0D47A1;
+.login-link a:hover{
 
     text-decoration:underline;
 
 }
 
-/* ================= FOOTER ================= */
+/* ==========================================
+Footer
+========================================== */
 
 footer{
 
-    margin-top:35px;
-
-    padding:18px;
-
     text-align:center;
 
-    background:#f5f5f5;
+    background:#0b7a3b;
 
-    color:#666;
+    color:white;
 
-    border-top:1px solid #ddd;
+    padding:20px 10px;
 
-}
-
-footer strong{
-
-    color:#1565C0;
+    margin-top:40px;
 
 }
 
-/* ================= RESPONSIVE ================= */
+footer p{
 
-@media (max-width:768px){
+    margin:5px;
 
-    .topHeader{
+    font-size:15px;
 
-        padding:25px 15px;
+}
 
-    }
 
-    .logoArea h1{
+/* ==========================================
+Mobile Responsive
+========================================== */
 
-        font-size:30px;
+@media(max-width:600px){
 
-    }
+    header{
 
-    .logoArea p{
-
-        font-size:14px;
-
-    }
-
-    .registerCard{
-
-        padding:20px;
-
-        border-radius:12px;
+        padding:25px 10px;
 
     }
 
-    .titleArea h2{
 
-        font-size:24px;
+    .header-container h1{
 
-    }
-
-    .row{
-
-        flex-direction:column;
-
-        gap:15px;
+        font-size:28px;
 
     }
 
-    .inputBox input,
 
-    .inputBox select{
-
-        font-size:14px;
-
-        padding:12px;
-
-    }
-
-    .registerBtn{
+    .header-container p{
 
         font-size:16px;
 
-        padding:14px;
+    }
+
+
+    .container{
+
+        width:92%;
+
+        padding:20px;
+
+        margin:25px auto;
+
+    }
+
+
+    .container h2{
+
+        font-size:22px;
+
+    }
+
+
+    input,
+    select{
+
+        padding:12px;
+
+        font-size:15px;
+
+    }
+
+
+    .register-btn{
+
+        font-size:16px;
+
+        padding:13px;
 
     }
 
 }
 
-@media (max-width:480px){
 
-    .topHeader{
+/* ==========================================
+Smooth Animation
+========================================== */
 
-        padding:20px 10px;
+.container{
 
-    }
+    animation:fadeIn .5s ease-in-out;
 
-    .logoArea h1{
+}
 
-        font-size:26px;
 
-    }
+@keyframes fadeIn{
 
-    .registerCard{
+    from{
 
-        padding:16px;
+        opacity:0;
 
-    }
-
-    .titleArea h2{
-
-        font-size:21px;
+        transform:translateY(20px);
 
     }
 
-    .titleArea p{
+    to{
 
-        font-size:14px;
+        opacity:1;
 
-    }
-
-    footer{
-
-        font-size:13px;
+        transform:translateY(0);
 
     }
+
+}
