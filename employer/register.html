@@ -3,44 +3,38 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <title>Employer Registration | SK Job BD</title>
+<title>
 
-    <link rel="stylesheet"
-        href="register.css">
+SK Job BD Company Registration
 
-    <link rel="preconnect"
-        href="https://fonts.googleapis.com">
+</title>
 
-    <link rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link
+rel="stylesheet"
+href="register.css">
 
 </head>
 
 <body>
 
-<div class="page">
+<header>
 
-<header class="topHeader">
+<div class="header-container">
 
-<div class="logoArea">
+<h1>
 
-<h1>SK Job BD</h1>
+🏢 SK Job BD
+
+</h1>
 
 <p>
 
-Employer / Educational Institution Registration
+Company Registration
 
 </p>
 
@@ -48,349 +42,242 @@ Employer / Educational Institution Registration
 
 </header>
 
-<section class="registerSection">
-
-<div class="registerCard">
-
-<div class="titleArea">
+<div class="container">
 
 <h2>
 
-<i class="fa-solid fa-building"></i>
-
-Employer Registration
+কোম্পানির নতুন একাউন্ট তৈরি করুন
 
 </h2>
 
-<p>
+<p class="subtitle">
 
-শুধুমাত্র প্রতিষ্ঠান, কোম্পানি, এনজিও ও শিক্ষা প্রতিষ্ঠান নিবন্ধন করতে পারবে।
+যেসব তথ্যের পাশে
+<span class="required">*</span>
+আছে সেগুলো পূরণ করা বাধ্যতামূলক।
 
 </p>
 
-</div>
-
 <form id="registerForm">
 
-<div class="row">
+<!-- =========================
+Company Name
+========================= -->
 
-<div class="inputBox">
-
-<label>
-
-Account Type *
-
-</label>
-
-<select id="accountType">
-
-<option value="">
-
-Select Account Type
-
-</option>
-
-<option>
-
-Company
-
-</option>
-
-<option>
-
-NGO
-
-</option>
-
-<option>
-
-School
-
-</option>
-
-<option>
-
-College
-
-</option>
-
-<option>
-
-Madrasa
-
-</option>
-
-<option>
-
-University
-
-</option>
-
-<option>
-
-Hospital
-
-</option>
-
-<option>
-
-Coaching Center
-
-</option>
-
-<option>
-
-Government Office
-
-</option>
-
-<option>
-
-Others
-
-</option>
-
-</select>
-
-</div>
-
-<div class="inputBox">
+<div class="form-group">
 
 <label>
 
-Organization Name *
+প্রতিষ্ঠানের নাম
+
+<span class="required">*</span>
 
 </label>
 
 <input
-
 type="text"
-
-id="organization"
-
-placeholder="Organization Name">
-
-</div>
+id="companyName"
+placeholder="প্রতিষ্ঠানের নাম লিখুন"
+required>
 
 </div>
 
-<div class="row">
+<!-- =========================
+Institution Code
+========================= -->
 
-<div class="inputBox">
+<div class="form-group">
 
 <label>
 
-Contact Person *
+প্রতিষ্ঠানের কোড (যদি থাকে)
 
 </label>
 
 <input
-
 type="text"
-
-id="contactPerson"
-
-placeholder="Contact Person">
+id="institutionCode"
+placeholder="যদি থাকে লিখুন">
 
 </div>
 
-<div class="inputBox">
+<!-- =========================
+Owner Name
+========================= -->
+
+<div class="form-group">
 
 <label>
 
-Mobile Number *
+কর্তৃপক্ষের নাম
+
+<span class="required">*</span>
 
 </label>
 
 <input
-
 type="text"
+id="ownerName"
+placeholder="আপনার নাম লিখুন"
+required>
 
+</div>
+
+<!-- =========================
+Mobile Number
+========================= -->
+
+<div class="form-group">
+
+<label>
+
+মোবাইল নম্বর
+
+<span class="required">*</span>
+
+</label>
+
+<input
+type="tel"
 id="mobile"
-
-placeholder="01XXXXXXXXX">
-
-</div>
+placeholder="01XXXXXXXXX"
+required>
 
 </div>
 
-<div class="row">
+    <!-- =========================
+Email
+========================= -->
 
-<div class="inputBox">
+<div class="form-group">
 
 <label>
 
-Email Address *
+Gmail (Optional)
 
 </label>
 
 <input
-
 type="email"
-
 id="email"
-
-placeholder="example@email.com">
+placeholder="example@gmail.com">
 
 </div>
 
-<div class="inputBox">
+<!-- =========================
+Company Logo
+========================= -->
+
+<div class="form-group">
 
 <label>
 
-Institution / Company Address *
+কোম্পানির লোগো (Optional)
 
 </label>
 
 <input
-
-type="text"
-
-id="address"
-
-placeholder="Address">
+type="file"
+id="companyLogo"
+accept="image/*">
 
 </div>
 
-</div>
+<!-- =========================
+Password
+========================= -->
 
-  <div class="row">
-
-<div class="inputBox">
+<div class="form-group">
 
 <label>
 
-Trade License No. (Optional)
+Password
 
-</label>
-
-<input
-type="text"
-id="tradeLicense"
-placeholder="Trade License Number">
-
-</div>
-
-<div class="inputBox">
-
-<label>
-
-EIIN Code (School / College Only)
-
-</label>
-
-<input
-type="text"
-id="eiin"
-placeholder="EIIN Code">
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="inputBox">
-
-<label>
-
-Password *
+<span class="required">*</span>
 
 </label>
 
 <input
 type="password"
 id="password"
-placeholder="Password">
+placeholder="কমপক্ষে ৮ অক্ষর"
+required>
 
 </div>
 
-<div class="inputBox">
+<!-- =========================
+Confirm Password
+========================= -->
+
+<div class="form-group">
 
 <label>
 
-Confirm Password *
+Confirm Password
+
+<span class="required">*</span>
 
 </label>
 
 <input
 type="password"
 id="confirmPassword"
-placeholder="Confirm Password">
-
-</div>
-
-</div>
-
-<div class="checkboxArea">
-
-<label>
-
-<input
-type="checkbox"
-id="agree"
+placeholder="পুনরায় Password লিখুন"
 required>
 
-আমি নিশ্চিত করছি যে প্রদানকৃত সকল তথ্য সঠিক এবং SK Job BD-এর নীতিমালা মেনে চলবো।
-
-</label>
-
 </div>
 
-<div id="message" class="messageBox"></div>
+<!-- =========================
+Register Button
+========================= -->
 
 <button
 type="submit"
-class="registerBtn">
+class="register-btn">
 
-<i class="fa-solid fa-user-plus"></i>
-
-Register Now
+🏢 কোম্পানির একাউন্ট তৈরি করুন
 
 </button>
 
-<div class="loginArea">
+<p id="message"></p>
 
-<p>
+<div class="login-link">
 
-আগেই Account আছে?
-
-</p>
+আগে থেকেই একাউন্ট আছে?
 
 <a href="login.html">
 
-Employer Login
+Company Login
 
 </a>
 
 </div>
 
-</form>
+    </form>
 
 </div>
-
-</section>
 
 <footer>
 
 <p>
 
-Powered by
+© 2026 SK Job BD
 
-<strong>
+</p>
 
-SK Job BD
+<p>
 
-</strong>
+Company Registration System
 
 </p>
 
 </footer>
 
-</div>
+<script
+type="module"
+src="register.js">
 
-<script type="module"
-src="register.js"></script>
+</script>
 
 </body>
 
