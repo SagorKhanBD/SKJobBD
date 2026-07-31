@@ -1,8 +1,7 @@
-/* ===================================================
-   SK Job BD
-   Employer Login
-   login.css (Part 1)
-=================================================== */
+/*=========================================
+SK Job BD
+Login Page
+=========================================*/
 
 *{
     margin:0;
@@ -11,346 +10,148 @@
 }
 
 body{
-
-    font-family:'Hind Siliguri',sans-serif;
-
-    background:#f4f8fb;
-
-    color:#333;
-
-}
-
-/* ================= HEADER ================= */
-
-.topHeader{
-
-    background:linear-gradient(135deg,#1565C0,#0D47A1);
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:35px 20px;
-
-}
-
-.logoArea h1{
-
-    font-size:38px;
-
-    font-weight:700;
-
-}
-
-.logoArea p{
-
-    margin-top:8px;
-
-    font-size:16px;
-
-}
-
-/* ================= CONTAINER ================= */
-
-.container{
-
-    width:100%;
-
-    max-width:500px;
-
-    margin:40px auto;
-
-    padding:15px;
-
-}
-
-/* ================= CARD ================= */
-
-.loginCard{
-
-    background:#fff;
-
-    border-radius:15px;
-
-    box-shadow:0 5px 18px rgba(0,0,0,.12);
-
-    padding:30px;
-
-}
-
-/* ================= TITLE ================= */
-
-.titleArea{
-
-    text-align:center;
-
-    margin-bottom:25px;
-
-}
-
-.titleArea h2{
-
-    font-size:28px;
-
-    color:#1565C0;
-
-    margin-bottom:10px;
-
-}
-
-.titleArea p{
-
-    color:#666;
-
-    font-size:15px;
-
-}
-
-/* ================= INPUT ================= */
-
-.inputBox{
-
-    margin-bottom:18px;
-
-}
-
-.inputBox label{
-
-    display:block;
-
-    font-weight:600;
-
-    margin-bottom:8px;
-
-    color:#333;
-
-}
-
-.inputBox input{
-
-    width:100%;
-
-    padding:14px;
-
-    border:1px solid #ccc;
-
-    border-radius:8px;
-
-    font-size:16px;
-
-    outline:none;
-
-    transition:.3s;
-
-}
-
-.inputBox input:focus{
-
-    border:1px solid #1565C0;
-
-    box-shadow:0 0 5px rgba(21,101,192,.25);
-
-}
-
-/* ================= REMEMBER ================= */
-
-.rememberArea{
-
-    margin-bottom:20px;
-
-    font-size:15px;
-
-}
-
-/* ================= MESSAGE ================= */
-
-.messageBox{
-
-    text-align:center;
-
-    color:red;
-
-    margin-bottom:15px;
-
-    font-weight:600;
-
-}
-
-/* ================= LOGIN BUTTON ================= */
-
-.loginBtn{
-
-    width:100%;
-
-    background:#1565C0;
-
-    color:#fff;
-
-    border:none;
-
-    padding:14px;
-
-    border-radius:8px;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.loginBtn:hover{
-
-    background:#0D47A1;
-
-}
-/* ================= LINKS ================= */
-
-.linkArea{
-
-    text-align:center;
-
-    margin-top:20px;
-
-}
-
-.linkArea a{
-
-    color:#1565C0;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-}
-
-.linkArea a:hover{
-
-    text-decoration:underline;
-
-}
-
-/* ================= REGISTER ================= */
-
-.registerArea{
-
-    margin-top:25px;
-
-    text-align:center;
-
-}
-
-.registerArea p{
-
-    margin-bottom:12px;
-
-    color:#555;
-
-}
-
-.registerBtn{
-
-    display:inline-block;
-
-    background:#2E7D32;
-
-    color:#fff;
-
-    text-decoration:none;
-
-    padding:12px 25px;
-
-    border-radius:8px;
-
-    transition:.3s;
-
-    font-weight:600;
-
-}
-
-.registerBtn:hover{
-
-    background:#1B5E20;
-
-}
-
-/* ================= HOME ================= */
-
-.homeArea{
-
-    margin-top:20px;
-
-    text-align:center;
-
-}
-
-.homeBtn{
-
-    display:inline-block;
-
-    color:#1565C0;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-}
-
-.homeBtn:hover{
-
-    text-decoration:underline;
-
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-
-    margin-top:35px;
-
+    font-family:"Poppins","Hind Siliguri",sans-serif;
+    background:#f5f7fa;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     padding:20px;
+}
 
+.login-container{
+    width:100%;
+    max-width:450px;
+}
+
+.login-card{
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+    overflow:hidden;
+}
+
+.login-header{
+    background:linear-gradient(135deg,#0d6efd,#198754);
+    color:#fff;
     text-align:center;
+    padding:30px 20px;
+}
 
-    color:#666;
+.login-header img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    margin-bottom:15px;
+}
 
+.login-header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.login-header p{
+    font-size:15px;
+    opacity:.9;
+}
+
+.login-body{
+    padding:30px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#333;
+}
+
+.form-group input{
+    width:100%;
+    padding:13px 15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    transition:.3s;
+}
+
+.form-group input:focus{
+    outline:none;
+    border-color:#0d6efd;
+    box-shadow:0 0 5px rgba(13,110,253,.3);
+}
+
+.login-btn{
+    width:100%;
+    background:#198754;
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.login-btn:hover{
+    background:#157347;
+}
+
+.forgot-password{
+    text-align:right;
+    margin-top:12px;
+}
+
+.forgot-password a{
+    color:#0d6efd;
+    text-decoration:none;
     font-size:14px;
-
 }
 
-footer strong{
-
-    color:#1565C0;
-
+.forgot-password a:hover{
+    text-decoration:underline;
 }
 
-/* ================= RESPONSIVE ================= */
+.register-link{
+    text-align:center;
+    margin-top:25px;
+    font-size:15px;
+}
 
-@media(max-width:600px){
+.register-link a{
+    color:#198754;
+    font-weight:700;
+    text-decoration:none;
+}
 
-    .loginCard{
+.register-link a:hover{
+    text-decoration:underline;
+}
 
-        padding:20px;
+.footer-note{
+    text-align:center;
+    margin-top:20px;
+    color:#666;
+    font-size:13px;
+}
 
-    }
+@media(max-width:576px){
 
-    .logoArea h1{
+.login-body{
+    padding:20px;
+}
 
-        font-size:30px;
+.login-header h1{
+    font-size:24px;
+}
 
-    }
-
-    .titleArea h2{
-
-        font-size:24px;
-
-    }
-
-    .loginBtn{
-
-        font-size:16px;
-
-    }
+.login-btn{
+    font-size:16px;
+}
 
 }
