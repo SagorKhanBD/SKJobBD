@@ -1,6 +1,6 @@
 // ======================================================
 // SK Job BD
-// Firebase Final Configuration
+// Firebase Configuration
 // ======================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
@@ -10,6 +10,10 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.2/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-storage.js";
+
+// ======================================================
+// Firebase Config
+// ======================================================
 
 const firebaseConfig = {
 
@@ -27,32 +31,30 @@ const firebaseConfig = {
 
 };
 
+// ======================================================
 // Initialize Firebase
+// ======================================================
 
 const app = initializeApp(firebaseConfig);
 
-// Firestore
+// ======================================================
+// Services
+// ======================================================
 
 const db = getFirestore(app);
 
-// Authentication
-
 const auth = getAuth(app);
-
-// Storage
 
 const storage = getStorage(app);
 
+// ======================================================
 // Export
+// ======================================================
 
 export {
-
+    firebaseConfig,
     app,
-
     db,
-
     auth,
-
     storage
-
 };
