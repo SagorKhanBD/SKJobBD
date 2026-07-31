@@ -1,86 +1,87 @@
 //======================================
 // SK JOB BD
 // APPLICATION SYSTEM
-// Part 1
+// apply.js
 //======================================
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+//======================================
+// FIREBASE IMPORT
+//======================================
 
 import {
+    db
+} from "./firebase.js";
 
-getFirestore,
 
-collection,
-
-addDoc,
-
-serverTimestamp
-
-}
-
+import {
+    collection,
+    addDoc,
+    serverTimestamp
+} 
 from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-import { firebaseConfig }
-
-from "./config.js";
 
 //======================================
-// FIREBASE
-//======================================
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-//======================================
-// FORM
+// GLOBAL VARIABLE
 //======================================
 
 const form = document.getElementById("applicationForm");
 
 const today = new Date();
 
-const applicationDate = document.getElementById("applicationDate");
+
+//======================================
+// APPLICATION DATE
+//======================================
+
+const applicationDate =
+document.getElementById("applicationDate");
+
 
 if(applicationDate){
 
-applicationDate.value =
-
-today.toLocaleDateString("en-GB");
+    applicationDate.value =
+    today.toLocaleDateString("en-GB");
 
 }
 
+
 //======================================
-// APPLICATION ID
+// APPLICATION ID GENERATOR
 //======================================
 
 function generateApplicationID(){
 
-const year = today.getFullYear();
+    const year =
+    today.getFullYear();
 
-const random =
 
-Math.floor(
+    const random =
+    Math.floor(
+        100000 +
+        Math.random()*900000
+    );
 
-100000 + Math.random()*900000
 
-);
-
-return `APP-${year}-${random}`;
+    return `APP-${year}-${random}`;
 
 }
 
-const applicationId =
 
+
+const applicationId =
 document.getElementById("applicationId");
+
+
 
 if(applicationId){
 
-applicationId.value =
-
-generateApplicationID();
+    applicationId.value =
+    generateApplicationID();
 
 }
+
 
 //======================================
 // TRACKING ID
@@ -88,649 +89,1228 @@ generateApplicationID();
 
 function generateTrackingID(){
 
-return
-
-"TRK"+
-
-Date.now();
+    return "TRK" + Date.now();
 
 }
 
-const tracking =
 
+
+const trackingId =
 document.getElementById("applicationTrackingId");
 
-if(tracking){
 
-tracking.value =
 
-generateTrackingID();
+if(trackingId){
+
+    trackingId.value =
+    generateTrackingID();
 
 }
+
 
 //======================================
 // PHOTO PREVIEW
 //======================================
 
-const photoUpload =
 
+const photoUpload =
 document.getElementById("photoUpload");
 
-const preview =
 
+const applicantPreview =
 document.getElementById("applicantPreview");
+
+
 
 if(photoUpload){
 
-photoUpload.addEventListener(
 
-"change",
+    photoUpload.addEventListener(
+        "change",
+        function(event){
 
-function(e){
 
-const file =
+            const file =
+            event.target.files[0];
 
-e.target.files[0];
 
-if(file){
+            if(file && applicantPreview){
 
-preview.src =
 
-URL.createObjectURL(file);
+                applicantPreview.src =
+                URL.createObjectURL(file);
+
+
+            }
+
+
+        }
+    );
+
 
 }
 
-});
-
-}
 
 //======================================
-// PRESENT ADDRESS
-// SAME AS PERMANENT
+// SAME ADDRESS CHECK
 //======================================
+
 
 const sameAddress =
-
 document.getElementById("sameAddress");
+
+
 
 if(sameAddress){
 
-sameAddress.addEventListener(
 
-"change",
+    sameAddress.addEventListener(
+        "change",
+        function(){
 
-function(){
 
-if(this.checked){
+            if(this.checked){
 
-document.getElementById("permanentCare").value
 
-=
+                document.getElementById("permanentCare").value =
+                document.getElementById("presentCare").value;
 
-document.getElementById("presentCare").value;
 
-document.getElementById("permanentVillage").value
 
-=
+                document.getElementById("permanentVillage").value =
+                document.getElementById("presentVillage").value;
 
-document.getElementById("presentVillage").value;
 
-document.getElementById("permanentPostOffice").value
 
-=
+                document.getElementById("permanentPostOffice").value =
+                document.getElementById("presentPostOffice").value;
 
-document.getElementById("presentPostOffice").value;
 
-document.getElementById("permanentPostCode").value
 
-=
+                document.getElementById("permanentPostCode").value =
+                document.getElementById("presentPostCode").value;
 
-document.getElementById("presentPostCode").value;
 
-document.getElementById("permanentUpazila").value
 
-=
+                document.getElementById("permanentUpazila").value =
+                document.getElementById("presentUpazila").value;
 
-document.getElementById("presentUpazila").value;
 
-document.getElementById("permanentDistrict").value
 
-=
+                document.getElementById("permanentDistrict").value =
+                document.getElementById("presentDistrict").value;
 
-document.getElementById("presentDistrict").value;
 
-}
+            }
 
-});
+
+        }
+    );
+
 
 }
 
 //======================================
 // FORM VALIDATION
-// Part 2
 //======================================
 
-// মোবাইল নম্বর যাচাই
+
 function validMobile(number){
 
-const regex = /^01[3-9]\d{8}$/;
+    const regex =
+    /^01[3-9]\d{8}$/;
 
-return regex.test(number);
+    return regex.test(number);
 
 }
 
-// NID যাচাই
+
+
 function validNID(nid){
 
-if(nid==="") return true;
 
-const regex = /^[0-9]{10,17}$/;
+    if(nid===""){
 
-return regex.test(nid);
+        return true;
+
+    }
+
+
+    const regex =
+    /^[0-9]{10,17}$/;
+
+
+    return regex.test(nid);
+
 
 }
 
-// বয়স গণনা
+
+
+//======================================
+// AGE CALCULATION
+//======================================
+
+
 function calculateAge(dob){
 
-const birth = new Date(dob);
 
-const today = new Date();
+    const birth =
+    new Date(dob);
 
-let age = today.getFullYear() - birth.getFullYear();
 
-const m = today.getMonth() - birth.getMonth();
+    const current =
+    new Date();
 
-if(m<0 || (m===0 && today.getDate()<birth.getDate())){
 
-age--;
+    let age =
+    current.getFullYear()
+    -
+    birth.getFullYear();
+
+
+
+    const month =
+    current.getMonth()
+    -
+    birth.getMonth();
+
+
+
+    if(
+        month < 0 ||
+        (
+            month===0 &&
+            current.getDate()
+            <
+            birth.getDate()
+        )
+    ){
+
+        age--;
+
+    }
+
+
+    return age;
+
 
 }
 
-return age;
 
-}
+
 
 //======================================
-// DOB Change
+// DOB EVENT
 //======================================
 
-const dob = document.getElementById("dob");
+
+const dob =
+document.getElementById("dob");
+
 
 if(dob){
 
-dob.addEventListener("change",()=>{
 
-const age = calculateAge(dob.value);
+    dob.addEventListener(
+        "change",
+        ()=>{
 
-console.log("Applicant Age :",age);
 
-});
+            const age =
+            calculateAge(dob.value);
+
+
+            console.log(
+                "Applicant Age:",
+                age
+            );
+
+
+        }
+    );
+
 
 }
 
+
+
 //======================================
-// REQUIRED FIELD CHECK
+// REQUIRED CHECK
 //======================================
+
 
 function validateForm(){
 
-const applicantName =
-document.getElementById("applicantName").value.trim();
 
-const fatherName =
-document.getElementById("fatherName").value.trim();
+    const name =
+    document.getElementById("applicantName")
+    ?.value
+    .trim();
 
-const motherName =
-document.getElementById("motherName").value.trim();
 
-const mobile =
-document.getElementById("mobile").value.trim();
 
-const gender =
-document.getElementById("gender").value;
+    const father =
+    document.getElementById("fatherName")
+    ?.value
+    .trim();
 
-if(applicantName===""){
 
-alert("Applicant Name লিখুন");
 
-return false;
+    const mother =
+    document.getElementById("motherName")
+    ?.value
+    .trim();
+
+
+
+    const mobile =
+    document.getElementById("mobile")
+    ?.value
+    .trim();
+
+
+
+    const gender =
+    document.getElementById("gender")
+    ?.value;
+
+
+
+    if(!name){
+
+
+        alert(
+            "Applicant Name লিখুন"
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(!father){
+
+
+        alert(
+            "Father Name লিখুন"
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(!mother){
+
+
+        alert(
+            "Mother Name লিখুন"
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(!gender){
+
+
+        alert(
+            "Gender নির্বাচন করুন"
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(!validMobile(mobile)){
+
+
+        alert(
+            "সঠিক মোবাইল নম্বর লিখুন"
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+
+    const nid =
+    document.getElementById("nid")
+    ?.value
+    .trim();
+
+
+
+    if(!validNID(nid)){
+
+
+        alert(
+            "সঠিক NID নম্বর লিখুন"
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    return true;
+
 
 }
 
-if(fatherName===""){
 
-alert("Father's Name লিখুন");
 
-return false;
 
-}
 
-if(motherName===""){
+//======================================
+// COLLECT APPLICATION DATA
+//======================================
 
-alert("Mother's Name লিখুন");
 
-return false;
+function collectApplicationData(){
 
-}
 
-if(gender===""){
 
-alert("Gender নির্বাচন করুন");
+    return {
 
-return false;
 
-}
+        applicationId:
+        document.getElementById("applicationId")
+        ?.value || "",
 
-if(!validMobile(mobile)){
 
-alert("সঠিক মোবাইল নম্বর লিখুন");
 
-return false;
+        applicationDate:
+        document.getElementById("applicationDate")
+        ?.value || "",
 
-}
 
-const nid =
-document.getElementById("nid").value.trim();
 
-if(!validNID(nid)){
+        applicantName:
+        document.getElementById("applicantName")
+        ?.value || "",
 
-alert("সঠিক NID নম্বর লিখুন");
 
-return false;
 
-}
+        fatherName:
+        document.getElementById("fatherName")
+        ?.value || "",
 
-return true;
+
+
+        motherName:
+        document.getElementById("motherName")
+        ?.value || "",
+
+
+
+        gender:
+        document.getElementById("gender")
+        ?.value || "",
+
+
+
+        mobile:
+        document.getElementById("mobile")
+        ?.value || "",
+
+
+
+        nid:
+        document.getElementById("nid")
+        ?.value || "",
+
+
+
+        email:
+        document.getElementById("email")
+        ?.value || "",
+
+
+
+        dob:
+        document.getElementById("dob")
+        ?.value || "",
+
+
+
+        createdAt:
+        serverTimestamp()
+
+
+    };
+
 
 }
 
 //======================================
-// PAYMENT LOGIC
+// PAYMENT CHECK
 //======================================
+
 
 function paymentRequired(){
 
-const payment =
-document.getElementById("paymentRequired");
 
-if(!payment) return false;
+    const payment =
+    document.getElementById("paymentRequired");
 
-return payment.value==="true";
+
+    if(!payment){
+
+        return false;
+
+    }
+
+
+    return payment.value === "true";
+
 
 }
 
+
+
+
 //======================================
-// SUBMIT APPLICATION
+// SAVE APPLICATION TO FIRESTORE
 //======================================
+
+
+async function saveApplication(){
+
+
+
+    const data =
+    collectApplicationData();
+
+
+
+    try{
+
+
+        const docRef =
+        await addDoc(
+
+            collection(
+                db,
+                "applications"
+            ),
+
+            data
+
+        );
+
+
+
+        return docRef.id;
+
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            "Save Error:",
+            error
+        );
+
+
+        throw error;
+
+
+    }
+
+
+}
+
+
+
+
+
+//======================================
+// SUCCESS MESSAGE
+//======================================
+
+
+function showSuccess(id){
+
+
+    const box =
+    document.getElementById("successMessage");
+
+
+
+    if(box){
+
+
+        box.innerHTML = `
+
+        <div class="success-box">
+
+        <h3>
+        আবেদন সফল হয়েছে
+        </h3>
+
+
+        <p>
+        Application ID:
+        <strong>${id}</strong>
+        </p>
+
+
+        <p>
+        আপনার আবেদন সংরক্ষণ করা হয়েছে।
+        </p>
+
+
+        </div>
+
+        `;
+
+
+        box.style.display =
+        "block";
+
+
+    }
+    else{
+
+
+        alert(
+            "আবেদন সফল হয়েছে। ID: "
+            + id
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+//======================================
+// LOADING
+//======================================
+
+
+function showLoading(){
+
+
+    const loading =
+    document.getElementById(
+        "loadingScreen"
+    );
+
+
+    if(loading){
+
+        loading.style.display =
+        "block";
+
+    }
+
+
+}
+
+
+
+
+function hideLoading(){
+
+
+    const loading =
+    document.getElementById(
+        "loadingScreen"
+    );
+
+
+    if(loading){
+
+        loading.style.display =
+        "none";
+
+    }
+
+
+}
+
+
+
+
+
+//======================================
+// FORM SUBMIT
+//======================================
+
 
 if(form){
 
-form.addEventListener("submit", async (e)=>{
 
-e.preventDefault();
 
-if(!validateForm()){
+    form.addEventListener(
 
-return;
+        "submit",
+
+        async function(e){
+
+
+            e.preventDefault();
+
+
+
+            if(
+                !validateForm()
+            ){
+
+                return;
+
+            }
+
+
+
+            try{
+
+
+                showLoading();
+
+
+
+                const applicationID =
+                await saveApplication();
+
+
+
+                hideLoading();
+
+
+
+                showSuccess(
+                    applicationID
+                );
+
+
+
+                form.reset();
+
+
+
+            }
+            catch(error){
+
+
+
+                hideLoading();
+
+
+
+                alert(
+                    "আবেদন সংরক্ষণে সমস্যা হয়েছে"
+                );
+
+
+
+                console.error(error);
+
+
+
+            }
+
+
+
+        }
+
+
+    );
+
+
 
 }
 
-if(paymentRequired()){
+//======================================
+// ADDRESS DATA
+//======================================
 
-if(document.getElementById("paymentStatus").value!=="PAID"){
 
-alert("আবেদন করার আগে Payment সম্পন্ন করুন।");
+function collectAddressData(){
 
-return;
+
+    return {
+
+
+        presentAddress:{
+
+
+            care:
+            document.getElementById("presentCare")
+            ?.value || "",
+
+
+            village:
+            document.getElementById("presentVillage")
+            ?.value || "",
+
+
+            postOffice:
+            document.getElementById("presentPostOffice")
+            ?.value || "",
+
+
+            postCode:
+            document.getElementById("presentPostCode")
+            ?.value || "",
+
+
+            upazila:
+            document.getElementById("presentUpazila")
+            ?.value || "",
+
+
+            district:
+            document.getElementById("presentDistrict")
+            ?.value || ""
+
+        },
+
+
+
+        permanentAddress:{
+
+
+            care:
+            document.getElementById("permanentCare")
+            ?.value || "",
+
+
+            village:
+            document.getElementById("permanentVillage")
+            ?.value || "",
+
+
+            postOffice:
+            document.getElementById("permanentPostOffice")
+            ?.value || "",
+
+
+            postCode:
+            document.getElementById("permanentPostCode")
+            ?.value || "",
+
+
+            upazila:
+            document.getElementById("permanentUpazila")
+            ?.value || "",
+
+
+            district:
+            document.getElementById("permanentDistrict")
+            ?.value || ""
+
+
+        }
+
+
+    };
+
 
 }
 
+
+
+
+//======================================
+// EDUCATION DATA
+//======================================
+
+
+function collectEducationData(){
+
+
+
+    return {
+
+
+        SSC:{
+
+
+            board:
+            document.getElementById("sscBoard")
+            ?.value || "",
+
+
+            roll:
+            document.getElementById("sscRoll")
+            ?.value || "",
+
+
+            registration:
+            document.getElementById("sscReg")
+            ?.value || "",
+
+
+            result:
+            document.getElementById("sscResult")
+            ?.value || "",
+
+
+            year:
+            document.getElementById("sscYear")
+            ?.value || ""
+
+        },
+
+
+
+        HSC:{
+
+
+            board:
+            document.getElementById("hscBoard")
+            ?.value || "",
+
+
+            roll:
+            document.getElementById("hscRoll")
+            ?.value || "",
+
+
+            registration:
+            document.getElementById("hscReg")
+            ?.value || "",
+
+
+            result:
+            document.getElementById("hscResult")
+            ?.value || "",
+
+
+            year:
+            document.getElementById("hscYear")
+            ?.value || ""
+
+
+        },
+
+
+
+        Honours:{
+
+
+            university:
+            document.getElementById("honoursUniversity")
+            ?.value || "",
+
+
+            roll:
+            document.getElementById("honoursRoll")
+            ?.value || "",
+
+
+            registration:
+            document.getElementById("honoursReg")
+            ?.value || "",
+
+
+            result:
+            document.getElementById("honoursResult")
+            ?.value || "",
+
+
+            year:
+            document.getElementById("honoursYear")
+            ?.value || ""
+
+
+        }
+
+
+    };
+
+
 }
 
-const loading=document.getElementById("loadingScreen");
 
-if(loading){
 
-loading.style.display="flex";
+
+//======================================
+// JOB INFORMATION
+//======================================
+
+
+function collectJobData(){
+
+
+
+    return {
+
+
+        jobId:
+        document.getElementById("jobId")
+        ?.value || "",
+
+
+
+        jobTitle:
+        document.getElementById("jobTitle")
+        ?.value || "",
+
+
+
+        companyName:
+        document.getElementById("companyName")
+        ?.value || "",
+
+
+
+        jobType:
+        document.getElementById("jobType")
+        ?.value || ""
+
+
+    };
+
 
 }
 
-try{
 
-const applicationData={
 
-applicationId:
-document.getElementById("applicationId").value,
 
-trackingId:
-document.getElementById("applicationTrackingId").value,
+//======================================
+// EXTEND APPLICATION DATA
+//======================================
 
-jobId:
-document.getElementById("jobId").value,
 
-companyName:
-document.getElementById("jobCompany").value,
+const oldCollectData =
+collectApplicationData;
 
-jobTitle:
-document.getElementById("jobTitle").value,
 
-applicantName:
-document.getElementById("applicantName").value,
 
-fatherName:
-document.getElementById("fatherName").value,
+collectApplicationData = function(){
 
-motherName:
-document.getElementById("motherName").value,
 
-dob:
-document.getElementById("dob").value,
 
-gender:
-document.getElementById("gender").value,
+    return {
 
-religion:
-document.getElementById("religion").value,
 
-nationality:
-document.getElementById("nationality").value,
+        ...oldCollectData(),
 
-mobile:
-document.getElementById("mobile").value,
 
-email:
-document.getElementById("email").value,
+        address:
+        collectAddressData(),
 
-nid:
-document.getElementById("nid").value,
 
-birthRegistration:
-document.getElementById("birthRegistration").value,
 
-paymentStatus:
-document.getElementById("paymentStatus").value,
+        education:
+        collectEducationData(),
 
-paymentMethod:
-document.getElementById("paymentMethod").value,
 
-transactionId:
-document.getElementById("transactionId").value,
 
-status:"Pending",
+        job:
+        collectJobData()
 
-createdAt:serverTimestamp()
+
+    };
+
 
 };
 
-await addDoc(
+//======================================
+// PDF TEMPLATE CONNECT
+//======================================
 
-collection(db,"applications"),
 
-applicationData
+async function generatePDF(){
 
+
+    try{
+
+
+        const data =
+        collectApplicationData();
+
+
+
+        if(
+            window.generateApplicationPDF
+        ){
+
+
+            window.generateApplicationPDF(
+                data
+            );
+
+
+        }
+        else{
+
+
+            console.warn(
+                "PDF Template not loaded"
+            );
+
+
+        }
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            "PDF Error:",
+            error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+//======================================
+// PDF BUTTON
+//======================================
+
+
+const pdfButton =
+document.getElementById(
+    "downloadPDF"
 );
 
-if(loading){
 
-loading.style.display="none";
 
-}
+if(pdfButton){
 
-document.getElementById("successApplicationId").innerText=
 
-applicationData.applicationId;
+    pdfButton.addEventListener(
+        "click",
+        generatePDF
+    );
 
-document.getElementById("successTrackingId").innerText=
-
-applicationData.trackingId;
-
-document.getElementById("successMessage").style.display="block";
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-}catch(error){
-
-console.error(error);
-
-if(loading){
-
-loading.style.display="none";
 
 }
 
-document.getElementById("errorText").innerText=
 
-error.message;
 
-document.getElementById("errorMessage").style.display="block";
 
-}
-
-});
-
-}
 
 //======================================
-// APPLICATION PREVIEW
-// Part 4
+// WEBSITE INFORMATION
 //======================================
 
-const previewButton =
-document.getElementById("previewButton");
 
-if(previewButton){
+const websiteURL =
+"https://sagorkhanbd.github.io/SKJobBD";
 
-previewButton.addEventListener("click",()=>{
 
-const preview =
-document.getElementById("previewContent");
 
-preview.innerHTML=`
+const websiteLink =
+document.querySelectorAll(
+    ".website-link"
+);
 
-<h3>Application Preview</h3>
 
-<p><b>Applicant :</b>
-${document.getElementById("applicantName").value}</p>
 
-<p><b>Father :</b>
-${document.getElementById("fatherName").value}</p>
+websiteLink.forEach(
+    item=>{
 
-<p><b>Mother :</b>
-${document.getElementById("motherName").value}</p>
 
-<p><b>Mobile :</b>
-${document.getElementById("mobile").value}</p>
+        item.href =
+        websiteURL;
 
-<p><b>Email :</b>
-${document.getElementById("email").value}</p>
 
-<p><b>Job Title :</b>
-${document.getElementById("jobTitle").value}</p>
+        item.innerText =
+        websiteURL;
 
-<p><b>Company :</b>
-${document.getElementById("jobCompany").value}</p>
 
-<p><b>Application ID :</b>
-${document.getElementById("applicationId").value}</p>
+    }
+);
 
-`;
 
-document.getElementById("applicationPreviewArea")
 
-.scrollIntoView({
 
-behavior:"smooth"
-
-});
-
-});
-
-}
 
 //======================================
-// PRINT
+// AUTO CURRENT YEAR
 //======================================
 
-const printButton =
-document.getElementById("printButton");
 
-if(printButton){
+const yearElements =
+document.querySelectorAll(
+    ".current-year"
+);
 
-printButton.addEventListener("click",()=>{
 
-window.print();
 
-});
+yearElements.forEach(
+    item=>{
 
-}
 
-//======================================
-// DOWNLOAD PDF
-//======================================
+        item.innerText =
+        new Date()
+        .getFullYear();
 
-const downloadButton =
-document.getElementById("downloadPdfButton");
 
-if(downloadButton){
+    }
+);
 
-downloadButton.addEventListener("click",()=>{
 
-if(typeof generateApplicationPDF==="function"){
 
-generateApplicationPDF();
 
-}else{
-
-alert("PDF Template এখনও সংযুক্ত করা হয়নি।");
-
-}
-
-});
-
-}
 
 //======================================
-// PAYMENT BUTTON
+// GLOBAL EXPORT
 //======================================
 
-const paymentButton =
-document.getElementById("paymentButton");
 
-if(paymentButton){
+window.SKJobApplication = {
 
-paymentButton.addEventListener("click",()=>{
 
-if(document.getElementById("applicationFee").value==="0.00"){
+    generateApplicationID,
 
-alert("এই চাকরির জন্য কোনো আবেদন ফি নেই।");
+    generateTrackingID,
 
-document.getElementById("paymentStatus").value="FREE";
+    collectApplicationData,
 
-return;
+    generatePDF
 
-}
 
-alert("Payment Gateway পরে সংযুক্ত করা হবে।");
+};
 
-});
 
-}
 
 //======================================
-// APPLY.JS
-// FINAL PART
+// SYSTEM READY
 //======================================
 
-// QR Verification Placeholder
-function loadVerificationInfo(){
 
-const verifyApplicationId =
-document.getElementById("verifyApplicationId");
-
-const verifyJobId =
-document.getElementById("verifyJobId");
-
-const verifyStatus =
-document.getElementById("verifyStatus");
-
-if(verifyApplicationId){
-
-verifyApplicationId.innerText =
-document.getElementById("applicationId").value;
-
-}
-
-if(verifyJobId){
-
-verifyJobId.innerText =
-document.getElementById("jobId").value;
-
-}
-
-if(verifyStatus){
-
-verifyStatus.innerText =
-document.getElementById("paymentStatus").value;
-
-}
-
-}
-
-//======================================
-// RESET FORM
-//======================================
-
-function resetApplicationForm(){
-
-if(form){
-
-form.reset();
-
-}
-
-if(preview){
-
-preview.src="";
-
-}
-
-}
-
-//======================================
-// SUCCESS REDIRECT (Future Use)
-//======================================
-
-function redirectAfterSubmit(){
-
-console.log("Application Submitted Successfully");
-
-}
-
-//======================================
-// PAYMENT GATEWAY PLACEHOLDER
-//======================================
-
-function startPaymentGateway(){
-
-console.log("Future Payment Gateway");
-
-}
-
-//======================================
-// INITIAL LOAD
-//======================================
-
-window.addEventListener("load",()=>{
-
-loadVerificationInfo();
-
-console.log("SK Job BD Application System Ready");
-
-});
+console.log(
+    "SK Job BD Application System Ready"
+);
