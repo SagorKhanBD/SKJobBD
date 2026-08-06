@@ -531,3 +531,38 @@ Employer Login CSS Completed
 .registerBtn{
     font-size:24px !important;
 }
+/* Password Eye */
+
+.passwordBox{
+
+    position:relative;
+
+    width:100%;
+
+}
+
+
+.passwordBox input{
+
+    padding-right:55px;
+
+}
+
+
+.eyeIcon{
+
+    position:absolute;
+
+    right:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
