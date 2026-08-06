@@ -1,316 +1,221 @@
-/*
-================================================
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Employer Login | SK Job BD
+</title>
+
+<link rel="stylesheet"
+href="login.css">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="topHeader">
+
+<div class="headerContainer">
+
+<h1>SK Job BD</h1>
+
+<p>
+Employer & Institution Portal
+</p>
+
+</div>
+
+</header>
+
+<main class="loginContainer">
+
+<div class="loginCard">
+
+<div class="titleArea">
+
+<h2>
+
+নিয়োগকারী প্রতিষ্ঠান লগইন
+
+</h2>
+
+<p>
+
+কোম্পানি • শিক্ষা প্রতিষ্ঠান • এনজিও • হাসপাতাল • ব্যাংক • সরকারি ও অন্যান্য প্রতিষ্ঠান
+
+</p>
+
+</div>
+
+<form id="loginForm">
+
+<div class="inputGroup">
+
+<label>
+
+মোবাইল নম্বর <span>*</span>
+
+</label>
+
+<input
+type="text"
+id="mobile"
+maxlength="11"
+placeholder="01XXXXXXXXX"
+required>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+
+পাসওয়ার্ড <span>*</span>
+
+</label>
+
+<input
+type="password"
+id="password"
+placeholder="আপনার পাসওয়ার্ড লিখুন"
+required>
+
+</div>
+
+<div class="rememberArea">
+
+<label>
+
+<input
+type="checkbox"
+id="rememberMe">
+
+আমাকে মনে রাখুন
+
+</label>
+
+</div>
+
+<div
+id="message"
+class="messageBox">
+
+</div>
+<div class="buttonArea">
+
+<button
+type="submit"
+class="loginBtn">
+
+লগইন করুন
+
+</button>
+
+</div>
+
+</form>
+
+<div class="forgotArea">
+
+<a href="forgot-password.html">
+
+পাসওয়ার্ড ভুলে গেছেন?
+
+</a>
+
+</div>
+
+<hr class="divider">
+
+<div class="registerArea">
+
+<p>
+
+নতুন প্রতিষ্ঠান / কোম্পানি / শিক্ষা প্রতিষ্ঠান?
+
+</p>
+
+<a
+href="register.html"
+class="registerBtn">
+
+নিবন্ধন করুন
+
+</a>
+
+</div>
+
+<div class="homeArea">
+
+<a
+href="../index.html"
+class="homeBtn">
+
+← হোম পেজে ফিরে যান
+
+</a>
+
+</div>
+
+</div>
+
+</main>
+
+<footer>
+
+<div class="footerContainer">
+
+<p>
+
+© 2026 SK Job BD
+
+</p>
+
+<small>
+
+Employer & Institution Portal
+
+</small>
+
+<br>
+
+<small>
+
+Powered by
+
+<strong>
+
 SK Job BD
-Employer Login System
-Professional Version
-Part 1/3
-================================================
-*/
 
-import { db, auth } from "../firebase.js";
+</strong>
 
-import {
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+</small>
 
-import {
-    signInWithEmailAndPassword,
-    setPersistence,
-    browserLocalPersistence,
-    browserSessionPersistence
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+</div>
 
-/*=========================================
-Elements
-=========================================*/
+</footer>
+<!-- =========================================
+JavaScript
+========================================= -->
 
-const loginForm = document.getElementById("loginForm");
+<script type="module" src="login.js"></script>
 
-const message = document.getElementById("message");
+</body>
 
-const rememberMe = document.getElementById("rememberMe");
-
-/*=========================================
-Login Submit
-=========================================*/
-
-loginForm.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    message.style.color = "red";
-    message.innerHTML = "";
-
-/*=========================================
-Get Values
-=========================================*/
-
-    const mobile =
-        document.getElementById("mobile").value.trim();
-
-    const password =
-        document.getElementById("password").value;
-
-/*=========================================
-Validation
-=========================================*/
-
-    if (mobile === "" || password === "") {
-
-        message.innerHTML =
-            "❌ মোবাইল নম্বর এবং Password লিখুন।";
-
-        return;
-
-    }
-
-    const mobilePattern = /^01[3-9]\d{8}$/;
-
-    if (!mobilePattern.test(mobile)) {
-
-        message.innerHTML =
-            "❌ সঠিক মোবাইল নম্বর লিখুন।";
-
-        return;
-
-    }
-
-/*=========================================
-Email Convert
-=========================================*/
-
-    const email =
-        mobile + "@skjobbd.com";
-
-/*=========================================
-Remember Me
-=========================================*/
-
-    try {
-
-        if (rememberMe.checked) {
-
-            await setPersistence(
-                auth,
-                browserLocalPersistence
-            );
-
-        } else {
-
-            await setPersistence(
-                auth,
-                browserSessionPersistence
-            );
-
-        }
-
-/*=========================================
-Firebase Login
-=========================================*/
-
-        const userCredential =
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-        const user = userCredential.user;
-/*=========================================
-Load Company Information
-=========================================*/
-
-        const companyRef = doc(db, "companies", user.uid);
-
-        const companySnap = await getDoc(companyRef);
-
-        if (!companySnap.exists()) {
-
-            message.style.color = "red";
-
-            message.innerHTML =
-                "❌ কোম্পানির তথ্য পাওয়া যায়নি।";
-
-            return;
-
-        }
-
-        const company = companySnap.data();
-
-/*=========================================
-Approval Check
-=========================================*/
-
-        if (company.status !== "approved") {
-
-            message.style.color = "orange";
-
-            message.innerHTML =
-                "⏳ Registration Successful. Admin Approval Pending.";
-
-            await auth.signOut();
-
-            return;
-
-        }
-
-/*=========================================
-Session Storage
-=========================================*/
-
-        sessionStorage.setItem(
-            "companyUID",
-            user.uid
-        );
-
-        sessionStorage.setItem(
-            "companyName",
-            company.companyName
-        );
-
-        sessionStorage.setItem(
-            "ownerName",
-            company.ownerName
-        );
-
-        sessionStorage.setItem(
-            "accountType",
-            company.accountType
-        );
-
-/*=========================================
-Success
-=========================================*/
-
-        message.style.color = "green";
-
-        message.innerHTML =
-            "✅ Login Successful...";
-
-/*=========================================
-Redirect
-=========================================*/
-
-        setTimeout(() => {
-
-            window.location.href =
-                "dashboard.html";
-
-        }, 1500);
-      /*=========================================
-Error Handling
-=========================================*/
-
-    } catch (error) {
-
-        console.error("Employer Login Error:", error);
-
-        message.style.color = "red";
-
-        switch (error.code) {
-
-            case "auth/invalid-credential":
-                message.innerHTML =
-                    "❌ মোবাইল নম্বর অথবা Password সঠিক নয়।";
-                break;
-
-            case "auth/user-not-found":
-                message.innerHTML =
-                    "❌ কোনো অ্যাকাউন্ট পাওয়া যায়নি।";
-                break;
-
-            case "auth/wrong-password":
-                message.innerHTML =
-                    "❌ Password ভুল হয়েছে।";
-                break;
-
-            case "auth/too-many-requests":
-                message.innerHTML =
-                    "❌ অনেকবার ভুল Login হয়েছে। পরে আবার চেষ্টা করুন।";
-                break;
-
-            case "auth/network-request-failed":
-                message.innerHTML =
-                    "❌ Internet Connection পাওয়া যাচ্ছে না।";
-                break;
-
-            default:
-                message.innerHTML =
-                    "❌ Login Failed : " + error.message;
-        }
-
-    }
-
-});
-
-/*=========================================
-Security Check
-=========================================*/
-
-if (!loginForm) {
-
-    console.error("Login Form Not Found");
-
-}
-
-window.addEventListener("offline", () => {
-
-    message.style.color = "red";
-
-    message.innerHTML =
-        "❌ Internet Connection বিচ্ছিন্ন হয়েছে।";
-
-});
-
-window.addEventListener("online", () => {
-
-    message.style.color = "green";
-
-    message.innerHTML =
-        "✅ Internet Connection পুনরায় চালু হয়েছে।";
-
-});
-
-/*=========================================
-Auto Session Check
-=========================================*/
-
-import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
-onAuthStateChanged(auth, async (user) => {
-
-    if (!user) return;
-
-    try {
-
-        const companyRef = doc(db, "companies", user.uid);
-
-        const companySnap = await getDoc(companyRef);
-
-        if (!companySnap.exists()) return;
-
-        const company = companySnap.data();
-
-        if (company.status === "approved") {
-
-            window.location.href = "dashboard.html";
-
-        }
-
-    } catch (err) {
-
-        console.error(err);
-
-    }
-
-});
-
-/*=========================================
-SK Job BD
-Employer Login System
-Professional Version
-Completed
-=========================================*/
+</html>
