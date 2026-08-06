@@ -1,347 +1,301 @@
 /*
 ================================================
 SK Job BD
-Company Registration System
-register.js
-Part 1
+Employer Registration System
+Professional Version
+Part 1/3
 ================================================
 */
 
-
-import { db } from "../firebase.js";
-
+import { db, auth } from "../firebase.js";
 
 import {
-
-    collection,
-
-    addDoc,
-
+    doc,
+    setDoc,
     serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-}
+import {
+    createUserWithEmailAndPassword,
+    sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
-from
-"https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+/*=========================================
+Elements
+=========================================*/
 
+const registerForm = document.getElementById("registerForm");
+const message = document.getElementById("message");
 
+/*=========================================
+Submit Event
+=========================================*/
 
-// ==============================================
-// Register Form
-// ==============================================
+registerForm.addEventListener("submit", async (e) => {
 
-const registerForm =
-document.getElementById("registerForm");
+    e.preventDefault();
 
+    message.style.color = "red";
+    message.innerHTML = "";
 
-const message =
-document.getElementById("message");
+/*=========================================
+Get Form Data
+=========================================*/
 
+    const companyName =
+        document.getElementById("companyName").value.trim();
 
+    const institutionCode =
+        document.getElementById("institutionCode").value.trim();
 
+    const ownerName =
+        document.getElementById("ownerName").value.trim();
 
-// ==============================================
-// Submit Event
-// ==============================================
+    const mobile =
+        document.getElementById("mobile").value.trim();
 
+    const email =
+        document.getElementById("email").value.trim();
 
-registerForm.addEventListener(
+    const password =
+        document.getElementById("password").value;
 
-"submit",
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
 
-async function(e){
+/*=========================================
+Validation
+=========================================*/
 
+    if (
+        companyName === "" ||
+        ownerName === "" ||
+        mobile === "" ||
+        email === "" ||
+        password === "" ||
+        confirmPassword === ""
+    ) {
 
-e.preventDefault();
+        message.innerHTML =
+            "❌ সকল বাধ্যতামূলক তথ্য পূরণ করুন।";
 
+        return;
 
+    }
 
-message.style.color = "red";
+    const mobilePattern = /^01[3-9]\d{8}$/;
 
-message.innerHTML = "";
+    if (!mobilePattern.test(mobile)) {
 
+        message.innerHTML =
+            "❌ সঠিক মোবাইল নম্বর লিখুন।";
 
+        return;
 
-// ==============================================
-// Get Values
-// ==============================================
+    }
 
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const companyName =
+    if (!emailPattern.test(email)) {
 
-document.getElementById("companyName")
-.value
-.trim();
+        message.innerHTML =
+            "❌ সঠিক Email লিখুন।";
 
+        return;
 
+    }
 
-const institutionCode =
+    if (password.length < 8) {
 
-document.getElementById("institutionCode")
-.value
-.trim();
+        message.innerHTML =
+            "❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে।";
 
+        return;
 
+    }
 
-const ownerName =
+    if (password !== confirmPassword) {
 
-document.getElementById("ownerName")
-.value
-.trim();
+        message.innerHTML =
+            "❌ Password মিলছে না।";
 
+        return;
 
+    }
 
-const mobile =
+/*=========================================
+Firebase Authentication
+=========================================*/
 
-document.getElementById("mobile")
-.value
-.trim();
+    try {
 
+        const userCredential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
+        const user = userCredential.user;
 
-const email =
+        await sendEmailVerification(user);
+        /*=========================================
+Save Company Information
+=========================================*/
 
-document.getElementById("email")
-.value
-.trim();
+        await setDoc(
 
+            doc(db, "companies", user.uid),
 
+            {
 
-const password =
+                uid: user.uid,
 
-document.getElementById("password")
-.value;
+                companyName: companyName,
 
+                institutionCode: institutionCode,
 
+                ownerName: ownerName,
 
-const confirmPassword =
+                mobile: mobile,
 
-document.getElementById("confirmPassword")
-.value;
+                email: email,
 
+                accountType: "company",
 
+                status: "pending",
 
-// ==============================================
-// Validation
-// ==============================================
+                emailVerified: false,
 
+                subscription: {
 
-if(
+                    active: false,
 
-companyName === "" ||
+                    plan: "Free",
 
-ownerName === "" ||
+                    expireDate: null
 
-mobile === "" ||
+                },
 
-password === "" ||
+                wallet: {
 
-confirmPassword === ""
+                    balance: 0,
 
-){
+                    totalIncome: 0,
 
+                    totalWithdraw: 0
 
-message.innerHTML =
+                },
 
-"❌ সকল বাধ্যতামূলক তথ্য পূরণ করুন।";
+                createdAt: serverTimestamp(),
 
+                updatedAt: serverTimestamp()
 
-return;
+            }
 
+        );
 
-}
+/*=========================================
+Success Message
+=========================================*/
 
+        message.style.color = "green";
 
+        message.innerHTML =
 
-// Mobile Check
+        "✅ কোম্পানি অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে।<br>"
 
-const mobilePattern =
-/^01[3-9]\d{8}$/;
+        + "আপনার Email Verification সম্পন্ন করুন।<br>"
 
+        + "Admin Approval-এর পরে Login করতে পারবেন।";
 
+/*=========================================
+Reset Form
+=========================================*/
 
-if(!mobilePattern.test(mobile)){
+        registerForm.reset();
 
+/*=========================================
+Redirect
+=========================================*/
 
-message.innerHTML =
+        setTimeout(() => {
 
-"❌ সঠিক মোবাইল নম্বর লিখুন।";
+            window.location.href = "login.html";
 
+        }, 5000);
+/*=========================================
+Error Handling
+=========================================*/
 
-return;
+    } catch (error) {
 
+        console.error("Registration Error:", error);
 
-}
+        message.style.color = "red";
 
+        switch (error.code) {
 
+            case "auth/email-already-in-use":
+                message.innerHTML =
+                    "❌ এই Email দিয়ে ইতোমধ্যে একটি অ্যাকাউন্ট রয়েছে।";
+                break;
 
-// Password Check
+            case "auth/invalid-email":
+                message.innerHTML =
+                    "❌ সঠিক Email Address লিখুন।";
+                break;
 
-if(password.length < 8){
+            case "auth/weak-password":
+                message.innerHTML =
+                    "❌ Password খুব দুর্বল। কমপক্ষে ৮ অক্ষর ব্যবহার করুন।";
+                break;
 
+            case "auth/network-request-failed":
+                message.innerHTML =
+                    "❌ Internet Connection পাওয়া যাচ্ছে না।";
+                break;
 
-message.innerHTML =
+            default:
+                message.innerHTML =
+                    "❌ Registration Failed : " + error.message;
+        }
 
-"❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে।";
-
-
-return;
-
-
-}
-
-
-
-// Confirm Password
-
-if(password !== confirmPassword){
-
-
-message.innerHTML =
-
-"❌ Password মিলছে না।";
-
-
-return;
-
-
-}
-
-    // ==============================================
-// Save Company Data to Firestore
-// ==============================================
-
-try{
-
-
-const companyData = {
-
-
-    companyName: companyName,
-
-    institutionCode: institutionCode,
-
-    ownerName: ownerName,
-
-    mobile: mobile,
-
-    email: email || "",
-
-    accountType: "company",
-
-    status: "pending",
-
-    createdAt: serverTimestamp()
-
-
-};
-
-
-
-// Save Data
-
-await addDoc(
-
-    collection(db,"companies"),
-
-    companyData
-
-);
-
-
-
-// ==============================================
-// Success Message
-// ==============================================
-
-
-message.style.color = "green";
-
-
-message.innerHTML =
-
-"✅ কোম্পানি একাউন্ট সফলভাবে তৈরি হয়েছে। Admin Approval-এর পরে সুবিধা চালু হবে।";
-
-
-
-// Reset Form
-
-registerForm.reset();
-
-
-
-// Redirect Login
-
-setTimeout(()=>{
-
-
-window.location.href =
-"login.html";
-
-
-},3000);
-
-
-
-}
-
-
-// ==============================================
-// Error Handling
-// ==============================================
-
-
-catch(error){
-
-
-console.error(
-
-"Company Registration Error:",
-
-error
-
-);
-
-
-
-message.style.color = "red";
-
-
-message.innerHTML =
-
-"❌ Registration Error: "
-
-+ error.message;
-
-
-
-}
-
-
+    }
 
 });
 
-// ==============================================
-// Final Security Check
-// ==============================================
+/*=========================================
+Security Check
+=========================================*/
 
+if (!registerForm) {
 
-// Prevent Empty Form Error
-
-if(!registerForm){
-
-    console.error(
-        "Register Form Not Found"
-    );
+    console.error("Register Form Not Found");
 
 }
 
+window.addEventListener("offline", () => {
 
+    message.style.color = "red";
 
-// ==============================================
-// SK Job BD
-// Company Registration Complete
-// ==============================================
+    message.innerHTML =
+        "❌ Internet Connection বিচ্ছিন্ন হয়েছে।";
 
+});
 
-// End of Script
+window.addEventListener("online", () => {
+
+    message.style.color = "green";
+
+    message.innerHTML =
+        "✅ Internet Connection পুনরায় চালু হয়েছে।";
+
+});
+
+/*=========================================
+SK Job BD
+Professional Employer Registration
+Completed
+=========================================*/
