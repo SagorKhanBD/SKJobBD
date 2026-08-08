@@ -204,28 +204,31 @@ Employer Login System
 Professional Version
 Completed
 =========================================*/
-// Show Hide Password
+// ============================================
+// Password Show / Hide
+// ============================================
 
-const togglePassword =
-document.getElementById("togglePassword");
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
 
-const password =
-document.getElementById("password");
+if (passwordInput && togglePassword) {
 
+    togglePassword.textContent = "👁";
 
-togglePassword.addEventListener("click",()=>{
+    togglePassword.addEventListener("click", function () {
 
-    if(password.type === "password"){
+        if (passwordInput.type === "password") {
 
-        password.type="text";
+            passwordInput.type = "text";
+            togglePassword.textContent = "👁";
 
-togglePassword.innerHTML = "👁️";
-    }else{
+        } else {
 
-        password.type="password";
+            passwordInput.type = "password";
+            togglePassword.textContent = "👁";
 
-        togglePassword.innerHTML="👁️";
+        }
 
-    }
+    });
 
-});
+}
