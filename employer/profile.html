@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>প্রতিষ্ঠান প্রোফাইল | SK Job BD</title>
+
+    <!-- Profile CSS -->
+    <link rel="stylesheet" href="profile.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= PROFILE HOME ================= -->
+
+    <main class="profileHome">
+
+
+        <!-- ================= INSTITUTION LOGO ================= -->
+
+        <div class="institutionLogoArea">
+
+            <img
+                id="institutionLogo"
+                src="../logo.png.png"
+                alt="প্রতিষ্ঠানের Logo"
+                class="institutionLogo">
+
+        </div>
+
+
+        <!-- ================= INSTITUTION NAME ================= -->
+
+        <div class="institutionNameArea">
+
+            <h1 id="institutionName">
+                প্রতিষ্ঠানের নাম
+            </h1>
+
+        </div>
+
+
+        <!-- ================= PROFILE ENTRY ================= -->
+
+        <div class="profileEntryArea">
+
+            <a
+                href="profile-details.html"
+                class="profileEnterBtn">
+
+                প্রোফাইলে প্রবেশ করুন
+
+            </a>
+
+        </div>
+
+
+        <!-- ================= POSTS ================= -->
+
+        <section class="postsSection">
+
+
+            <div class="sectionTitle">
+
+                <h2>
+                    আমার পোস্টসমূহ
+                </h2>
+
+                <p>
+                    আপনার প্রতিষ্ঠান থেকে প্রকাশিত পোস্টসমূহ
+                </p>
+
+            </div>
+
+
+            <!-- ================= POST LIST ================= -->
+
+            <div
+                id="myPosts"
+                class="postsList">
+
+
+                <!--
+                    Firebase থেকে প্রতিষ্ঠানের
+                    পোস্টগুলো এখানে স্বয়ংক্রিয়ভাবে আসবে।
+                -->
+
+
+                <div
+                    id="postsLoading"
+                    class="postsLoading">
+
+                    পোস্ট লোড হচ্ছে...
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= NO POSTS ================= -->
+
+            <div
+                id="noPosts"
+                class="noPosts"
+                style="display: none;">
+
+                এখনো কোনো পোস্ট প্রকাশ করা হয়নি।
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="profileFooter">
+
+        <p>
+            © 2026 SK Job BD
+        </p>
+
+        <small>
+            Employer / Institution Portal
+        </small>
+
+    </footer>
+
+
+
+    <!-- ================= PROFILE SCRIPT ================= -->
+
+    <script
+        type="module"
+        src="profile.js">
+    </script>
+
+
+</body>
+
+</html>
