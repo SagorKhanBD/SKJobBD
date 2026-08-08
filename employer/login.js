@@ -219,8 +219,7 @@ togglePassword.addEventListener("click",()=>{
 
         password.type="text";
 
-        togglePassword.innerHTML="🙈";
-
+togglePassword.innerHTML = "👁️";
     }else{
 
         password.type="password";
