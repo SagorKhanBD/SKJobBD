@@ -1,7 +1,7 @@
 // ======================================================
 // SK Job BD
 // Employer Dashboard
-// dashboard.js (Part 1)
+// dashboard.js
 // ======================================================
 
 import { db } from "../firebase.js";
@@ -11,163 +11,649 @@ import {
     getDoc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// ======================================
-// Check Login Session
-// ======================================
 
-const employer = JSON.parse(
-    localStorage.getItem("employerLogin")
-) ||
-JSON.parse(
-    sessionStorage.getItem("employerLogin")
-);
+// ======================================================
+// CHECK LOGIN SESSION
+// ======================================================
+
+const employer =
+    JSON.parse(
+        localStorage.getItem("employerLogin")
+    ) ||
+    JSON.parse(
+        sessionStorage.getItem("employerLogin")
+    );
+
+
+// ======================================================
+// LOGIN SESSION NOT FOUND
+// ======================================================
 
 if (!employer) {
 
-    window.location.href = "login.html";
+    window.location.href =
+        "login.html";
 
 }
 
-// ======================================
-// HTML Elements
-// ======================================
 
-const companyName =
+// ======================================================
+// HTML ELEMENTS
+// ======================================================
+
+const companyNameElement =
     document.getElementById("companyName");
 
-const contactPerson =
+const contactPersonElement =
     document.getElementById("contactPerson");
 
-const mobileNumber =
+const mobileNumberElement =
     document.getElementById("mobileNumber");
 
-const emailAddress =
+const emailAddressElement =
     document.getElementById("emailAddress");
 
-const accountStatus =
+const accountStatusElement =
     document.getElementById("accountStatus");
 
-// ======================================
-// Load Employer Information
-// ======================================
+const totalJobsElement =
+    document.getElementById("totalJobs");
+
+const totalApplicationsElement =
+    document.getElementById("totalApplications");
+
+const pendingJobsElement =
+    document.getElementById("pendingJobs");
+
+const approvedJobsElement =
+    document.getElementById("approvedJobs");
+
+
+// ======================================================
+// LOAD COMPANY PROFILE
+// ======================================================
 
 async function loadEmployerProfile() {
 
     try {
 
-        const ref = doc(db, "employers", employer.id);
+        // --------------------------------------------------
+        // Company UID
+        // --------------------------------------------------
 
-        const snap = await getDoc(ref);
+        const companyId =
+            employer.uid ||
+            employer.companyId;
 
-        if (!snap.exists()) {
 
-            alert("Employer তথ্য পাওয়া যায়নি।");
+        if (!companyId) {
+
+            console.error(
+                "Company UID পাওয়া যায়নি।"
+            );
+
+            window.location.href =
+                "login.html";
 
             return;
 
         }
 
-        const data = snap.data();
 
-        // Continue Part 2...        // ======================================
-        // Company Profile
-        // ======================================
+        // --------------------------------------------------
+        // FIRESTORE COMPANY DOCUMENT
+        // --------------------------------------------------
 
-        companyName.textContent =
-            data.organization || "-";
+        const companyRef =
+            doc(
+                db,
+                "companies",
+                companyId
+            );
 
-        contactPerson.textContent =
-            data.contactPerson || "-";
 
-        mobileNumber.textContent =
-            data.mobile || "-";
+        const companySnapshot =
+            await getDoc(
+                companyRef
+            );
 
-        emailAddress.textContent =
-            data.email || "-";
 
-        accountStatus.textContent =
-            data.status || "Pending";
+        // --------------------------------------------------
+        // COMPANY NOT FOUND
+        // --------------------------------------------------
 
-        // ======================================
-        // Dashboard Statistics
-        // ======================================
+        if (
+            !companySnapshot.exists()
+        ) {
 
-        document.getElementById("totalJobs").textContent =
-            data.totalJobs || 0;
+            console.error(
+                "Company profile পাওয়া যায়নি।"
+            );
 
-        document.getElementById("totalApplications").textContent =
-            data.totalApplications || 0;
+            alert(
+                "কোম্পানি Profile পাওয়া যায়নি।"
+            );
 
-        document.getElementById("pendingJobs").textContent =
-            data.pendingJobs || 0;
+            return;
 
-        document.getElementById("approvedJobs").textContent =
-            data.approvedJobs || 0;
+        }
+
+
+        // --------------------------------------------------
+        // COMPANY DATA
+        // --------------------------------------------------
+
+        const data =
+            companySnapshot.data();
+
+
+        console.log(
+            "Company Profile:",
+            data
+        );
+
+
+        // ==================================================
+        // COMPANY NAME
+        // ==================================================
+
+        if (companyNameElement) {
+
+            companyNameElement.textContent =
+                data.companyName ||
+                employer.companyName ||
+                "-";
+
+        }
+
+
+        // ==================================================
+        // OWNER / CONTACT PERSON
+        // ==================================================
+
+        if (contactPersonElement) {
+
+            contactPersonElement.textContent =
+                data.ownerName ||
+                employer.ownerName ||
+                "-";
+
+        }
+
+
+        // ==================================================
+        // MOBILE NUMBER
+        // ==================================================
+
+        if (mobileNumberElement) {
+
+            mobileNumberElement.textContent =
+                data.mobile ||
+                employer.mobile ||
+                "-";
+
+        }
+
+
+        // ==================================================
+        // EMAIL
+        // ==================================================
+
+        if (emailAddressElement) {
+
+            emailAddressElement.textContent =
+                data.email ||
+                employer.email ||
+                "Gmail দেওয়া হয়নি";
+
+        }
+
+
+        // ==================================================
+        // ACCOUNT STATUS
+        // ==================================================
+
+        if (accountStatusElement) {
+
+            const status =
+                data.status ||
+                "active";
+
+
+            if (
+                status === "active"
+            ) {
+
+                accountStatusElement.textContent =
+                    "Active";
+
+            }
+
+            else if (
+                status === "pending"
+            ) {
+
+                accountStatusElement.textContent =
+                    "Pending";
+
+            }
+
+            else {
+
+                accountStatusElement.textContent =
+                    status;
+
+            }
+
+        }
+
+
+        // ==================================================
+        // TOTAL JOBS
+        // ==================================================
+
+        if (totalJobsElement) {
+
+            totalJobsElement.textContent =
+                data.totalPosts ||
+                data.totalJobs ||
+                0;
+
+        }
+
+
+        // ==================================================
+        // TOTAL APPLICATIONS
+        // ==================================================
+
+        if (
+            totalApplicationsElement
+        ) {
+
+            totalApplicationsElement.textContent =
+                data.totalApplications ||
+                0;
+
+        }
+
+
+        // ==================================================
+        // PENDING JOBS
+        // ==================================================
+
+        if (pendingJobsElement) {
+
+            pendingJobsElement.textContent =
+                data.pendingJobs ||
+                0;
+
+        }
+
+
+        // ==================================================
+        // APPROVED JOBS
+        // ==================================================
+
+        if (approvedJobsElement) {
+
+            approvedJobsElement.textContent =
+                data.approvedJobs ||
+                0;
+
+        }
+
+
+        // ==================================================
+        // COMPANY LOGO
+        // ==================================================
+
+        const companyLogo =
+            document.getElementById(
+                "companyLogo"
+            );
+
+
+        if (
+            companyLogo &&
+            data.logoUrl
+        ) {
+
+            companyLogo.src =
+                data.logoUrl;
+
+            companyLogo.style.display =
+                "block";
+
+        }
+
+
+        // ==================================================
+        // UPDATE LOGIN STORAGE
+        // ==================================================
+
+        const updatedLoginData = {
+
+            uid:
+                data.uid ||
+                companyId,
+
+            companyId:
+                companyId,
+
+            companyName:
+                data.companyName ||
+                "",
+
+            ownerName:
+                data.ownerName ||
+                "",
+
+            mobile:
+                data.mobile ||
+                "",
+
+            email:
+                data.email ||
+                "",
+
+            accountType:
+                data.accountType ||
+                "company",
+
+            status:
+                data.status ||
+                "active",
+
+            logoUrl:
+                data.logoUrl ||
+                ""
+
+        };
+
+
+        // --------------------------------------------------
+        // KEEP REMEMBER ME SESSION
+        // --------------------------------------------------
+
+        if (
+            localStorage.getItem(
+                "employerLogin"
+            )
+        ) {
+
+            localStorage.setItem(
+                "employerLogin",
+                JSON.stringify(
+                    updatedLoginData
+                )
+            );
+
+        }
+
+        else {
+
+            sessionStorage.setItem(
+                "employerLogin",
+                JSON.stringify(
+                    updatedLoginData
+                )
+            );
+
+        }
+
+
+        console.log(
+            "SK Job BD Company Dashboard Loaded Successfully."
+        );
 
     }
 
     catch (error) {
 
-        console.error("Dashboard Error:", error);
+        console.error(
+            "Dashboard Error:",
+            error
+        );
 
-        alert("ড্যাশবোর্ড লোড করতে সমস্যা হয়েছে।");
+
+        alert(
+            "ড্যাশবোর্ড লোড করতে সমস্যা হয়েছে।"
+        );
 
     }
 
 }
 
-// ======================================
-// Load Dashboard
-// ======================================
+
+// ======================================================
+// LOAD DASHBOARD
+// ======================================================
 
 loadEmployerProfile();
 
-// Continue Part 3...// ======================================
-// Logout
-// ======================================
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
+// ======================================================
+// LOGOUT
+// ======================================================
 
-    if (confirm("আপনি কি Logout করতে চান?")) {
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
 
-        localStorage.removeItem("employerLogin");
 
-        sessionStorage.removeItem("employerLogin");
+if (logoutBtn) {
 
-        window.location.href = "login.html";
+    logoutBtn.addEventListener(
+        "click",
+        () => {
 
-    }
+            const confirmLogout =
+                confirm(
+                    "আপনি কি Logout করতে চান?"
+                );
 
-});
 
-// ======================================
-// Quick Action Buttons
-// ======================================
+            if (
+                !confirmLogout
+            ) {
 
-document.getElementById("btnAddJob").addEventListener("click", () => {
+                return;
 
-    window.location.href = "add-job.html";
+            }
 
-});
 
-document.getElementById("btnManageJobs").addEventListener("click", () => {
+            // ----------------------------------------------
+            // CLEAR LOGIN
+            // ----------------------------------------------
 
-    window.location.href = "my-jobs.html";
+            localStorage.removeItem(
+                "employerLogin"
+            );
 
-});
 
-document.getElementById("btnApplications").addEventListener("click", () => {
+            sessionStorage.removeItem(
+                "employerLogin"
+            );
 
-    window.location.href = "applications.html";
 
-});
+            // ----------------------------------------------
+            // FIREBASE SIGN OUT
+            // ----------------------------------------------
 
-document.getElementById("btnPayment").addEventListener("click", () => {
+            import(
+                "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"
+            )
+                .then(
+                    async ({
+                        signOut
+                    }) => {
 
-    window.location.href = "payment.html";
+                        try {
 
-});
+                            const {
+                                auth
+                            } = await import(
+                                "../firebase.js"
+                            );
 
-// ======================================
-// End of File
-// ======================================
+
+                            await signOut(
+                                auth
+                            );
+
+                        }
+
+                        catch (
+                            error
+                        ) {
+
+                            console.error(
+                                "Firebase Logout Error:",
+                                error
+                            );
+
+                        }
+
+
+                        window.location.href =
+                            "login.html";
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// QUICK ACTION - ADD JOB
+// ======================================================
+
+const btnAddJob =
+    document.getElementById(
+        "btnAddJob"
+    );
+
+
+if (btnAddJob) {
+
+    btnAddJob.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "add-job.html";
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// QUICK ACTION - MANAGE JOBS
+// ======================================================
+
+const btnManageJobs =
+    document.getElementById(
+        "btnManageJobs"
+    );
+
+
+if (btnManageJobs) {
+
+    btnManageJobs.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "my-jobs.html";
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// QUICK ACTION - APPLICATIONS
+// ======================================================
+
+const btnApplications =
+    document.getElementById(
+        "btnApplications"
+    );
+
+
+if (btnApplications) {
+
+    btnApplications.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "applications.html";
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// QUICK ACTION - PAYMENT
+// ======================================================
+
+const btnPayment =
+    document.getElementById(
+        "btnPayment"
+    );
+
+
+if (btnPayment) {
+
+    btnPayment.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "payment.html";
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// PROFILE HOME
+// ======================================================
+
+const btnProfile =
+    document.getElementById(
+        "btnProfile"
+    );
+
+
+if (btnProfile) {
+
+    btnProfile.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "company-profile.html";
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// SK JOB BD
+// COMPANY DASHBOARD
+// ======================================================
