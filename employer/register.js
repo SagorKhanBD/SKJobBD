@@ -1,40 +1,32 @@
 /* =========================================================
    SK JOB BD
-   EMPLOYER / COMPANY REGISTRATION SYSTEM
+   COMPANY REGISTRATION SYSTEM
 
-   Account Flow:
+   Registration Form:
+   - Company Name
+   - Institution Code (Optional)
+   - Owner Name
+   - Mobile
+   - Gmail (Optional)
+   - Company Logo (Optional)
+   - Password
+   - Confirm Password
 
-   Registration
-        ↓
-   Firebase Authentication
-        ↓
-   Company Profile
-        ↓
-   Active Account
-        ↓
-   Login
+   Admin Approval:
+   NOT REQUIRED
 
-   Admin Approval is NOT required.
+   Account:
+   ACTIVE immediately after registration
    ========================================================= */
 
 
 import { db, auth } from "../firebase.js";
-
-
-/* =========================================================
-   FIRESTORE
-   ========================================================= */
 
 import {
     doc,
     setDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-
-/* =========================================================
-   FIREBASE AUTHENTICATION
-   ========================================================= */
 
 import {
     createUserWithEmailAndPassword
@@ -55,13 +47,22 @@ const message =
 
 
 /* =========================================================
-   CHECK FORM
+   INTERNAL AUTH EMAIL
+
+   আপনার Form পরিবর্তন করা হচ্ছে না।
+
+   Firebase Email/Password Authentication ব্যবহার করার জন্য
+   মোবাইল নম্বর থেকে একটি internal email তৈরি করা হচ্ছে।
+
+   এটি Company-এর Gmail নয়।
+   এটি ব্যবহারকারীকে দেখানোর প্রয়োজন নেই।
    ========================================================= */
 
-if (!registerForm) {
+function createAuthEmail(mobile) {
 
-    console.error(
-        "SK Job BD: Register Form Not Found."
+    return (
+        mobile +
+        "@skjobbd-auth.local"
     );
 
 }
@@ -69,7 +70,21 @@ if (!registerForm) {
 
 
 /* =========================================================
-   SUBMIT EVENT
+   FORM CHECK
+   ========================================================= */
+
+if (!registerForm) {
+
+    console.error(
+        "SK Job BD: registerForm not found."
+    );
+
+}
+
+
+
+/* =========================================================
+   REGISTRATION
    ========================================================= */
 
 if (registerForm) {
@@ -81,15 +96,18 @@ if (registerForm) {
             e.preventDefault();
 
 
+
             /* =================================================
                CLEAR MESSAGE
             ================================================= */
 
             if (message) {
 
-                message.style.color = "red";
+                message.style.color =
+                    "red";
 
-                message.innerHTML = "";
+                message.innerHTML =
+                    "";
 
             }
 
@@ -148,19 +166,7 @@ if (registerForm) {
 
 
             /* =================================================
-               REQUIRED FIELD VALIDATION
-
-               Required:
-               - Company Name
-               - Owner Name
-               - Mobile
-               - Password
-               - Confirm Password
-
-               Optional:
-               - Institution Code
-               - Gmail
-               - Logo
+               REQUIRED FIELD CHECK
             ================================================= */
 
             if (
@@ -192,7 +198,9 @@ if (registerForm) {
                 /^01[3-9]\d{8}$/;
 
 
-            if (!mobilePattern.test(mobile)) {
+            if (
+                !mobilePattern.test(mobile)
+            ) {
 
                 if (message) {
 
@@ -208,12 +216,10 @@ if (registerForm) {
 
 
             /* =================================================
-               EMAIL VALIDATION
+               OPTIONAL EMAIL VALIDATION
 
-               Gmail is OPTIONAL.
-
-               If user enters Gmail,
-               it must be valid.
+               Gmail Optional.
+               যদি দেওয়া হয় তাহলে valid email হতে হবে।
             ================================================= */
 
             if (email !== "") {
@@ -222,7 +228,9 @@ if (registerForm) {
                     /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
-                if (!emailPattern.test(email)) {
+                if (
+                    !emailPattern.test(email)
+                ) {
 
                     if (message) {
 
@@ -243,7 +251,9 @@ if (registerForm) {
                PASSWORD LENGTH
             ================================================= */
 
-            if (password.length < 8) {
+            if (
+                password.length < 8
+            ) {
 
                 if (message) {
 
@@ -302,7 +312,7 @@ if (registerForm) {
 
                         "• সংখ্যা (0-9)<br>" +
 
-                        "• বিশেষ চিহ্ন (@, #, $, %, ইত্যাদি)";
+                        "• বিশেষ চিহ্ন (@, #, $, % ইত্যাদি)";
 
                 }
 
@@ -316,7 +326,10 @@ if (registerForm) {
                CONFIRM PASSWORD
             ================================================= */
 
-            if (password !== confirmPassword) {
+            if (
+                password !==
+                confirmPassword
+            ) {
 
                 if (message) {
 
@@ -332,24 +345,18 @@ if (registerForm) {
 
 
             /* =================================================
-               FIREBASE AUTH EMAIL
-
-               আপনার Login System মোবাইল নম্বর ভিত্তিক।
-
-               Firebase Email/Password Authentication ব্যবহার
-               করার জন্য মোবাইল থেকে একটি internal email তৈরি
-               করা হচ্ছে।
-
-               এটি ব্যবহারকারীকে দেখানো হবে না।
+               CREATE INTERNAL AUTH EMAIL
             ================================================= */
 
             const authEmail =
-                mobile + "@skjobbd-auth.local";
+                createAuthEmail(
+                    mobile
+                );
 
 
 
             /* =================================================
-               CREATE ACCOUNT
+               FIREBASE REGISTRATION
             ================================================= */
 
             try {
@@ -373,7 +380,7 @@ if (registerForm) {
 
 
                 /* =================================================
-                   COMPANY DOCUMENT
+                   CREATE COMPANY PROFILE
                 ================================================= */
 
                 await setDoc(
@@ -386,9 +393,9 @@ if (registerForm) {
 
                     {
 
-                        /* =========================================
-                           USER INFORMATION
-                        ========================================= */
+                        /* ==============================
+                           BASIC INFORMATION
+                        ============================== */
 
                         uid:
                             user.uid,
@@ -415,9 +422,9 @@ if (registerForm) {
 
 
 
-                        /* =========================================
-                           ACCOUNT INFORMATION
-                        ========================================= */
+                        /* ==============================
+                           ACCOUNT
+                        ============================== */
 
                         accountType:
                             "company",
@@ -435,23 +442,23 @@ if (registerForm) {
                             false,
 
 
+
+                        /* ==============================
+                           PROFILE
+                        ============================== */
+
                         profileCompleted:
                             false,
 
-
-
-                        /* =========================================
-                           COMPANY LOGO
-                        ========================================= */
 
                         logoUrl:
                             "",
 
 
 
-                        /* =========================================
+                        /* ==============================
                            SUBSCRIPTION
-                        ========================================= */
+                        ============================== */
 
                         subscription: {
 
@@ -468,9 +475,9 @@ if (registerForm) {
 
 
 
-                        /* =========================================
+                        /* ==============================
                            WALLET
-                        ========================================= */
+                        ============================== */
 
                         wallet: {
 
@@ -487,9 +494,9 @@ if (registerForm) {
 
 
 
-                        /* =========================================
-                           JOB / POST INFORMATION
-                        ========================================= */
+                        /* ==============================
+                           JOB INFORMATION
+                        ============================== */
 
                         totalPosts:
                             0,
@@ -500,9 +507,9 @@ if (registerForm) {
 
 
 
-                        /* =========================================
-                           ACCOUNT CREATED TIME
-                        ========================================= */
+                        /* ==============================
+                           TIMESTAMP
+                        ============================== */
 
                         createdAt:
                             serverTimestamp(),
@@ -518,14 +525,13 @@ if (registerForm) {
 
 
                 /* =================================================
-                   SUCCESS MESSAGE
+                   SUCCESS
                 ================================================= */
 
                 if (message) {
 
                     message.style.color =
                         "green";
-
 
                     message.innerHTML =
 
@@ -541,7 +547,7 @@ if (registerForm) {
 
                         "✅ আপনার Account Active হয়েছে।<br>" +
 
-                        "এখন আপনি Login করতে পারবেন।";
+                        "এখন Company Login করতে পারবেন।";
 
                 }
 
@@ -556,7 +562,7 @@ if (registerForm) {
 
 
                 /* =================================================
-                   REDIRECT TO LOGIN
+                   LOGIN PAGE
                 ================================================= */
 
                 setTimeout(
@@ -577,8 +583,9 @@ if (registerForm) {
             }
 
 
+
             /* =================================================
-               ERROR HANDLING
+               ERROR
             ================================================= */
 
             catch (error) {
@@ -599,7 +606,7 @@ if (registerForm) {
 
 
                 /* =================================================
-                   EMAIL / MOBILE ALREADY EXISTS
+                   ALREADY REGISTERED
                 ================================================= */
 
                 if (
@@ -654,7 +661,7 @@ if (registerForm) {
                     if (message) {
 
                         message.innerHTML =
-                            "❌ Password দুর্বল। High Security Password ব্যবহার করুন।";
+                            "❌ Password খুব দুর্বল।";
 
                     }
 
@@ -665,7 +672,7 @@ if (registerForm) {
 
 
                 /* =================================================
-                   NETWORK ERROR
+                   NETWORK
                 ================================================= */
 
                 if (
@@ -687,7 +694,7 @@ if (registerForm) {
 
 
                 /* =================================================
-                   OPERATION NOT ALLOWED
+                   AUTH PROVIDER DISABLED
                 ================================================= */
 
                 if (
@@ -699,9 +706,7 @@ if (registerForm) {
 
                         message.innerHTML =
 
-                            "❌ Firebase Authentication-এর Email/Password Sign-in চালু করা নেই।<br><br>" +
-
-                            "Firebase Console → Authentication → Sign-in method থেকে Email/Password Enable করুন।";
+                            "❌ Firebase Email/Password Authentication চালু করা নেই।";
 
                     }
 
@@ -712,31 +717,28 @@ if (registerForm) {
 
 
                 /* =================================================
-                   DEFAULT ERROR
+                   DEFAULT
                 ================================================= */
 
                 if (message) {
 
                     message.innerHTML =
-
-                        "❌ Registration Failed.<br><br>" +
-
-                        error.message;
+                        "❌ Registration Failed। আবার চেষ্টা করুন।";
 
                 }
 
             }
 
-        }
+        );
 
-    );
+    }
 
 }
 
 
 
 /* =========================================================
-   OFFLINE STATUS
+   ONLINE / OFFLINE
    ========================================================= */
 
 window.addEventListener(
@@ -748,7 +750,6 @@ window.addEventListener(
             message.style.color =
                 "red";
 
-
             message.innerHTML =
                 "❌ Internet Connection বিচ্ছিন্ন হয়েছে।";
 
@@ -758,11 +759,6 @@ window.addEventListener(
 );
 
 
-
-/* =========================================================
-   ONLINE STATUS
-   ========================================================= */
-
 window.addEventListener(
     "online",
     () => {
@@ -771,7 +767,6 @@ window.addEventListener(
 
             message.style.color =
                 "green";
-
 
             message.innerHTML =
                 "✅ Internet Connection পুনরায় চালু হয়েছে।";
@@ -785,6 +780,6 @@ window.addEventListener(
 
 /* =========================================================
    SK JOB BD
-   PROFESSIONAL EMPLOYER REGISTRATION
+   COMPANY REGISTRATION
    ACTIVE ACCOUNT SYSTEM
    ========================================================= */
