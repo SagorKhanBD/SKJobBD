@@ -3,281 +3,388 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>
+    <title>SK Job BD Company Registration</title>
 
-SK Job BD Company Registration
+    <link
+        rel="stylesheet"
+        href="register.css">
 
-</title>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-<link
-rel="stylesheet"
-href="register.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
 </head>
 
+
 <body>
 
-<header>
-
-<div class="header-container">
-
-<h1>
-
-🏢 SK Job BD
-
-</h1>
-
-<p>
-
-Company Registration
-
-</p>
-
-</div>
-
-</header>
-
-<div class="container">
-
-<h2>
-
-কোম্পানির নতুন একাউন্ট তৈরি করুন
-
-</h2>
-
-<p class="subtitle">
-
-যেসব তথ্যের পাশে
-<span class="required">*</span>
-আছে সেগুলো পূরণ করা বাধ্যতামূলক।
-
-</p>
-
-<form id="registerForm">
-
-<!-- =========================
-Company Name
-========================= -->
-
-<div class="form-group">
-
-<label>
-
-প্রতিষ্ঠানের নাম
-
-<span class="required">*</span>
-
-</label>
-
-<input
-type="text"
-id="companyName"
-placeholder="প্রতিষ্ঠানের নাম লিখুন"
-required>
-
-</div>
-
-<!-- =========================
-Institution Code
-========================= -->
-
-<div class="form-group">
-
-<label>
-
-প্রতিষ্ঠানের কোড (যদি থাকে)
-
-</label>
-
-<input
-type="text"
-id="institutionCode"
-placeholder="যদি থাকে লিখুন">
-
-</div>
-
-<!-- =========================
-Owner Name
-========================= -->
-
-<div class="form-group">
-
-<label>
-
-কর্তৃপক্ষের নাম
-
-<span class="required">*</span>
-
-</label>
-
-<input
-type="text"
-id="ownerName"
-placeholder="আপনার নাম লিখুন"
-required>
-
-</div>
-
-<!-- =========================
-Mobile Number
-========================= -->
-
-<div class="form-group">
-
-<label>
-
-মোবাইল নম্বর
-
-<span class="required">*</span>
-
-</label>
-
-<input
-type="tel"
-id="mobile"
-placeholder="01XXXXXXXXX"
-required>
-
-</div>
 
     <!-- =========================
-Email
-========================= -->
+         HEADER
+    ========================== -->
 
-<div class="form-group">
+    <header class="topHeader">
 
-<label>
+        <div class="logoArea">
 
-Gmail (Optional)
+            <h1>
+                🏢 SK Job BD
+            </h1>
 
-</label>
+            <p>
+                Company Registration
+            </p>
 
-<input
-type="email"
-id="email"
-placeholder="example@gmail.com">
+        </div>
 
-</div>
+    </header>
 
-<!-- =========================
-Company Logo
-========================= -->
 
-<div class="form-group">
 
-<label>
+    <!-- =========================
+         MAIN
+    ========================== -->
 
-কোম্পানির লোগো (Optional)
+    <main class="container">
 
-</label>
 
-<input
-type="file"
-id="companyLogo"
-accept="image/*">
+        <div class="registerCard">
 
-</div>
 
-<!-- =========================
-Password
-========================= -->
+            <!-- =========================
+                 TITLE
+            ========================== -->
 
-<div class="form-group">
+            <div class="titleArea">
 
-<label>
+                <h2>
+                    কোম্পানির নতুন একাউন্ট তৈরি করুন
+                </h2>
 
-Password
+                <p>
+                    যেসব তথ্যের পাশে
+                    <strong>*</strong>
+                    আছে সেগুলো পূরণ করা বাধ্যতামূলক।
+                </p>
 
-<span class="required">*</span>
+            </div>
 
-</label>
 
-<input
-type="password"
-id="password"
-placeholder="কমপক্ষে ৮ অক্ষর"
-required>
 
-</div>
+            <!-- =========================
+                 MESSAGE
+            ========================== -->
 
-<!-- =========================
-Confirm Password
-========================= -->
+            <div
+                id="message"
+                class="messageBox">
+            </div>
 
-<div class="form-group">
 
-<label>
 
-Confirm Password
+            <!-- =========================
+                 REGISTRATION FORM
+            ========================== -->
 
-<span class="required">*</span>
+            <form
+                id="registerForm"
+                autocomplete="off">
 
-</label>
 
-<input
-type="password"
-id="confirmPassword"
-placeholder="পুনরায় Password লিখুন"
-required>
+                <!-- =========================
+                     COMPANY NAME
+                ========================== -->
 
-</div>
+                <div class="inputBox">
 
-<!-- =========================
-Register Button
-========================= -->
+                    <label for="companyName">
 
-<button
-type="submit"
-class="register-btn">
+                        প্রতিষ্ঠানের নাম
+                        <span>*</span>
 
-🏢 কোম্পানির একাউন্ট তৈরি করুন
+                    </label>
 
-</button>
+                    <input
+                        type="text"
+                        id="companyName"
+                        name="companyName"
+                        placeholder="আপনার প্রতিষ্ঠানের নাম লিখুন"
+                        required>
 
-<p id="message"></p>
+                </div>
 
-<div class="login-link">
 
-আগে থেকেই একাউন্ট আছে?
 
-<a href="login.html">
+                <!-- =========================
+                     INSTITUTION CODE
+                     OPTIONAL
+                ========================== -->
 
-Company Login
+                <div class="inputBox">
 
-</a>
+                    <label for="institutionCode">
 
-</div>
+                        প্রতিষ্ঠানের কোড
+                        <small>(যদি থাকে)</small>
 
-    </form>
+                    </label>
 
-</div>
+                    <input
+                        type="text"
+                        id="institutionCode"
+                        name="institutionCode"
+                        placeholder="যদি থাকে লিখুন">
 
-<footer>
+                </div>
 
-<p>
 
-© 2026 SK Job BD
 
-</p>
+                <!-- =========================
+                     OWNER NAME
+                ========================== -->
 
-<p>
+                <div class="inputBox">
 
-Company Registration System
+                    <label for="ownerName">
 
-</p>
+                        কর্তৃপক্ষের নাম
+                        <span>*</span>
 
-</footer>
+                    </label>
 
-<script
-type="module"
-src="register.js">
+                    <input
+                        type="text"
+                        id="ownerName"
+                        name="ownerName"
+                        placeholder="কর্তৃপক্ষের নাম লিখুন"
+                        required>
 
-</script>
+                </div>
+
+
+
+                <!-- =========================
+                     MOBILE
+                ========================== -->
+
+                <div class="inputBox">
+
+                    <label for="mobile">
+
+                        মোবাইল নম্বর
+                        <span>*</span>
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        placeholder="01XXXXXXXXX"
+                        maxlength="11"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                        required>
+
+                </div>
+
+
+
+                <!-- =========================
+                     EMAIL
+                     OPTIONAL
+                ========================== -->
+
+                <div class="inputBox">
+
+                    <label for="email">
+
+                        Gmail
+                        <small>(Optional)</small>
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="example@gmail.com"
+                        autocomplete="email">
+
+                </div>
+
+
+
+                <!-- =========================
+                     COMPANY LOGO
+                     OPTIONAL
+                ========================== -->
+
+                <div class="inputBox">
+
+                    <label for="companyLogo">
+
+                        কোম্পানির লোগো
+                        <small>(Optional)</small>
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="companyLogo"
+                        name="companyLogo"
+                        accept="image/png,image/jpeg,image/jpg,image/webp">
+
+                </div>
+
+
+
+                <!-- =========================
+                     PASSWORD
+                ========================== -->
+
+                <div class="inputBox">
+
+                    <label for="password">
+
+                        Password
+                        <span>*</span>
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="কমপক্ষে ৮ অক্ষরের Password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required>
+
+                    <small class="securityText">
+
+                        High Security Password ব্যবহার করুন:
+                        বড় হাতের অক্ষর, ছোট হাতের অক্ষর,
+                        সংখ্যা ও বিশেষ চিহ্ন।
+
+                    </small>
+
+                </div>
+
+
+
+                <!-- =========================
+                     CONFIRM PASSWORD
+                ========================== -->
+
+                <div class="inputBox">
+
+                    <label for="confirmPassword">
+
+                        Confirm Password
+                        <span>*</span>
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Password আবার লিখুন"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required>
+
+                </div>
+
+
+
+                <!-- =========================
+                     SUBMIT BUTTON
+                ========================== -->
+
+                <button
+                    type="submit"
+                    class="registerBtn">
+
+                    🏢 কোম্পানির একাউন্ট তৈরি করুন
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =========================
+                 LOGIN LINK
+            ========================== -->
+
+            <div class="loginArea">
+
+                <p>
+                    আগে থেকেই একাউন্ট আছে?
+                </p>
+
+                <a
+                    href="login.html">
+
+                    Company Login
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            © 2026 SK Job BD
+        </p>
+
+        <small>
+            Company Registration System
+        </small>
+
+    </footer>
+
+
+
+    <!-- =========================
+         REGISTER JS
+    ========================== -->
+
+    <script
+        type="module"
+        src="register.js">
+    </script>
+
 
 </body>
 
