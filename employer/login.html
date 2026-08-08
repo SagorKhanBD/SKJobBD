@@ -9,17 +9,23 @@
 
     <title>Employer Login | SK Job BD</title>
 
+    <!-- Login CSS -->
     <link rel="stylesheet" href="login.css">
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
 </head>
 
+
 <body>
+
 
     <!-- ================= HEADER ================= -->
 
@@ -35,11 +41,16 @@
 
     </header>
 
+
+
     <!-- ================= LOGIN CARD ================= -->
 
     <main class="container">
 
         <div class="loginCard">
+
+
+            <!-- ================= TITLE ================= -->
 
             <div class="titleArea">
 
@@ -51,53 +62,94 @@
 
             </div>
 
+
+
+            <!-- ================= LOGIN FORM ================= -->
+
             <form id="loginForm">
 
-                <!-- Mobile -->
+
+                <!-- ================= MOBILE ================= -->
 
                 <div class="inputBox">
 
-                    <label>মোবাইল নম্বর</label>
+                    <label for="mobile">
+                        মোবাইল নম্বর
+                    </label>
 
                     <input
                         type="text"
                         id="mobile"
+                        name="mobile"
                         placeholder="01XXXXXXXXX"
                         maxlength="11"
+                        inputmode="numeric"
+                        autocomplete="tel"
                         required>
 
                 </div>
 
-                <!-- Password -->
+
+
+                <!-- ================= PASSWORD ================= -->
 
                 <div class="inputBox">
 
-                    <label>Password</label>
+                    <label for="password">
+                        Password
+                    </label>
 
-                  <div class="passwordBox">
 
-    <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        required>
+                    <div class="passwordBox">
 
-    <span id="togglePassword" class="eyeIcon">
-        👁️
-    </span>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Password"
+                            minlength="8"
+                            autocomplete="current-password"
+                            required>
 
-</div>
+
+                        <!-- Password Show / Hide -->
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="eyeIcon"
+                            aria-label="Show Password"
+                            title="Show Password">
+
+                            👁
+
+                        </button>
+
+                    </div>
+
                 </div>
 
-                <div id="message" class="messageBox"></div>
 
-                                <!-- Remember Me -->
+
+                <!-- ================= MESSAGE ================= -->
+
+                <div
+                    id="message"
+                    class="messageBox">
+                </div>
+
+
+
+                <!-- ================= REMEMBER ME ================= -->
 
                 <div class="rememberArea">
 
-                    <label>
+                    <label for="rememberMe">
 
-                        <input type="checkbox" id="rememberMe">
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            name="rememberMe">
 
                         আমাকে মনে রাখুন
 
@@ -105,7 +157,9 @@
 
                 </div>
 
-                <!-- Login Button -->
+
+
+                <!-- ================= LOGIN BUTTON ================= -->
 
                 <button
                     type="submit"
@@ -115,9 +169,12 @@
 
                 </button>
 
+
             </form>
 
-            <!-- Links -->
+
+
+            <!-- ================= FORGOT PASSWORD ================= -->
 
             <div class="linkArea">
 
@@ -129,6 +186,10 @@
 
             </div>
 
+
+
+            <!-- ================= REGISTRATION ================= -->
+
             <div class="registerArea">
 
                 <p>
@@ -136,6 +197,7 @@
                     নতুন প্রতিষ্ঠান / কোম্পানি?
 
                 </p>
+
 
                 <a
                     href="register.html"
@@ -146,6 +208,10 @@
                 </a>
 
             </div>
+
+
+
+            <!-- ================= HOME ================= -->
 
             <div class="homeArea">
 
@@ -159,11 +225,14 @@
 
             </div>
 
+
         </div>
 
     </main>
 
-        <!-- ================= FOOTER ================= -->
+
+
+    <!-- ================= FOOTER ================= -->
 
     <footer>
 
@@ -173,6 +242,7 @@
 
         </p>
 
+
         <small>
 
             Powered by <strong>SK Job BD</strong>
@@ -181,9 +251,15 @@
 
     </footer>
 
-    <!-- Login Script -->
 
-    <script type="module" src="login.js"></script>
+
+    <!-- ================= LOGIN SCRIPT ================= -->
+
+    <script
+        type="module"
+        src="login.js">
+    </script>
+
 
 </body>
 
