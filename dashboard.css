@@ -1,188 +1,848 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Arial",sans-serif;
+/* =========================================================
+   SK JOB BD
+   EMPLOYER DASHBOARD
+   Dashboard CSS
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
-body{
+/* =========================================================
+   BODY
+   ========================================================= */
 
-    background:#edf9ee;
+body {
+    font-family: "Hind Siliguri", "Poppins", sans-serif;
 
-    min-height:100vh;
+    background: #eef5ff;
 
+    color: #222;
+
+    min-height: 100vh;
 }
 
 
+/* =========================================================
+   HEADER
+   ========================================================= */
 
-/* Header */
+.topHeader {
+    width: 100%;
 
-header{
+    background: linear-gradient(
+        90deg,
+        #0d47a1,
+        #1565c0
+    );
 
-    background:linear-gradient(135deg,#56CCF2,#2F80ED);
+    color: #ffffff;
 
-    color:white;
+    padding: 18px 30px;
 
-    text-align:center;
-
-    padding:25px 10px;
-
+    box-shadow:
+        0 4px 15px rgba(255, 255, 255, 0.45);
 }
 
 
-header h1{
+.headerInner {
+    width: 100%;
 
-    font-size:35px;
+    max-width: 1400px;
 
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
 }
 
 
-header p{
+/* =========================================================
+   BRAND
+   ========================================================= */
 
-    margin-top:8px;
+.brandArea h1 {
+    font-family: "Poppins", sans-serif;
 
-    font-size:18px;
+    font-size: 34px;
 
+    font-weight: 700;
+
+    line-height: 1.2;
 }
 
 
+.brandArea p {
+    font-size: 16px;
 
-/* Dashboard */
+    margin-top: 3px;
 
-.dashboard-container{
-
-    width:95%;
-
-    max-width:900px;
-
-    margin:30px auto;
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-    gap:20px;
-
+    opacity: 0.92;
 }
 
 
+/* =========================================================
+   HEADER COMPANY
+   ========================================================= */
 
-/* Card */
+.headerCompany {
+    display: flex;
 
-.profile-card,
-.menu-card{
+    align-items: center;
 
-    background:white;
-
-    padding:25px;
-
-    border-radius:15px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-
+    gap: 18px;
 }
 
 
+#headerCompanyName {
+    font-size: 18px;
 
-h2{
+    font-weight: 600;
 
-    color:#0b7a32;
-
-    text-align:center;
-
-    margin-bottom:15px;
-
+    white-space: nowrap;
 }
 
 
+#logoutBtn {
+    border: 1px solid rgba(255, 255, 255, 0.8);
 
-hr{
+    background: transparent;
 
-    margin-bottom:20px;
+    color: #ffffff;
 
+    padding: 9px 20px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
 }
 
 
+#logoutBtn:hover {
+    background: #ffffff;
 
-
-p{
-
-    margin:15px 0;
-
-    font-size:16px;
-
-    color:#333;
-
+    color: #0d47a1;
 }
 
 
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
 
+.dashboardContainer {
+    width: 100%;
 
-strong{
+    max-width: 1400px;
 
-    color:#0b7a32;
+    margin: auto;
 
+    padding: 35px 25px 25px;
 }
 
 
+/* =========================================================
+   WELCOME SECTION
+   ========================================================= */
 
+.welcomeSection {
+    background: #ffffff;
 
-/* Buttons */
+    border-radius: 14px;
 
-button{
+    padding: 22px 25px;
 
+    margin-bottom: 28px;
 
-    width:100%;
+    border: 1px solid #d7e5f8;
 
-    padding:13px;
-
-    margin-top:12px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#0b7a32;
-
-    color:white;
-
-    font-size:16px;
-
-    cursor:pointer;
-
-
+    box-shadow:
+        0 5px 18px rgba(255, 255, 255, 0.95);
 }
 
 
+.welcomeSection h2 {
+    font-size: 28px;
 
-button:hover{
+    font-weight: 700;
 
+    color: #0d47a1;
 
-    background:#075522;
-
-
+    margin-bottom: 5px;
 }
 
 
+#companyTitle {
+    color: #1565c0;
+}
 
-/* Mobile */
 
-@media(max-width:500px){
+.welcomeSection p {
+    font-size: 17px;
+
+    color: #555;
+}
 
 
-    .dashboard-container{
+/* =========================================================
+   MAIN SERVICE GRID
+   4 BOXES IN ONE ROW
+   ========================================================= */
 
-        width:92%;
+.serviceGrid {
+    width: 100%;
 
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   SERVICE BOX
+   ========================================================= */
+
+.serviceBox {
+    background: #1565c0;
+
+    color: #ffffff;
+
+    min-height: 245px;
+
+    border-radius: 16px;
+
+    padding: 25px 22px;
+
+    border: 1px solid #ffffff;
+
+    box-shadow:
+        0 8px 22px rgba(255, 255, 255, 0.95),
+        0 4px 12px rgba(13, 71, 161, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.serviceBox:hover {
+    transform: translateY(-5px);
+
+    background: #0d47a1;
+
+    box-shadow:
+        0 12px 28px rgba(255, 255, 255, 1),
+        0 8px 18px rgba(13, 71, 161, 0.28);
+}
+
+
+/* =========================================================
+   SERVICE BOX TITLE
+   ========================================================= */
+
+.serviceBox h3 {
+    font-size: 28px;
+
+    font-weight: 700;
+
+    text-align: center;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 15px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.55);
+}
+
+
+/* =========================================================
+   SERVICE LINKS
+   ========================================================= */
+
+.serviceLinks {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.serviceLinks a {
+    display: block;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.30);
+
+    border-radius: 8px;
+
+    padding: 9px 12px;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    transition: 0.2s ease;
+}
+
+
+.serviceLinks a:hover {
+    background: #ffffff;
+
+    color: #0d47a1;
+
+    border-color: #ffffff;
+}
+
+
+/* =========================================================
+   ACCOUNT INFORMATION
+   ========================================================= */
+
+.accountSection {
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    margin-bottom: 28px;
+
+    border: 1px solid #d7e5f8;
+
+    box-shadow:
+        0 5px 18px rgba(255, 255, 255, 0.95);
+}
+
+
+.accountSection > h3 {
+    text-align: center;
+
+    font-size: 23px;
+
+    color: #0d47a1;
+
+    margin-bottom: 20px;
+}
+
+
+.accountGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+.accountItem {
+    border: 1px solid #d7e5f8;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    background: #f8fbff;
+
+    min-height: 75px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.accountLabel {
+    font-size: 14px;
+
+    color: #666;
+
+    margin-bottom: 4px;
+}
+
+
+.accountItem strong {
+    font-size: 17px;
+
+    color: #0d47a1;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   MANAGEMENT SECTION
+   SMALL
+   ========================================================= */
+
+.managementSection {
+    width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 15px 20px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid #d7e5f8;
+
+    box-shadow:
+        0 4px 14px rgba(255, 255, 255, 0.95);
+}
+
+
+.managementContent {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    max-width: 700px;
+
+    margin: auto;
+}
+
+
+/* =========================================================
+   MANAGEMENT PHOTO
+   ========================================================= */
+
+.managementPhoto {
+    width: 70px;
+
+    height: 70px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border: 2px solid #1565c0;
+
+    background: #eef5ff;
+}
+
+
+.managementPhoto img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================================
+   MANAGEMENT INFORMATION
+   ========================================================= */
+
+.managementInfo {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.managementInfo h3 {
+    font-size: 20px;
+
+    color: #0d47a1;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+.managementPosition {
+    font-size: 14px;
+
+    color: #555;
+
+    margin: 2px 0;
+}
+
+
+.managementInfo > p:not(.managementPosition) {
+    font-size: 13px;
+
+    color: #555;
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   MANAGEMENT CONTACT
+   ========================================================= */
+
+.managementContact {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 8px 18px;
+
+    font-size: 13px;
+
+    color: #333;
+
+    margin-bottom: 4px;
+}
+
+
+.managementEmail {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 13px;
+
+    color: #333;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   SMALL CONTACT ICON
+   Only Management section
+   ========================================================= */
+
+.contactIcon {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #1565c0;
+
+    font-weight: 700;
+
+    margin-right: 3px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    width: 100%;
+
+    background: #0d47a1;
+
+    color: #ffffff;
+
+    text-align: center;
+
+    padding: 16px 10px;
+
+    margin-top: 10px;
+}
+
+
+.footer p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 3px;
+}
+
+
+.footer small {
+    font-size: 12px;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .serviceGrid {
+        grid-template-columns:
+            repeat(2, 1fr);
     }
 
 
-    header h1{
+    .accountGrid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
 
-        font-size:28px;
+}
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .topHeader {
+        padding: 15px;
     }
 
 
+    .headerInner {
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 12px;
+    }
+
+
+    .brandArea h1 {
+        font-size: 28px;
+    }
+
+
+    .brandArea p {
+        font-size: 14px;
+    }
+
+
+    .headerCompany {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    #headerCompanyName {
+        font-size: 15px;
+
+        white-space: normal;
+    }
+
+
+    #logoutBtn {
+        padding: 7px 18px;
+
+        font-size: 14px;
+    }
+
+
+    .dashboardContainer {
+        padding:
+            20px 14px 18px;
+    }
+
+
+    .welcomeSection {
+        padding: 18px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .welcomeSection h2 {
+        font-size: 23px;
+    }
+
+
+    .welcomeSection p {
+        font-size: 14px;
+    }
+
+
+    .serviceGrid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+
+    .serviceBox {
+        min-height: auto;
+
+        padding: 20px 18px;
+    }
+
+
+    .serviceBox h3 {
+        font-size: 24px;
+    }
+
+
+    .serviceLinks a {
+        font-size: 15px;
+    }
+
+
+    .accountSection {
+        padding: 18px;
+    }
+
+
+    .accountGrid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+
+    .accountItem {
+        min-height: 68px;
+    }
+
+
+    .managementSection {
+        padding: 12px;
+    }
+
+
+    .managementContent {
+        gap: 10px;
+
+        align-items: flex-start;
+    }
+
+
+    .managementPhoto {
+        width: 55px;
+
+        height: 55px;
+    }
+
+
+    .managementInfo h3 {
+        font-size: 17px;
+    }
+
+
+    .managementPosition {
+        font-size: 12px;
+    }
+
+
+    .managementInfo > p:not(.managementPosition) {
+        font-size: 11px;
+    }
+
+
+    .managementContact {
+        gap: 5px 12px;
+
+        font-size: 11px;
+    }
+
+
+    .managementEmail {
+        font-size: 11px;
+    }
+
+
+    .footer {
+        padding: 13px 8px;
+    }
+
+
+    .footer p {
+        font-size: 12px;
+    }
+
+
+    .footer small {
+        font-size: 10px;
+    }
+
 }
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .managementContent {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+
+    .managementInfo {
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .managementContact {
+        justify-content: center;
+    }
+
+
+    .managementEmail {
+        justify-content: center;
+    }
+
+}
+
+
+/* =========================================================
+   END
+   SK JOB BD
+   ========================================================= */
