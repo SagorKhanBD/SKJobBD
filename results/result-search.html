@@ -1,1 +1,1047 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Result Search | SK Job BD</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: "Hind Siliguri", sans-serif;
+
+            background: #f1f6fb;
+
+            color: #222;
+
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d47a1,
+                    #1565c0
+                );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 35px 20px;
+        }
+
+        .header h1 {
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 34px;
+
+            margin-bottom: 8px;
+        }
+
+        .header p {
+
+            font-size: 20px;
+
+            opacity: .95;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+
+            width: 100%;
+
+            max-width: 1000px;
+
+            margin: 40px auto;
+
+            padding: 0 20px;
+        }
+
+        /* =========================
+           SEARCH CARD
+        ========================= */
+
+        .searchCard {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,.10);
+
+            margin-bottom: 30px;
+        }
+
+        .searchTitle {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .searchTitle h2 {
+
+            color: #0d47a1;
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+        .searchTitle p {
+
+            color: #666;
+
+            font-size: 18px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .formGrid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 22px;
+        }
+
+        .inputGroup {
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .inputGroup label {
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .inputGroup input {
+
+            width: 100%;
+
+            height: 55px;
+
+            border:
+                1px solid #bbb;
+
+            border-radius: 10px;
+
+            padding: 0 15px;
+
+            font-size: 18px;
+
+            outline: none;
+        }
+
+        .inputGroup input:focus {
+
+            border-color: #1565c0;
+
+            box-shadow:
+                0 0 6px
+                rgba(21,101,192,.25);
+        }
+
+        /* =========================
+           SEARCH BUTTON
+        ========================= */
+
+        .searchButtonArea {
+
+            text-align: center;
+
+            margin-top: 25px;
+        }
+
+        .searchBtn {
+
+            border: none;
+
+            background: #1565c0;
+
+            color: white;
+
+            padding:
+                14px 55px;
+
+            border-radius: 10px;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        .searchBtn:hover {
+
+            background: #0d47a1;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        #message {
+
+            text-align: center;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            margin-top: 20px;
+        }
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        #resultArea {
+
+            display: none;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,.10);
+        }
+
+        .resultHeader {
+
+            text-align: center;
+
+            border-bottom:
+                2px solid #ddd;
+
+            padding-bottom: 25px;
+
+            margin-bottom: 25px;
+        }
+
+        .resultHeader h2 {
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 30px;
+
+            color: #0d47a1;
+        }
+
+        .resultHeader p {
+
+            font-size: 18px;
+
+            color: #555;
+        }
+
+        /* =========================
+           STUDENT INFORMATION
+        ========================= */
+
+        .studentInfo {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            margin-bottom: 30px;
+        }
+
+        .infoItem {
+
+            padding: 14px 18px;
+
+            border-bottom:
+                1px solid #ddd;
+
+            font-size: 18px;
+        }
+
+        .infoItem:nth-child(odd) {
+
+            border-right:
+                1px solid #ddd;
+        }
+
+        .infoItem strong {
+
+            color: #0d47a1;
+        }
+
+        /* =========================
+           RESULT SUMMARY
+        ========================= */
+
+        .summaryBox {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 30px;
+        }
+
+        .summaryCard {
+
+            background: #eef6ff;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+        .summaryCard h3 {
+
+            color: #0d47a1;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+        .summaryCard strong {
+
+            font-size: 28px;
+        }
+
+        /* =========================
+           RESULT TABLE
+        ========================= */
+
+        .tableTitle {
+
+            font-size: 25px;
+
+            color: #0d47a1;
+
+            margin-bottom: 15px;
+        }
+
+        .resultTable {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 10px;
+        }
+
+        .resultTable th,
+        .resultTable td {
+
+            border:
+                1px solid #ddd;
+
+            padding: 13px;
+
+            text-align: center;
+
+            font-size: 17px;
+        }
+
+        .resultTable th {
+
+            background: #0d47a1;
+
+            color: white;
+        }
+
+        .resultTable tr:nth-child(even) {
+
+            background: #f8fbff;
+        }
+
+        /* =========================
+           PRINT BUTTON
+        ========================= */
+
+        .printArea {
+
+            text-align: center;
+
+            margin-top: 30px;
+        }
+
+        .printBtn {
+
+            border: none;
+
+            background: #2e7d32;
+
+            color: white;
+
+            padding:
+                13px 40px;
+
+            border-radius: 9px;
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+
+            text-align: center;
+
+            background: #0d47a1;
+
+            color: white;
+
+            padding: 25px 15px;
+
+            margin-top: 50px;
+        }
+
+        .footer p {
+
+            font-size: 17px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width:700px) {
+
+            .header h1 {
+
+                font-size: 27px;
+            }
+
+            .header p {
+
+                font-size: 16px;
+            }
+
+            .searchCard,
+            #resultArea {
+
+                padding: 22px 16px;
+            }
+
+            .formGrid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .studentInfo {
+
+                grid-template-columns: 1fr;
+            }
+
+            .infoItem:nth-child(odd) {
+
+                border-right: none;
+            }
+
+            .summaryBox {
+
+                grid-template-columns: 1fr;
+            }
+
+            .resultTable {
+
+                font-size: 14px;
+
+                min-width: 650px;
+            }
+
+            .resultTableWrapper {
+
+                overflow-x: auto;
+            }
+
+        }
+
+        /* =========================
+           PRINT
+        ========================= */
+
+        @media print {
+
+            body {
+
+                background: white;
+            }
+
+            .header,
+            .searchCard,
+            .printArea,
+            .footer {
+
+                display: none !important;
+            }
+
+            #resultArea {
+
+                display: block !important;
+
+                box-shadow: none;
+
+                padding: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <h1>SK Job BD</h1>
+
+    <p>
+        Education Result Publication System
+    </p>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+    <!-- =========================
+         SEARCH
+    ========================= -->
+
+    <section class="searchCard">
+
+        <div class="searchTitle">
+
+            <h2>
+                পরীক্ষার ফলাফল দেখুন
+            </h2>
+
+            <p>
+                প্রতিষ্ঠানের নাম এবং রোল নম্বর দিয়ে ফলাফল খুঁজুন
+            </p>
+
+        </div>
+
+
+        <form id="resultSearchForm">
+
+
+            <div class="formGrid">
+
+
+                <!-- Institution -->
+
+                <div class="inputGroup">
+
+                    <label for="institution">
+
+                        প্রতিষ্ঠানের নাম
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="institution"
+                        placeholder="প্রতিষ্ঠানের নাম লিখুন"
+                        required>
+
+                </div>
+
+
+                <!-- Roll -->
+
+                <div class="inputGroup">
+
+                    <label for="roll">
+
+                        রোল নম্বর
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="roll"
+                        placeholder="রোল নম্বর লিখুন"
+                        required>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="searchButtonArea">
+
+                <button
+                    type="submit"
+                    class="searchBtn">
+
+                    🔍 ফলাফল খুঁজুন
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+
+        <div id="message"></div>
+
+    </section>
+
+
+
+    <!-- =========================
+         RESULT AREA
+    ========================= -->
+
+    <section id="resultArea">
+
+
+        <div class="resultHeader">
+
+            <h2 id="resultInstitution">
+
+                প্রতিষ্ঠানের নাম
+
+            </h2>
+
+            <p id="resultExam">
+
+                পরীক্ষার ফলাফল
+
+            </p>
+
+        </div>
+
+
+
+        <!-- Student Information -->
+
+        <div class="studentInfo">
+
+
+            <div class="infoItem">
+
+                <strong>
+                    রোল নম্বর:
+                </strong>
+
+                <span id="studentRoll">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="infoItem">
+
+                <strong>
+                    রেজিস্ট্রেশন:
+                </strong>
+
+                <span id="studentRegistration">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="infoItem">
+
+                <strong>
+                    শিক্ষার্থীর নাম:
+                </strong>
+
+                <span id="studentName">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="infoItem">
+
+                <strong>
+                    পিতার নাম:
+                </strong>
+
+                <span id="fatherName">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="infoItem">
+
+                <strong>
+                    মাতার নাম:
+                </strong>
+
+                <span id="motherName">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="infoItem">
+
+                <strong>
+                    শ্রেণি:
+                </strong>
+
+                <span id="studentClass">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="infoItem">
+
+                <strong>
+                    বিভাগ:
+                </strong>
+
+                <span id="studentGroup">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="infoItem">
+
+                <strong>
+                    শিক্ষাবর্ষ:
+                </strong>
+
+                <span id="session">
+                    -
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Summary -->
+
+        <div class="summaryBox">
+
+
+            <div class="summaryCard">
+
+                <h3>
+                    মোট নম্বর
+                </h3>
+
+                <strong id="totalMarks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summaryCard">
+
+                <h3>
+                    GPA
+                </h3>
+
+                <strong id="gpa">
+                    0.00
+                </strong>
+
+            </div>
+
+
+            <div class="summaryCard">
+
+                <h3>
+                    ফলাফল
+                </h3>
+
+                <strong id="finalResult">
+                    -
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Subject Result -->
+
+        <h3 class="tableTitle">
+
+            বিষয়ভিত্তিক ফলাফল
+
+        </h3>
+
+
+        <div class="resultTableWrapper">
+
+            <table class="resultTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            বিষয় কোড
+                        </th>
+
+                        <th>
+                            বিষয়
+                        </th>
+
+                        <th>
+                            প্রাপ্ত নম্বর
+                        </th>
+
+                        <th>
+                            Grade
+                        </th>
+
+                        <th>
+                            Grade Point
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="subjectResultBody">
+
+                    <!-- JavaScript দিয়ে Result আসবে -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- Print -->
+
+        <div class="printArea">
+
+            <button
+                type="button"
+                class="printBtn"
+                onclick="window.print()">
+
+                🖨️ ফলাফল প্রিন্ট করুন
+
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 SK Job BD
+    </p>
+
+    <small>
+        Education Result Publication System
+    </small>
+
+</footer>
+
+
+
+<!-- =========================
+     SCRIPT
+========================= -->
+
+<script>
+
+    /*
+     * এখনো Firebase Result Database
+     * সংযুক্ত করা হয়নি।
+     *
+     * পরবর্তী ধাপে:
+     *
+     * Firebase থেকে
+     * Institution + Roll
+     * দিয়ে Result খোঁজা হবে।
+     *
+     * এরপর:
+     * Marks → Grade → Grade Point → GPA
+     * স্বয়ংক্রিয়ভাবে হিসাব হবে।
+     */
+
+    const form =
+        document.getElementById(
+            "resultSearchForm"
+        );
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+    form.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            const institution =
+                document
+                    .getElementById(
+                        "institution"
+                    )
+                    .value
+                    .trim();
+
+            const roll =
+                document
+                    .getElementById(
+                        "roll"
+                    )
+                    .value
+                    .trim();
+
+
+            if (
+                institution === "" ||
+                roll === ""
+            ) {
+
+                message.style.color =
+                    "red";
+
+                message.textContent =
+                    "❌ প্রতিষ্ঠানের নাম এবং রোল নম্বর দিন।";
+
+                return;
+
+            }
+
+
+            message.style.color =
+                "#0d47a1";
+
+            message.textContent =
+                "🔍 Result Search System প্রস্তুত। Firebase Result Database সংযুক্ত করার পর এখানে প্রকৃত ফলাফল দেখাবে।";
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
