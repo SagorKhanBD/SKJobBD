@@ -1,568 +1,560 @@
-/*
-==========================================
-SK Job BD
-Employer Login CSS
-Professional UI
-==========================================
-*/
+/* ======================================================
+   SK JOB BD
+   EMPLOYER LOGIN
+   LOGIN CSS
+   ====================================================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    font-family:'Hind Siliguri',sans-serif;
-    background:#eef5ff;
-    color:#222;
-}
-
-/* ==========================
-HEADER
-========================== */
-
-.topHeader{
-    width:100%;
-    background:linear-gradient(90deg,#0d47a1,#1565c0);
-    color:#fff;
-    text-align:center;
-    padding:25px 15px;
-}
-
-.logoArea{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-
-.logoArea img{
-    width:90px;
-    height:90px;
-    object-fit:contain;
-    margin-bottom:12px;
-}
-
-.logoArea h1{
-    font-size:42px;
-    font-weight:700;
-    margin-bottom:8px;
-}
-
-.logoArea p{
-    font-size:20px;
-}
-
-/* ==========================
-MAIN
-========================== */
-
-.container{
-    width:100%;
-    min-height:calc(100vh - 180px);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    padding:50px 20px;
-}
-
-/* ==========================
-LOGIN CARD
-========================== */
-
-.loginCard{
-
-    width:100%;
-    max-width:520px;
-
-    background:#ffffff;
-
-    border-radius:18px;
-
-    padding:45px 40px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,0.15);
-
-    margin:auto;
-
+body {
+    font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+    background: #eef5ff;
+    color: #222;
 }
 
 
-/* ==========================
-TITLE
-========================== */
+/* ======================================================
+   HEADER
+   ====================================================== */
 
-.titleArea{
+.topHeader {
+    width: 100%;
+    background: linear-gradient(90deg, #0d47a1, #1565c0);
+    color: #fff;
+    text-align: center;
+    padding: 25px 15px;
+}
 
-    text-align:center;
+.logoArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-    margin-bottom:35px;
+.logoArea h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
 
+.logoArea p {
+    font-size: 20px;
 }
 
 
-.titleArea h2{
+/* ======================================================
+   MAIN CONTAINER
+   ====================================================== */
 
-    font-size:36px;
+.container {
+    width: 100%;
+    min-height: calc(100vh - 180px);
 
-    font-weight:700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    color:#0d47a1;
-
-    margin-bottom:12px;
-
+    padding: 50px 20px;
 }
 
 
-.titleArea p{
+/* ======================================================
+   LOGIN CARD
+   ====================================================== */
 
-    font-size:20px;
+.loginCard {
+    width: 100%;
+    max-width: 520px;
 
-    color:#555;
+    background: #ffffff;
 
-    text-align:center;
+    border-radius: 18px;
 
+    padding: 45px 40px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+    margin: auto;
 }
 
 
-/* ==========================
-INPUT AREA
-========================== */
+/* ======================================================
+   TITLE
+   ====================================================== */
 
-.inputBox{
+.titleArea {
+    text-align: center;
+    margin-bottom: 35px;
+}
 
-    width:100%;
+.titleArea h2 {
+    font-family: 'Poppins', sans-serif;
 
-    margin-bottom:25px;
+    font-size: 42px;
 
+    font-weight: 700;
+
+    color: #0d47a1;
+
+    margin-bottom: 12px;
+}
+
+.titleArea p {
+    font-size: 24px;
+    color: #555;
+    text-align: center;
 }
 
 
-.inputBox input{
+/* ======================================================
+   INPUT AREA
+   ====================================================== */
 
-    width:100%;
+.inputBox {
+    width: 100%;
+    margin-bottom: 25px;
+}
 
-    height:60px;
+.inputBox label {
+    display: block;
 
-    border:1px solid #bbb;
+    font-size: 30px;
 
-    border-radius:12px;
+    font-weight: 800;
 
-    padding:0 20px;
+    color: #222;
 
-    font-size:22px;
+    margin-bottom: 8px;
 
-    text-align:center;
+    text-align: left;
+}
 
+.inputBox input {
+    width: 100%;
+
+    height: 65px;
+
+    border: 1px solid #bbb;
+
+    border-radius: 10px;
+
+    padding: 0 20px;
+
+    font-size: 24px;
+
+    text-align: center;
+
+    font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+
+    background: #fff;
+
+    color: #222;
+}
+
+.inputBox input:focus {
+    outline: none;
+
+    border-color: #1565c0;
+
+    box-shadow:
+        0 0 8px rgba(21, 101, 192, 0.3);
 }
 
 
-.inputBox input{
+/* ======================================================
+   PASSWORD BOX
+   ====================================================== */
 
-    width:100%;
+.passwordBox {
+    position: relative;
 
-    height:58px;
+    width: 100%;
+}
 
-    border:1px solid #bbb;
+.passwordBox input {
+    width: 100%;
 
-    border-radius:10px;
-
-    padding:0 20px;
-
-    font-size:20px;
-
-    text-align:center;
-
+    padding-right: 65px;
 }
 
 
-.inputBox input:focus{
+/* ======================================================
+   PASSWORD SHOW / HIDE BUTTON
+   ====================================================== */
 
-    outline:none;
+.eyeIcon {
+    position: absolute;
 
-    border-color:#1565c0;
+    right: 12px;
 
-    box-shadow:0 0 8px rgba(21,101,192,.3);
+    top: 50%;
 
+    transform: translateY(-50%);
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    padding: 0;
+
+    margin: 0;
+
+    font-size: 26px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    z-index: 10;
+
+    color: #1565c0;
+}
+
+.eyeIcon:hover {
+    color: #0d47a1;
+}
+
+.eyeIcon:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 
-/* ==========================
-MESSAGE
-========================== */
+/* ======================================================
+   MESSAGE
+   ====================================================== */
 
-.messageBox{
+.messageBox {
+    width: 100%;
 
-    text-align:center;
+    text-align: center;
 
-    font-size:18px;
+    font-size: 18px;
 
-    font-weight:600;
+    font-weight: 600;
 
-    margin-bottom:15px;
+    margin-bottom: 15px;
 
+    line-height: 1.6;
 }
 
 
-/* ==========================
-REMEMBER
-========================== */
+/* ======================================================
+   REMEMBER ME
+   ====================================================== */
 
-.rememberArea{
+.rememberArea {
+    text-align: center;
 
-    text-align:center;
+    font-size: 22px;
 
-    font-size:18px;
+    margin: 20px 0;
+}
 
-    margin:20px 0;
+.rememberArea label {
+    cursor: pointer;
+}
 
+.rememberArea input {
+    width: auto;
+
+    margin-right: 8px;
+
+    cursor: pointer;
 }
 
 
-.rememberArea input{
+/* ======================================================
+   LOGIN BUTTON
+   ====================================================== */
 
-    width:auto;
+.loginBtn {
+    width: 100%;
 
-    margin-right:8px;
+    height: 65px;
 
+    border: none;
+
+    border-radius: 12px;
+
+    background: #1565c0;
+
+    color: #fff;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    font-family: 'Hind Siliguri', 'Poppins', sans-serif;
 }
 
-/* ==========================
-LOGIN BUTTON
-========================== */
-
-.loginBtn{
-
-    width:100%;
-
-    height:60px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#1565c0;
-
-    color:white;
-
-    font-size:24px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
-
+.loginBtn:hover {
+    background: #0d47a1;
 }
 
-
-.loginBtn:hover{
-
-    background:#0d47a1;
-
+.loginBtn:active {
+    transform: scale(0.98);
 }
 
 
-/* ==========================
-LINK AREA
-========================== */
+/* ======================================================
+   LINK AREA
+   ====================================================== */
 
-.linkArea{
+.linkArea {
+    text-align: center;
 
-    text-align:center;
+    margin-top: 25px;
+}
 
-    margin-top:25px;
+.linkArea a {
+    font-size: 22px;
 
+    color: #1565c0;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.linkArea a:hover {
+    text-decoration: underline;
 }
 
 
-.linkArea a{
+/* ======================================================
+   REGISTER AREA
+   ====================================================== */
 
-    font-size:18px;
+.registerArea {
+    text-align: center;
 
-    color:#1565c0;
+    margin-top: 25px;
+}
 
-    text-decoration:none;
+.registerArea p {
+    font-size: 24px;
 
-    font-weight:600;
+    margin-bottom: 15px;
+}
 
+.registerBtn {
+    display: inline-block;
+
+    background: #2e7d32;
+
+    color: #fff;
+
+    padding: 14px 45px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    transition: 0.3s;
+}
+
+.registerBtn:hover {
+    background: #1b5e20;
 }
 
 
-.linkArea a:hover{
+/* ======================================================
+   HOME LINK
+   ====================================================== */
 
-    text-decoration:underline;
+.homeArea {
+    text-align: center;
 
+    margin-top: 25px;
+}
+
+.homeArea a {
+    font-size: 18px;
+
+    color: #1565c0;
+
+    text-decoration: none;
+}
+
+.homeArea a:hover {
+    text-decoration: underline;
 }
 
 
-/* ==========================
-REGISTER AREA
-========================== */
+/* ======================================================
+   FOOTER
+   ====================================================== */
 
-.registerArea{
+footer {
+    width: 100%;
 
-    text-align:center;
+    background: #0d47a1;
 
-    margin-top:25px;
+    color: #fff;
 
+    text-align: center;
+
+    padding: 25px 10px;
+}
+
+footer p {
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+footer small {
+    font-size: 15px;
 }
 
 
-.registerArea p{
+/* ======================================================
+   MOBILE RESPONSIVE
+   ====================================================== */
 
-    font-size:20px;
+@media (max-width: 600px) {
 
-    margin-bottom:15px;
+    .topHeader {
+        padding: 20px 12px;
+    }
 
-}
+    .logoArea h1 {
+        font-size: 32px;
+    }
 
-
-.registerBtn{
-
-    display:inline-block;
-
-    background:#2e7d32;
-
-    color:#fff;
-
-    padding:14px 45px;
-
-    border-radius:10px;
-
-    text-decoration:none;
-
-    font-size:22px;
-
-    font-weight:700;
-
-}
-
-
-.registerBtn:hover{
-
-    background:#1b5e20;
-
-}
-
-
-/* ==========================
-HOME LINK
-========================== */
-
-.homeArea{
-
-    text-align:center;
-
-    margin-top:25px;
-
-}
-
-
-.homeArea a{
-
-    font-size:18px;
-
-    color:#1565c0;
-
-    text-decoration:none;
-
-}
-
-
-/* ==========================
-FOOTER
-========================== */
-
-footer{
-
-    width:100%;
-
-    background:#0d47a1;
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:25px 10px;
-
-}
-
-
-footer p{
-
-    font-size:18px;
-
-    font-weight:600;
-
-}
-
-
-footer small{
-
-    font-size:15px;
-
-}
-
-
-/* ==========================
-MOBILE RESPONSIVE
-========================== */
-
-@media(max-width:600px){
-
-    .logoArea h1{
-
-        font-size:32px;
-
+    .logoArea p {
+        font-size: 16px;
     }
 
 
-    .logoArea p{
-
-        font-size:16px;
-
+    .container {
+        padding: 30px 15px;
     }
 
 
-    .loginCard{
+    .loginCard {
+        padding: 30px 20px;
 
-        padding:30px 20px;
-
+        border-radius: 15px;
     }
 
 
-    .titleArea h2{
-
-        font-size:28px;
-
+    .titleArea {
+        margin-bottom: 28px;
     }
 
 
-    .titleArea p{
-
-        font-size:16px;
-
+    .titleArea h2 {
+        font-size: 30px;
     }
 
 
-    .inputBox label{
-
-        font-size:17px;
-
+    .titleArea p {
+        font-size: 17px;
     }
 
 
-    .inputBox input{
-
-        height:52px;
-
-        font-size:17px;
-
+    .inputBox label {
+        font-size: 20px;
     }
 
 
-    .loginBtn{
+    .inputBox input {
+        height: 55px;
 
-        height:55px;
+        font-size: 18px;
 
-        font-size:21px;
-
+        padding: 0 15px;
     }
 
 
-    .registerBtn{
+    .passwordBox input {
+        padding-right: 58px;
+    }
 
-        font-size:18px;
 
-        padding:12px 35px;
+    .eyeIcon {
+        right: 7px;
 
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 24px;
+    }
+
+
+    .messageBox {
+        font-size: 16px;
+    }
+
+
+    .rememberArea {
+        font-size: 18px;
+    }
+
+
+    .loginBtn {
+        height: 55px;
+
+        font-size: 22px;
+    }
+
+
+    .linkArea a {
+        font-size: 18px;
+    }
+
+
+    .registerArea p {
+        font-size: 19px;
+    }
+
+
+    .registerBtn {
+        font-size: 19px;
+
+        padding: 12px 35px;
+    }
+
+
+    .homeArea a {
+        font-size: 17px;
     }
 
 }
 
 
-/*
-==========================================
-SK Job BD
-Employer Login CSS Completed
-==========================================
-*/
-/* FINAL FONT SIZE FIX */
-
-.titleArea h2{
-    font-size:42px !important;
-}
-
-.titleArea p{
-    font-size:24px !important;
-}
-
-.inputBox label{
-    font-size:30px !important;
-    font-weight:800 !important;
-}
-
-.inputBox input{
-    height:65px !important;
-    font-size:24px !important;
-}
-
-.rememberArea{
-    font-size:22px !important;
-}
-
-.loginBtn{
-    height:65px !important;
-    font-size:28px !important;
-}
-
-.linkArea a{
-    font-size:22px !important;
-}
-
-.registerArea p{
-    font-size:24px !important;
-}
-
-.registerBtn{
-    font-size:24px !important;
-}
-/* Password Eye */
-
-.passwordBox{
-
-    position:relative;
-
-    width:100%;
-
-}
-
-
-.passwordBox input{
-
-    padding-right:55px;
-
-}
-
-
-.eyeIcon{
-
-    position:absolute;
-
-    right:18px;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    font-size:24px;
-
-    cursor:pointer;
-
-    user-select:none;
-
-}
+/* ======================================================
+   END
+   SK JOB BD
+   ====================================================== */
