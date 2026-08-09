@@ -2,9 +2,7 @@
 <html lang="bn">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Employer Dashboard | SK Job BD</title>
@@ -12,33 +10,24 @@
     <link rel="stylesheet" href="dashboard.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-
 </head>
-
 
 <body>
 
-
-    <!-- ==========================================
+    <!-- =========================
          HEADER
-    =========================================== -->
+    ========================== -->
 
     <header class="topHeader">
 
-        <div class="logoSection">
+        <div class="headerInner">
 
-            <img
-                src="../logo.png"
-                class="siteLogo"
-                alt="SK Job BD">
-
-            <div class="brandText">
+            <div class="brandArea">
 
                 <h1>SK Job BD</h1>
 
@@ -46,521 +35,364 @@
 
             </div>
 
-        </div>
+            <div class="headerCompany">
 
+                <span id="headerCompanyName">
+                    Loading...
+                </span>
 
-        <div class="userSection">
+                <button id="logoutBtn" type="button">
+                    Logout
+                </button>
 
-            <span id="companyName">
-                Loading...
-            </span>
-
-            <button
-                type="button"
-                id="logoutBtn">
-
-                Logout
-
-            </button>
+            </div>
 
         </div>
 
     </header>
 
 
+    <!-- =========================
+         MAIN DASHBOARD
+    ========================== -->
 
-    <!-- ==========================================
-         DASHBOARD LAYOUT
-    =========================================== -->
-
-    <div class="dashboardLayout">
+    <main class="dashboardContainer">
 
 
-        <!-- ======================================
-             SIDEBAR
-        ======================================= -->
+        <!-- =========================
+             WELCOME
+        ========================== -->
 
-        <aside class="sidebar">
+        <section class="welcomeSection">
 
-            <div class="sidebarTitle">
+            <h2>
+                স্বাগতম,
+                <span id="companyTitle">
+                    Employer
+                </span>
+            </h2>
 
-                Employer Panel
+            <p>
+                আপনার প্রতিষ্ঠানের Dashboard থেকে প্রয়োজনীয় সেবা পরিচালনা করুন।
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             MAIN SERVICE BOXES
+        ========================== -->
+
+        <section class="serviceGrid">
+
+
+            <!-- =====================
+                 BOX 1
+            ====================== -->
+
+            <div class="serviceBox">
+
+                <h3>
+                    চাকুরী
+                </h3>
+
+                <div class="serviceLinks">
+
+                    <a href="post-job.html">
+                        চাকরি পোস্ট করুন
+                    </a>
+
+                    <a href="my-jobs.html">
+                        আমার চাকরি
+                    </a>
+
+                    <a href="applications.html">
+                        আবেদনকারীর তালিকা
+                    </a>
+
+                </div>
 
             </div>
 
 
-            <nav>
+            <!-- =====================
+                 BOX 2
+            ====================== -->
 
-                <ul>
+            <div class="serviceBox">
 
+                <h3>
+                    ফলাফল
+                </h3>
 
-                    <li class="active">
+                <div class="serviceLinks">
 
-                        <a href="dashboard.html">
+                    <a href="education-result.html">
+                        শিক্ষাপ্রতিষ্ঠানের ফলাফল
+                    </a>
 
-                            Dashboard
+                    <a href="job-exam-result.html">
+                        চাকুরী পরীক্ষার ফলাফল
+                    </a>
 
-                        </a>
+                </div>
 
-                    </li>
-
-
-                    <li>
-
-                        <a href="post-job.html">
-
-                            চাকরি পোস্ট করুন
-
-                        </a>
-
-                    </li>
+            </div>
 
 
-                    <li>
+            <!-- =====================
+                 BOX 3
+            ====================== -->
 
-                        <a href="my-jobs.html">
+            <div class="serviceBox">
 
-                            আমার চাকরি
+                <h3>
+                    Wallet
+                </h3>
 
-                        </a>
+                <div class="serviceLinks">
 
-                    </li>
+                    <a href="wallet.html">
+                        Wallet Balance
+                    </a>
 
+                    <a href="payment.html">
+                        Payment
+                    </a>
 
-                    <li>
+                    <a href="transactions.html">
+                        Transaction
+                    </a>
 
-                        <a href="applications.html">
+                </div>
 
-                            আবেদনকারীর তালিকা
-
-                        </a>
-
-                    </li>
-
-
-                    <li>
-
-                        <a href="wallet.html">
-
-                            Wallet & Payment
-
-                        </a>
-
-                    </li>
+            </div>
 
 
-                    <li>
+            <!-- =====================
+                 BOX 4
+            ====================== -->
 
-                        <a href="reports.html">
+            <div class="serviceBox">
 
-                            Reports
+                <h3>
+                    অন্যান্য সেবা
+                </h3>
 
-                        </a>
+                <div class="serviceLinks">
 
-                    </li>
+                    <a href="profile.html">
+                        Profile
+                    </a>
 
+                    <a href="reports.html">
+                        Reports
+                    </a>
 
-                    <li>
+                    <a href="other-services.html">
+                        অন্যান্য সেবা
+                    </a>
 
-                        <a href="profile.html">
+                </div>
 
-                            Profile
-
-                        </a>
-
-                    </li>
-
-
-                    <li>
-
-                        <a href="change-password.html">
-
-                            Password
-
-                        </a>
-
-                    </li>
+            </div>
 
 
-                </ul>
-
-            </nav>
-
-        </aside>
+        </section>
 
 
+        <!-- =========================
+             ACCOUNT INFORMATION
+        ========================== -->
 
-        <!-- ======================================
-             MAIN CONTENT
-        ======================================= -->
+        <section class="accountSection">
 
-        <main class="content">
+            <h3>
+                Account Information
+            </h3>
+
+            <div class="accountGrid">
 
 
-            <!-- ==================================
-                 WELCOME
-            =================================== -->
+                <div class="accountItem">
 
-            <section class="welcomeCard">
-
-                <h2>
-
-                    স্বাগতম,
-
-                    <span id="companyTitle">
-                        Employer
+                    <span class="accountLabel">
+                        প্রতিষ্ঠানের নাম
                     </span>
 
-                </h2>
+                    <strong id="companyName">
+                        -
+                    </strong>
+
+                </div>
 
 
-                <p>
+                <div class="accountItem">
 
-                    SK Job BD Employer Portal-এ আপনাকে স্বাগতম।
+                    <span class="accountLabel">
+                        কর্তৃপক্ষের নাম
+                    </span>
 
-                </p>
+                    <strong id="ownerName">
+                        -
+                    </strong>
 
-            </section>
+                </div>
 
 
+                <div class="accountItem">
 
-            <!-- ==================================
-                 COMPANY INFORMATION
-            =================================== -->
+                    <span class="accountLabel">
+                        মোবাইল
+                    </span>
 
-            <section class="companyCard">
+                    <strong id="mobileNumber">
+                        -
+                    </strong>
 
-                <div class="sectionTitle">
+                </div>
+
+
+                <div class="accountItem">
+
+                    <span class="accountLabel">
+                        Email
+                    </span>
+
+                    <strong id="emailAddress">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="accountItem">
+
+                    <span class="accountLabel">
+                        Account Status
+                    </span>
+
+                    <strong id="accountStatus">
+                        Active
+                    </strong>
+
+                </div>
+
+
+                <div class="accountItem">
+
+                    <span class="accountLabel">
+                        Subscription
+                    </span>
+
+                    <strong id="subscriptionPlan">
+                        Free
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MANAGEMENT
+        ========================== -->
+
+        <section class="managementSection">
+
+            <div class="managementContent">
+
+
+                <div class="managementPhoto">
+
+                    <img
+                        src="../management.jpg"
+                        alt="Management">
+
+                </div>
+
+
+                <div class="managementInfo">
 
                     <h3>
-                        প্রতিষ্ঠানের তথ্য
+                        Rokunuzzaman
                     </h3>
 
-                </div>
+                    <p class="managementPosition">
+                        Managing Director
+                    </p>
+
+                    <p>
+                        Organization: SK Job BD
+                    </p>
 
 
-                <div class="companyInfoGrid">
+                    <div class="managementContact">
 
 
-                    <div class="infoBox">
-
-                        <span class="infoLabel">
-                            প্রতিষ্ঠানের নাম
+                        <span>
+                            <span class="contactIcon">☎</span>
+                            +8801794917925
                         </span>
 
-                        <strong id="companyProfileName">
-                            Loading...
-                        </strong>
+
+                        <span>
+                            <span class="contactIcon">WhatsApp</span>
+                            +8801794917925
+                        </span>
+
 
                     </div>
 
 
-                    <div class="infoBox">
+                    <div class="managementEmail">
 
-                        <span class="infoLabel">
-                            কর্তৃপক্ষের নাম
+                        <span class="contactIcon">✉</span>
+
+                        <span>
+                            sagorkhan251996@gmail.com
                         </span>
-
-                        <strong id="contactPerson">
-                            -
-                        </strong>
 
                     </div>
 
-
-                    <div class="infoBox">
-
-                        <span class="infoLabel">
-                            মোবাইল নম্বর
-                        </span>
-
-                        <strong id="mobileNumber">
-                            -
-                        </strong>
-
-                    </div>
-
-
-                    <div class="infoBox">
-
-                        <span class="infoLabel">
-                            Email
-                        </span>
-
-                        <strong id="emailAddress">
-                            -
-                        </strong>
-
-                    </div>
-
-
-                    <div class="infoBox">
-
-                        <span class="infoLabel">
-                            Account Status
-                        </span>
-
-                        <strong id="accountStatus">
-                            Active
-                        </strong>
-
-                    </div>
-
-
                 </div>
 
-            </section>
+            </div>
 
+        </section>
 
 
-            <!-- ==================================
-                 STATISTICS
-            =================================== -->
+    </main>
 
-            <section class="statsGrid">
 
-
-                <div class="statCard">
-
-                    <h3 id="totalJobs">
-                        0
-                    </h3>
-
-                    <p>
-                        মোট চাকরি
-                    </p>
-
-                </div>
-
-
-                <div class="statCard">
-
-                    <h3 id="activeJobs">
-                        0
-                    </h3>
-
-                    <p>
-                        চলমান চাকরি
-                    </p>
-
-                </div>
-
-
-                <div class="statCard">
-
-                    <h3 id="totalApplicants">
-                        0
-                    </h3>
-
-                    <p>
-                        মোট আবেদন
-                    </p>
-
-                </div>
-
-
-                <div class="statCard">
-
-                    <h3 id="walletBalance">
-                        ৳ 0.00
-                    </h3>
-
-                    <p>
-                        Wallet Balance
-                    </p>
-
-                </div>
-
-
-            </section>
-
-
-
-            <!-- ==================================
-                 QUICK MENU
-            =================================== -->
-
-            <section class="quickSection">
-
-                <div class="sectionTitle">
-
-                    <h3>
-                        দ্রুত কার্যক্রম
-                    </h3>
-
-                </div>
-
-
-                <div class="menuGrid">
-
-
-                    <a
-                        href="post-job.html"
-                        class="menuCard">
-
-                        <h4>
-                            নতুন চাকরি পোস্ট
-                        </h4>
-
-                        <p>
-                            নতুন নিয়োগ বিজ্ঞপ্তি প্রকাশ করুন।
-                        </p>
-
-                    </a>
-
-
-
-                    <a
-                        href="my-jobs.html"
-                        class="menuCard">
-
-                        <h4>
-                            আমার চাকরি
-                        </h4>
-
-                        <p>
-                            আপনার প্রকাশিত চাকরিগুলো দেখুন।
-                        </p>
-
-                    </a>
-
-
-
-                    <a
-                        href="applications.html"
-                        class="menuCard">
-
-                        <h4>
-                            আবেদনকারীর তালিকা
-                        </h4>
-
-                        <p>
-                            চাকরির আবেদনগুলো পরিচালনা করুন।
-                        </p>
-
-                    </a>
-
-
-
-                    <a
-                        href="wallet.html"
-                        class="menuCard">
-
-                        <h4>
-                            Wallet & Payment
-                        </h4>
-
-                        <p>
-                            আপনার Wallet এবং লেনদেন দেখুন।
-                        </p>
-
-                    </a>
-
-
-
-                    <a
-                        href="reports.html"
-                        class="menuCard">
-
-                        <h4>
-                            Reports
-                        </h4>
-
-                        <p>
-                            প্রতিষ্ঠানের কার্যক্রমের রিপোর্ট দেখুন।
-                        </p>
-
-                    </a>
-
-
-
-                    <a
-                        href="profile.html"
-                        class="menuCard">
-
-                        <h4>
-                            Profile
-                        </h4>
-
-                        <p>
-                            প্রতিষ্ঠানের তথ্য দেখুন ও পরিবর্তন করুন।
-                        </p>
-
-                    </a>
-
-
-                </div>
-
-            </section>
-
-
-
-            <!-- ==================================
-                 RECENT ACTIVITY
-            =================================== -->
-
-            <section class="activityCard">
-
-                <div class="sectionTitle">
-
-                    <h3>
-                        সাম্প্রতিক কার্যক্রম
-                    </h3>
-
-                </div>
-
-
-                <div id="recentActivity">
-
-                    <p>
-                        এখনো কোনো কার্যক্রম নেই।
-                    </p>
-
-                </div>
-
-            </section>
-
-
-
-        </main>
-
-    </div>
-
-
-
-    <!-- ==========================================
+    <!-- =========================
          FOOTER
-    =========================================== -->
+    ========================== -->
 
     <footer class="footer">
 
         <p>
-            © 2026 SK Job BD
+            Powered by SK Job BD
         </p>
 
         <small>
-            Employer & Institution Portal
-        </small>
-
-        <br>
-
-        <small>
-            Powered by <strong>SK Job BD</strong>
+            © 2026 SK Job BD
         </small>
 
     </footer>
 
 
-
-    <!-- ==========================================
-         DASHBOARD JAVASCRIPT
-    =========================================== -->
+    <!-- =========================
+         DASHBOARD SCRIPT
+    ========================== -->
 
     <script
         type="module"
         src="dashboard.js">
     </script>
-
 
 </body>
 
