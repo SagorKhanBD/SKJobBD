@@ -777,6 +777,7 @@ window.addEventListener(
 // Firebase Authentication
 // Mobile Number Login
 // ======================================================
+
 // ======================================================
 // PASSWORD SHOW / HIDE
 // ======================================================
@@ -793,13 +794,16 @@ if (
     togglePassword
 ) {
 
+    togglePassword.textContent =
+        "👁️";
+
     togglePassword.style.cursor =
         "pointer";
 
 
     togglePassword.addEventListener(
         "click",
-        function () {
+        () => {
 
             if (
                 passwordInput.type ===
@@ -809,18 +813,12 @@ if (
                 passwordInput.type =
                     "text";
 
-                togglePassword.textContent =
-                    "🙈";
-
             }
 
             else {
 
                 passwordInput.type =
                     "password";
-
-                togglePassword.textContent =
-                    "👁️";
 
             }
 
