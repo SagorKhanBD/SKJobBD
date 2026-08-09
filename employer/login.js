@@ -1,62 +1,72 @@
-/* =========================================================
-   SK JOB BD
-   COMPANY REGISTRATION SYSTEM
-
-   Registration Form:
-   - Company Name
-   - Institution Code (Optional)
-   - Owner Name
-   - Mobile
-   - Gmail (Optional)
-   - Company Logo (Optional)
-   - Password
-   - Confirm Password
-
-   Admin Approval:
-   NOT REQUIRED
-
-   Account:
-   ACTIVE immediately after registration
-   ========================================================= */
+// ======================================================
+// SK JOB BD
+// COMPANY / EMPLOYER LOGIN SYSTEM
+// ======================================================
+//
+// Login Method:
+//
+// Mobile Number
+//       ↓
+// Internal Firebase Auth Email
+//       ↓
+// Firebase Authentication
+//       ↓
+// Firestore companies/{UID}
+//       ↓
+// Dashboard
+//
+// Registration System-এর সঙ্গে সম্পূর্ণ সামঞ্জস্যপূর্ণ
+// ======================================================
 
 
 import { db, auth } from "../firebase.js";
 
 import {
     doc,
-    setDoc,
-    serverTimestamp
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 import {
-    createUserWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 
+// ======================================================
+// HTML ELEMENTS
+// ======================================================
 
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const registerForm =
-    document.getElementById("registerForm");
+const loginForm =
+    document.getElementById("loginForm");
 
 const message =
     document.getElementById("message");
 
+const rememberMe =
+    document.getElementById("rememberMe");
+
+const passwordInput =
+    document.getElementById("password");
+
+const togglePassword =
+    document.getElementById("togglePassword");
 
 
-/* =========================================================
-   INTERNAL AUTH EMAIL
-
-   আপনার Form পরিবর্তন করা হচ্ছে না।
-
-   Firebase Email/Password Authentication ব্যবহার করার জন্য
-   মোবাইল নম্বর থেকে একটি internal email তৈরি করা হচ্ছে।
-
-   এটি Company-এর Gmail নয়।
-   এটি ব্যবহারকারীকে দেখানোর প্রয়োজন নেই।
-   ========================================================= */
+// ======================================================
+// CREATE INTERNAL AUTH EMAIL
+// ======================================================
+//
+// Registration-এর register.js-এও একই পদ্ধতি ব্যবহার করা হয়েছে:
+//
+// mobile + "@skjobbd-auth.local"
+//
+// উদাহরণ:
+// 01827775115
+//
+// হবে:
+//
+// 01827775115@skjobbd-auth.local
+// ======================================================
 
 function createAuthEmail(mobile) {
 
@@ -68,75 +78,116 @@ function createAuthEmail(mobile) {
 }
 
 
+// ======================================================
+// SHOW MESSAGE
+// ======================================================
 
-/* =========================================================
-   FORM CHECK
-   ========================================================= */
+function showMessage(
+    text,
+    color = "red"
+) {
 
-if (!registerForm) {
+    if (!message) {
+        return;
+    }
 
-    console.error(
-        "SK Job BD: registerForm not found."
+    message.style.color =
+        color;
+
+    message.innerHTML =
+        text;
+
+}
+
+
+// ======================================================
+// MOBILE VALIDATION
+// ======================================================
+
+function isValidMobile(mobile) {
+
+    const mobilePattern =
+        /^01[3-9]\d{8}$/;
+
+    return mobilePattern.test(
+        mobile
     );
 
 }
 
 
+// ======================================================
+// PASSWORD SHOW / HIDE
+// ======================================================
 
-/* =========================================================
-   REGISTRATION
-   ========================================================= */
+if (
+    passwordInput &&
+    togglePassword
+) {
 
-if (registerForm) {
+    togglePassword.textContent =
+        "👁";
 
-    registerForm.addEventListener(
+
+    togglePassword.addEventListener(
+        "click",
+        () => {
+
+            if (
+                passwordInput.type ===
+                "password"
+            ) {
+
+                passwordInput.type =
+                    "text";
+
+                togglePassword.textContent =
+                    "👁";
+
+            }
+
+            else {
+
+                passwordInput.type =
+                    "password";
+
+                togglePassword.textContent =
+                    "👁";
+
+            }
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// LOGIN FORM
+// ======================================================
+
+if (loginForm) {
+
+    loginForm.addEventListener(
         "submit",
         async (e) => {
 
             e.preventDefault();
 
 
+            // --------------------------------------------------
+            // CLEAR OLD MESSAGE
+            // --------------------------------------------------
 
-            /* =================================================
-               CLEAR MESSAGE
-            ================================================= */
-
-            if (message) {
-
-                message.style.color =
-                    "red";
-
-                message.innerHTML =
-                    "";
-
-            }
+            showMessage(
+                "",
+                "red"
+            );
 
 
-
-            /* =================================================
-               GET FORM DATA
-            ================================================= */
-
-            const companyName =
-                document
-                    .getElementById("companyName")
-                    ?.value
-                    .trim() || "";
-
-
-            const institutionCode =
-                document
-                    .getElementById("institutionCode")
-                    ?.value
-                    .trim() || "";
-
-
-            const ownerName =
-                document
-                    .getElementById("ownerName")
-                    ?.value
-                    .trim() || "";
-
+            // --------------------------------------------------
+            // GET MOBILE
+            // --------------------------------------------------
 
             const mobile =
                 document
@@ -145,12 +196,9 @@ if (registerForm) {
                     .trim() || "";
 
 
-            const email =
-                document
-                    .getElementById("email")
-                    ?.value
-                    .trim() || "";
-
+            // --------------------------------------------------
+            // GET PASSWORD
+            // --------------------------------------------------
 
             const password =
                 document
@@ -158,195 +206,44 @@ if (registerForm) {
                     ?.value || "";
 
 
-            const confirmPassword =
-                document
-                    .getElementById("confirmPassword")
-                    ?.value || "";
-
-
-
-            /* =================================================
-               REQUIRED FIELD CHECK
-            ================================================= */
+            // ==================================================
+            // REQUIRED CHECK
+            // ==================================================
 
             if (
-                companyName === "" ||
-                ownerName === "" ||
                 mobile === "" ||
-                password === "" ||
-                confirmPassword === ""
+                password === ""
             ) {
 
-                if (message) {
-
-                    message.innerHTML =
-                        "❌ সকল বাধ্যতামূলক তথ্য পূরণ করুন।";
-
-                }
+                showMessage(
+                    "❌ মোবাইল নম্বর এবং Password লিখুন।"
+                );
 
                 return;
 
             }
 
 
-
-            /* =================================================
-               MOBILE VALIDATION
-            ================================================= */
-
-            const mobilePattern =
-                /^01[3-9]\d{8}$/;
-
+            // ==================================================
+            // MOBILE CHECK
+            // ==================================================
 
             if (
-                !mobilePattern.test(mobile)
+                !isValidMobile(mobile)
             ) {
 
-                if (message) {
-
-                    message.innerHTML =
-                        "❌ সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর লিখুন।";
-
-                }
+                showMessage(
+                    "❌ সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর লিখুন।"
+                );
 
                 return;
 
             }
 
 
-
-            /* =================================================
-               OPTIONAL EMAIL VALIDATION
-
-               Gmail Optional.
-               যদি দেওয়া হয় তাহলে valid email হতে হবে।
-            ================================================= */
-
-            if (email !== "") {
-
-                const emailPattern =
-                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-                if (
-                    !emailPattern.test(email)
-                ) {
-
-                    if (message) {
-
-                        message.innerHTML =
-                            "❌ সঠিক Gmail / Email Address লিখুন।";
-
-                    }
-
-                    return;
-
-                }
-
-            }
-
-
-
-            /* =================================================
-               PASSWORD LENGTH
-            ================================================= */
-
-            if (
-                password.length < 8
-            ) {
-
-                if (message) {
-
-                    message.innerHTML =
-                        "❌ Password কমপক্ষে ৮ অক্ষরের হতে হবে।";
-
-                }
-
-                return;
-
-            }
-
-
-
-            /* =================================================
-               HIGH SECURITY PASSWORD
-            ================================================= */
-
-            const hasUppercase =
-                /[A-Z]/.test(password);
-
-
-            const hasLowercase =
-                /[a-z]/.test(password);
-
-
-            const hasNumber =
-                /[0-9]/.test(password);
-
-
-            const hasSpecial =
-                /[^A-Za-z0-9]/.test(password);
-
-
-
-            if (
-                !hasUppercase ||
-                !hasLowercase ||
-                !hasNumber ||
-                !hasSpecial
-            ) {
-
-                if (message) {
-
-                    message.innerHTML =
-
-                        "❌ High Security Password ব্যবহার করুন।<br><br>" +
-
-                        "Password-এ থাকতে হবে:<br>" +
-
-                        "• কমপক্ষে ৮ অক্ষর<br>" +
-
-                        "• বড় হাতের অক্ষর (A-Z)<br>" +
-
-                        "• ছোট হাতের অক্ষর (a-z)<br>" +
-
-                        "• সংখ্যা (0-9)<br>" +
-
-                        "• বিশেষ চিহ্ন (@, #, $, % ইত্যাদি)";
-
-                }
-
-                return;
-
-            }
-
-
-
-            /* =================================================
-               CONFIRM PASSWORD
-            ================================================= */
-
-            if (
-                password !==
-                confirmPassword
-            ) {
-
-                if (message) {
-
-                    message.innerHTML =
-                        "❌ Password এবং Confirm Password মিলছে না।";
-
-                }
-
-                return;
-
-            }
-
-
-
-            /* =================================================
-               CREATE INTERNAL AUTH EMAIL
-            ================================================= */
+            // ==================================================
+            // CREATE INTERNAL AUTH EMAIL
+            // ==================================================
 
             const authEmail =
                 createAuthEmail(
@@ -354,20 +251,30 @@ if (registerForm) {
                 );
 
 
+            console.log(
+                "Login Auth Email:",
+                authEmail
+            );
 
-            /* =================================================
-               FIREBASE REGISTRATION
-            ================================================= */
+
+            // ==================================================
+            // FIREBASE LOGIN
+            // ==================================================
 
             try {
 
+                showMessage(
+                    "⏳ Login হচ্ছে...",
+                    "blue"
+                );
 
-                /* =================================================
-                   CREATE FIREBASE AUTH USER
-                ================================================= */
+
+                // ------------------------------------------------
+                // SIGN IN WITH FIREBASE AUTH
+                // ------------------------------------------------
 
                 const userCredential =
-                    await createUserWithEmailAndPassword(
+                    await signInWithEmailAndPassword(
                         auth,
                         authEmail,
                         password
@@ -378,382 +285,474 @@ if (registerForm) {
                     userCredential.user;
 
 
+                console.log(
+                    "Firebase User:",
+                    user.uid
+                );
 
-                /* =================================================
-                   CREATE COMPANY PROFILE
-                ================================================= */
 
-                await setDoc(
+                // ==================================================
+                // GET COMPANY PROFILE
+                // ==================================================
 
+                const companyRef =
                     doc(
                         db,
                         "companies",
                         user.uid
-                    ),
+                    );
 
-                    {
 
-                        /* ==============================
-                           BASIC INFORMATION
-                        ============================== */
+                const companySnapshot =
+                    await getDoc(
+                        companyRef
+                    );
 
-                        uid:
-                            user.uid,
 
-
-                        companyName:
-                            companyName,
-
-
-                        institutionCode:
-                            institutionCode,
-
-
-                        ownerName:
-                            ownerName,
-
-
-                        mobile:
-                            mobile,
-
-
-                        email:
-                            email,
-
-
-
-                        /* ==============================
-                           ACCOUNT
-                        ============================== */
-
-                        accountType:
-                            "company",
-
-
-                        status:
-                            "active",
-
-
-                        approved:
-                            true,
-
-
-                        blocked:
-                            false,
-
-
-
-                        /* ==============================
-                           PROFILE
-                        ============================== */
-
-                        profileCompleted:
-                            false,
-
-
-                        logoUrl:
-                            "",
-
-
-
-                        /* ==============================
-                           SUBSCRIPTION
-                        ============================== */
-
-                        subscription: {
-
-                            active:
-                                false,
-
-                            plan:
-                                "Free",
-
-                            expireDate:
-                                null
-
-                        },
-
-
-
-                        /* ==============================
-                           WALLET
-                        ============================== */
-
-                        wallet: {
-
-                            balance:
-                                0,
-
-                            totalIncome:
-                                0,
-
-                            totalWithdraw:
-                                0
-
-                        },
-
-
-
-                        /* ==============================
-                           JOB INFORMATION
-                        ============================== */
-
-                        totalPosts:
-                            0,
-
-
-                        totalApplications:
-                            0,
-
-
-
-                        /* ==============================
-                           TIMESTAMP
-                        ============================== */
-
-                        createdAt:
-                            serverTimestamp(),
-
-
-                        updatedAt:
-                            serverTimestamp()
-
-                    }
-
-                );
-
-
-
-                /* =================================================
-                   SUCCESS
-                ================================================= */
-
-                if (message) {
-
-                    message.style.color =
-                        "green";
-
-                    message.innerHTML =
-
-                        "✅ কোম্পানি অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে।<br><br>" +
-
-                        "🏢 প্রতিষ্ঠান: " +
-                        companyName +
-                        "<br>" +
-
-                        "📱 মোবাইল: " +
-                        mobile +
-                        "<br><br>" +
-
-                        "✅ আপনার Account Active হয়েছে।<br>" +
-
-                        "এখন Company Login করতে পারবেন।";
-
-                }
-
-
-
-                /* =================================================
-                   RESET FORM
-                ================================================= */
-
-                registerForm.reset();
-
-
-
-                /* =================================================
-                   LOGIN PAGE
-                ================================================= */
-
-                setTimeout(
-
-                    () => {
-
-                        window.location.href =
-                            "login.html";
-
-                    },
-
-                    3000
-
-                );
-
-
-
-            }
-
-
-
-            /* =================================================
-               ERROR
-            ================================================= */
-
-            catch (error) {
-
-                console.error(
-                    "SK Job BD Registration Error:",
-                    error
-                );
-
-
-                if (message) {
-
-                    message.style.color =
-                        "red";
-
-                }
-
-
-
-                /* =================================================
-                   ALREADY REGISTERED
-                ================================================= */
+                // ==================================================
+                // COMPANY PROFILE NOT FOUND
+                // ==================================================
 
                 if (
-                    error.code ===
-                    "auth/email-already-in-use"
+                    !companySnapshot.exists()
                 ) {
 
-                    if (message) {
+                    await signOut(
+                        auth
+                    );
 
-                        message.innerHTML =
-                            "❌ এই মোবাইল নম্বর দিয়ে ইতোমধ্যে একটি Account রয়েছে।";
 
-                    }
+                    showMessage(
+
+                        "❌ কোম্পানি Profile পাওয়া যায়নি। " +
+                        "Registration তথ্য পরীক্ষা করুন।"
+
+                    );
 
                     return;
 
                 }
 
 
+                // ==================================================
+                // COMPANY DATA
+                // ==================================================
 
-                /* =================================================
-                   INVALID EMAIL
-                ================================================= */
+                const company =
+                    companySnapshot.data();
+
+
+                console.log(
+                    "Company Data:",
+                    company
+                );
+
+
+                // ==================================================
+                // BLOCKED CHECK
+                // ==================================================
+
+                if (
+                    company.blocked ===
+                    true
+                ) {
+
+                    await signOut(
+                        auth
+                    );
+
+
+                    showMessage(
+                        "❌ আপনার কোম্পানি অ্যাকাউন্টটি Block করা হয়েছে।"
+                    );
+
+                    return;
+
+                }
+
+
+                // ==================================================
+                // STATUS CHECK
+                // ==================================================
+                //
+                // আপনার Registration System:
+                //
+                // status: "active"
+                // approved: true
+                //
+                // তাই নতুন Account সরাসরি Active হবে।
+                // ==================================================
+
+                const status =
+                    company.status ||
+                    "active";
+
+
+                if (
+                    status !== "active"
+                ) {
+
+                    await signOut(
+                        auth
+                    );
+
+
+                    showMessage(
+                        "⏳ আপনার কোম্পানি অ্যাকাউন্টটি বর্তমানে Active নয়।"
+                    );
+
+                    return;
+
+                }
+
+
+                // ==================================================
+                // APPROVAL CHECK
+                // ==================================================
+                //
+                // Admin Approval Required নয়।
+                //
+                // তাই approved === false হলে Login বন্ধ করা হবে না।
+                // ==================================================
+
+
+                // ==================================================
+                // CREATE LOGIN DATA
+                // ==================================================
+
+                const loginData = {
+
+                    uid:
+                        user.uid,
+
+                    companyId:
+                        user.uid,
+
+                    companyName:
+                        company.companyName ||
+                        "",
+
+                    ownerName:
+                        company.ownerName ||
+                        "",
+
+                    mobile:
+                        company.mobile ||
+                        mobile,
+
+                    email:
+                        company.email ||
+                        "",
+
+                    accountType:
+                        company.accountType ||
+                        "company",
+
+                    status:
+                        company.status ||
+                        "active",
+
+                    approved:
+                        company.approved !== false,
+
+                    blocked:
+                        company.blocked === true,
+
+                    logoUrl:
+                        company.logoUrl ||
+                        ""
+
+                };
+
+
+                // ==================================================
+                // REMEMBER ME
+                // ==================================================
+
+                if (
+                    rememberMe &&
+                    rememberMe.checked
+                ) {
+
+                    // ------------------------------------------------
+                    // SAVE TO LOCAL STORAGE
+                    // ------------------------------------------------
+
+                    localStorage.setItem(
+
+                        "employerLogin",
+
+                        JSON.stringify(
+                            loginData
+                        )
+
+                    );
+
+
+                    // ------------------------------------------------
+                    // REMOVE OLD SESSION LOGIN
+                    // ------------------------------------------------
+
+                    sessionStorage.removeItem(
+                        "employerLogin"
+                    );
+
+                }
+
+                else {
+
+                    // ------------------------------------------------
+                    // SAVE TO SESSION STORAGE
+                    // ------------------------------------------------
+
+                    sessionStorage.setItem(
+
+                        "employerLogin",
+
+                        JSON.stringify(
+                            loginData
+                        )
+
+                    );
+
+
+                    // ------------------------------------------------
+                    // REMOVE OLD LOCAL LOGIN
+                    // ------------------------------------------------
+
+                    localStorage.removeItem(
+                        "employerLogin"
+                    );
+
+                }
+
+
+                // ==================================================
+                // SUCCESS
+                // ==================================================
+
+                showMessage(
+                    "✅ Login সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
+                    "green"
+                );
+
+
+                // ==================================================
+                // DASHBOARD
+                // ==================================================
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    },
+                    1000
+                );
+
+
+            }
+
+            // ======================================================
+            // FIREBASE ERROR
+            // ======================================================
+
+            catch (error) {
+
+                console.error(
+                    "SK Job BD Login Error:",
+                    error
+                );
+
+
+                // --------------------------------------------------
+                // WRONG PASSWORD / EMAIL
+                // --------------------------------------------------
+
+                if (
+                    error.code ===
+                    "auth/invalid-credential"
+                ) {
+
+                    showMessage(
+                        "❌ মোবাইল নম্বর অথবা Password সঠিক নয়।"
+                    );
+
+                    return;
+
+                }
+
+
+                // --------------------------------------------------
+                // WRONG PASSWORD
+                // --------------------------------------------------
+
+                if (
+                    error.code ===
+                    "auth/wrong-password"
+                ) {
+
+                    showMessage(
+                        "❌ Password সঠিক নয়।"
+                    );
+
+                    return;
+
+                }
+
+
+                // --------------------------------------------------
+                // USER NOT FOUND
+                // --------------------------------------------------
+
+                if (
+                    error.code ===
+                    "auth/user-not-found"
+                ) {
+
+                    showMessage(
+                        "❌ এই মোবাইল নম্বর দিয়ে কোনো Account পাওয়া যায়নি।"
+                    );
+
+                    return;
+
+                }
+
+
+                // --------------------------------------------------
+                // INVALID EMAIL
+                // --------------------------------------------------
 
                 if (
                     error.code ===
                     "auth/invalid-email"
                 ) {
 
-                    if (message) {
-
-                        message.innerHTML =
-                            "❌ Account তৈরির তথ্য সঠিক নয়।";
-
-                    }
+                    showMessage(
+                        "❌ Login তথ্য সঠিক নয়।"
+                    );
 
                     return;
 
                 }
 
 
-
-                /* =================================================
-                   WEAK PASSWORD
-                ================================================= */
+                // --------------------------------------------------
+                // TOO MANY REQUESTS
+                // --------------------------------------------------
 
                 if (
                     error.code ===
-                    "auth/weak-password"
+                    "auth/too-many-requests"
                 ) {
 
-                    if (message) {
-
-                        message.innerHTML =
-                            "❌ Password খুব দুর্বল।";
-
-                    }
+                    showMessage(
+                        "❌ অনেকবার ভুল Login চেষ্টা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।"
+                    );
 
                     return;
 
                 }
 
 
-
-                /* =================================================
-                   NETWORK
-                ================================================= */
+                // --------------------------------------------------
+                // NETWORK ERROR
+                // --------------------------------------------------
 
                 if (
                     error.code ===
                     "auth/network-request-failed"
                 ) {
 
-                    if (message) {
-
-                        message.innerHTML =
-                            "❌ Internet Connection পাওয়া যাচ্ছে না।";
-
-                    }
+                    showMessage(
+                        "❌ Internet Connection পাওয়া যাচ্ছে না।"
+                    );
 
                     return;
 
                 }
 
 
-
-                /* =================================================
-                   AUTH PROVIDER DISABLED
-                ================================================= */
+                // --------------------------------------------------
+                // AUTH DISABLED
+                // --------------------------------------------------
 
                 if (
                     error.code ===
                     "auth/operation-not-allowed"
                 ) {
 
-                    if (message) {
-
-                        message.innerHTML =
-
-                            "❌ Firebase Email/Password Authentication চালু করা নেই।";
-
-                    }
+                    showMessage(
+                        "❌ Firebase Email/Password Authentication চালু করা নেই।"
+                    );
 
                     return;
 
                 }
 
 
+                // --------------------------------------------------
+                // DEFAULT ERROR
+                // --------------------------------------------------
 
-                /* =================================================
-                   DEFAULT
-                ================================================= */
-
-                if (message) {
-
-                    message.innerHTML =
-                        "❌ Registration Failed। আবার চেষ্টা করুন।";
-
-                }
+                showMessage(
+                    "❌ Login করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।"
+                );
 
             }
 
-        );
-
-    }
+        }
+    );
 
 }
 
 
+// ======================================================
+// AUTO LOGIN CHECK
+// ======================================================
 
-/* =========================================================
-   ONLINE / OFFLINE
-   ========================================================= */
+window.addEventListener(
+    "load",
+    () => {
+
+        const localLogin =
+            localStorage.getItem(
+                "employerLogin"
+            );
+
+
+        const sessionLogin =
+            sessionStorage.getItem(
+                "employerLogin"
+            );
+
+
+        if (
+            localLogin ||
+            sessionLogin
+        ) {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+    }
+);
+
+
+// ======================================================
+// ONLINE / OFFLINE
+// ======================================================
 
 window.addEventListener(
     "offline",
     () => {
 
-        if (message) {
-
-            message.style.color =
-                "red";
-
-            message.innerHTML =
-                "❌ Internet Connection বিচ্ছিন্ন হয়েছে।";
-
-        }
+        showMessage(
+            "❌ Internet Connection বিচ্ছিন্ন হয়েছে।"
+        );
 
     }
 );
@@ -763,23 +762,18 @@ window.addEventListener(
     "online",
     () => {
 
-        if (message) {
-
-            message.style.color =
-                "green";
-
-            message.innerHTML =
-                "✅ Internet Connection পুনরায় চালু হয়েছে।";
-
-        }
+        showMessage(
+            "✅ Internet Connection পুনরায় চালু হয়েছে।",
+            "green"
+        );
 
     }
 );
 
 
-
-/* =========================================================
-   SK JOB BD
-   COMPANY REGISTRATION
-   ACTIVE ACCOUNT SYSTEM
-   ========================================================= */
+// ======================================================
+// SK JOB BD
+// COMPANY LOGIN SYSTEM
+// Firebase Authentication
+// Mobile Number Login
+// ======================================================
