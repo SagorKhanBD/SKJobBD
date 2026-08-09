@@ -3,17 +3,21 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-SK BD Dashboard
-</title>
+    <title>Employer Dashboard | SK Job BD</title>
 
+    <link rel="stylesheet" href="dashboard.css">
 
-<link rel="stylesheet" href="dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
 </head>
 
@@ -21,164 +25,541 @@ SK BD Dashboard
 <body>
 
 
-<header>
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
 
-<h1>
-SK BD
-</h1>
+    <header class="topHeader">
 
-<p>
-User Dashboard
-</p>
+        <div class="logoSection">
 
-</header>
+            <img
+                src="../logo.png"
+                class="siteLogo"
+                alt="SK Job BD">
 
+            <div class="brandText">
 
+                <h1>SK Job BD</h1>
 
+                <p>Employer Dashboard</p>
 
-<div class="dashboard-container">
+            </div>
 
+        </div>
 
 
-<div class="profile-card">
+        <div class="userSection">
 
+            <span id="companyName">
+                Loading...
+            </span>
 
-<h2>
-👤 My Profile
-</h2>
+            <button
+                type="button"
+                id="logoutBtn">
 
+                Logout
 
-<hr>
+            </button>
 
+        </div>
 
+    </header>
 
-<p>
-<strong>নাম:</strong>
 
-<span id="name"></span>
 
-</p>
+    <!-- ==========================================
+         DASHBOARD LAYOUT
+    =========================================== -->
 
+    <div class="dashboardLayout">
 
 
+        <!-- ======================================
+             SIDEBAR
+        ======================================= -->
 
-<p>
-<strong>মোবাইল:</strong>
+        <aside class="sidebar">
 
-<span id="mobile"></span>
+            <div class="sidebarTitle">
 
-</p>
+                Employer Panel
 
+            </div>
 
 
+            <nav>
 
-<p>
-<strong>Account Type:</strong>
+                <ul>
 
-<span id="accountType"></span>
 
-</p>
+                    <li class="active">
 
+                        <a href="dashboard.html">
 
+                            Dashboard
 
+                        </a>
 
-<p>
-<strong>প্রতিষ্ঠান:</strong>
+                    </li>
 
-<span id="institution"></span>
 
-</p>
+                    <li>
 
+                        <a href="post-job.html">
 
+                            চাকরি পোস্ট করুন
 
+                        </a>
 
-<p>
-<strong>Email:</strong>
+                    </li>
 
-<span id="email"></span>
 
-</p>
+                    <li>
 
+                        <a href="my-jobs.html">
 
+                            আমার চাকরি
 
+                        </a>
 
-<p>
-<strong>Status:</strong>
+                    </li>
 
-<span id="status"></span>
 
-</p>
+                    <li>
 
+                        <a href="applications.html">
 
+                            আবেদনকারীর তালিকা
 
-</div>
+                        </a>
 
+                    </li>
 
 
+                    <li>
 
+                        <a href="wallet.html">
 
-<div class="menu-card">
+                            Wallet & Payment
 
+                        </a>
 
-<h2>
-⚙️ Menu
-</h2>
+                    </li>
 
 
-<hr>
+                    <li>
 
+                        <a href="reports.html">
 
+                            Reports
 
-<button onclick="goHome()">
+                        </a>
 
-🏠 Home
+                    </li>
 
-</button>
 
+                    <li>
 
+                        <a href="profile.html">
 
+                            Profile
 
-<button onclick="myJobs()">
+                        </a>
 
-💼 My Applications
+                    </li>
 
-</button>
 
+                    <li>
 
+                        <a href="change-password.html">
 
+                            Password
 
+                        </a>
 
-<button onclick="editProfile()">
+                    </li>
 
-✏️ Edit Profile
 
-</button>
+                </ul>
 
+            </nav>
 
+        </aside>
 
 
 
-<button onclick="logout()">
+        <!-- ======================================
+             MAIN CONTENT
+        ======================================= -->
 
-🚪 Logout
+        <main class="content">
 
-</button>
 
+            <!-- ==================================
+                 WELCOME
+            =================================== -->
 
+            <section class="welcomeCard">
 
-</div>
+                <h2>
 
+                    স্বাগতম,
 
+                    <span id="companyTitle">
+                        Employer
+                    </span>
 
+                </h2>
 
-</div>
 
+                <p>
 
+                    SK Job BD Employer Portal-এ আপনাকে স্বাগতম।
 
+                </p>
 
+            </section>
 
-<script type="module" src="dashboard.js"></script>
 
+
+            <!-- ==================================
+                 COMPANY INFORMATION
+            =================================== -->
+
+            <section class="companyCard">
+
+                <div class="sectionTitle">
+
+                    <h3>
+                        প্রতিষ্ঠানের তথ্য
+                    </h3>
+
+                </div>
+
+
+                <div class="companyInfoGrid">
+
+
+                    <div class="infoBox">
+
+                        <span class="infoLabel">
+                            প্রতিষ্ঠানের নাম
+                        </span>
+
+                        <strong id="companyProfileName">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="infoBox">
+
+                        <span class="infoLabel">
+                            কর্তৃপক্ষের নাম
+                        </span>
+
+                        <strong id="contactPerson">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="infoBox">
+
+                        <span class="infoLabel">
+                            মোবাইল নম্বর
+                        </span>
+
+                        <strong id="mobileNumber">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="infoBox">
+
+                        <span class="infoLabel">
+                            Email
+                        </span>
+
+                        <strong id="emailAddress">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="infoBox">
+
+                        <span class="infoLabel">
+                            Account Status
+                        </span>
+
+                        <strong id="accountStatus">
+                            Active
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================
+                 STATISTICS
+            =================================== -->
+
+            <section class="statsGrid">
+
+
+                <div class="statCard">
+
+                    <h3 id="totalJobs">
+                        0
+                    </h3>
+
+                    <p>
+                        মোট চাকরি
+                    </p>
+
+                </div>
+
+
+                <div class="statCard">
+
+                    <h3 id="activeJobs">
+                        0
+                    </h3>
+
+                    <p>
+                        চলমান চাকরি
+                    </p>
+
+                </div>
+
+
+                <div class="statCard">
+
+                    <h3 id="totalApplicants">
+                        0
+                    </h3>
+
+                    <p>
+                        মোট আবেদন
+                    </p>
+
+                </div>
+
+
+                <div class="statCard">
+
+                    <h3 id="walletBalance">
+                        ৳ 0.00
+                    </h3>
+
+                    <p>
+                        Wallet Balance
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ==================================
+                 QUICK MENU
+            =================================== -->
+
+            <section class="quickSection">
+
+                <div class="sectionTitle">
+
+                    <h3>
+                        দ্রুত কার্যক্রম
+                    </h3>
+
+                </div>
+
+
+                <div class="menuGrid">
+
+
+                    <a
+                        href="post-job.html"
+                        class="menuCard">
+
+                        <h4>
+                            নতুন চাকরি পোস্ট
+                        </h4>
+
+                        <p>
+                            নতুন নিয়োগ বিজ্ঞপ্তি প্রকাশ করুন।
+                        </p>
+
+                    </a>
+
+
+
+                    <a
+                        href="my-jobs.html"
+                        class="menuCard">
+
+                        <h4>
+                            আমার চাকরি
+                        </h4>
+
+                        <p>
+                            আপনার প্রকাশিত চাকরিগুলো দেখুন।
+                        </p>
+
+                    </a>
+
+
+
+                    <a
+                        href="applications.html"
+                        class="menuCard">
+
+                        <h4>
+                            আবেদনকারীর তালিকা
+                        </h4>
+
+                        <p>
+                            চাকরির আবেদনগুলো পরিচালনা করুন।
+                        </p>
+
+                    </a>
+
+
+
+                    <a
+                        href="wallet.html"
+                        class="menuCard">
+
+                        <h4>
+                            Wallet & Payment
+                        </h4>
+
+                        <p>
+                            আপনার Wallet এবং লেনদেন দেখুন।
+                        </p>
+
+                    </a>
+
+
+
+                    <a
+                        href="reports.html"
+                        class="menuCard">
+
+                        <h4>
+                            Reports
+                        </h4>
+
+                        <p>
+                            প্রতিষ্ঠানের কার্যক্রমের রিপোর্ট দেখুন।
+                        </p>
+
+                    </a>
+
+
+
+                    <a
+                        href="profile.html"
+                        class="menuCard">
+
+                        <h4>
+                            Profile
+                        </h4>
+
+                        <p>
+                            প্রতিষ্ঠানের তথ্য দেখুন ও পরিবর্তন করুন।
+                        </p>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================
+                 RECENT ACTIVITY
+            =================================== -->
+
+            <section class="activityCard">
+
+                <div class="sectionTitle">
+
+                    <h3>
+                        সাম্প্রতিক কার্যক্রম
+                    </h3>
+
+                </div>
+
+
+                <div id="recentActivity">
+
+                    <p>
+                        এখনো কোনো কার্যক্রম নেই।
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 SK Job BD
+        </p>
+
+        <small>
+            Employer & Institution Portal
+        </small>
+
+        <br>
+
+        <small>
+            Powered by <strong>SK Job BD</strong>
+        </small>
+
+    </footer>
+
+
+
+    <!-- ==========================================
+         DASHBOARD JAVASCRIPT
+    =========================================== -->
+
+    <script
+        type="module"
+        src="dashboard.js">
+    </script>
 
 
 </body>
