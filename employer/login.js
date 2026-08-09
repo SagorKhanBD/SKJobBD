@@ -2,22 +2,6 @@
 // SK JOB BD
 // COMPANY / EMPLOYER LOGIN SYSTEM
 // ======================================================
-//
-// Login Method:
-//
-// Mobile Number
-//       ↓
-// Internal Firebase Auth Email
-//       ↓
-// Firebase Authentication
-//       ↓
-// Firestore companies/{UID}
-//       ↓
-// Dashboard
-//
-// Registration System-এর সঙ্গে সম্পূর্ণ সামঞ্জস্যপূর্ণ
-// ======================================================
-
 
 import { db, auth } from "../firebase.js";
 
@@ -53,33 +37,18 @@ const togglePassword =
 
 
 // ======================================================
-// CREATE INTERNAL AUTH EMAIL
-// ======================================================
-//
-// Registration-এর register.js-এও একই পদ্ধতি ব্যবহার করা হয়েছে:
-//
-// mobile + "@skjobbd-auth.local"
-//
-// উদাহরণ:
-// 01827775115
-//
-// হবে:
-//
-// 01827775115@skjobbd-auth.local
+// INTERNAL AUTH EMAIL
 // ======================================================
 
 function createAuthEmail(mobile) {
 
-    return (
-        mobile +
-        "@skjobbd-auth.local"
-    );
+    return mobile + "@skjobbd-auth.local";
 
 }
 
 
 // ======================================================
-// SHOW MESSAGE
+// MESSAGE
 // ======================================================
 
 function showMessage(
@@ -87,15 +56,10 @@ function showMessage(
     color = "red"
 ) {
 
-    if (!message) {
-        return;
-    }
+    if (!message) return;
 
-    message.style.color =
-        color;
-
-    message.innerHTML =
-        text;
+    message.style.color = color;
+    message.innerHTML = text;
 
 }
 
@@ -106,12 +70,7 @@ function showMessage(
 
 function isValidMobile(mobile) {
 
-    const mobilePattern =
-        /^01[3-9]\d{8}$/;
-
-    return mobilePattern.test(
-        mobile
-    );
+    return /^01[3-9]\d{8}$/.test(mobile);
 
 }
 
@@ -125,8 +84,10 @@ if (
     togglePassword
 ) {
 
-    togglePassword.textContent =
-        "👁";
+    togglePassword.textContent = "👁";
+
+    togglePassword.style.cursor =
+        "pointer";
 
 
     togglePassword.addEventListener(
@@ -144,6 +105,14 @@ if (
                 togglePassword.textContent =
                     "👁";
 
+                togglePassword.title =
+                    "Hide Password";
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    "Hide Password"
+                );
+
             }
 
             else {
@@ -154,6 +123,14 @@ if (
                 togglePassword.textContent =
                     "👁";
 
+                togglePassword.title =
+                    "Show Password";
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    "Show Password"
+                );
+
             }
 
         }
@@ -163,7 +140,7 @@ if (
 
 
 // ======================================================
-// LOGIN FORM
+// LOGIN
 // ======================================================
 
 if (loginForm) {
@@ -175,19 +152,15 @@ if (loginForm) {
             e.preventDefault();
 
 
-            // --------------------------------------------------
-            // CLEAR OLD MESSAGE
-            // --------------------------------------------------
-
             showMessage(
                 "",
                 "red"
             );
 
 
-            // --------------------------------------------------
-            // GET MOBILE
-            // --------------------------------------------------
+            // ----------------------------------------------
+            // MOBILE
+            // ----------------------------------------------
 
             const mobile =
                 document
@@ -196,9 +169,9 @@ if (loginForm) {
                     .trim() || "";
 
 
-            // --------------------------------------------------
-            // GET PASSWORD
-            // --------------------------------------------------
+            // ----------------------------------------------
+            // PASSWORD
+            // ----------------------------------------------
 
             const password =
                 document
@@ -206,9 +179,9 @@ if (loginForm) {
                     ?.value || "";
 
 
-            // ==================================================
-            // REQUIRED CHECK
-            // ==================================================
+            // ----------------------------------------------
+            // REQUIRED
+            // ----------------------------------------------
 
             if (
                 mobile === "" ||
@@ -224,9 +197,9 @@ if (loginForm) {
             }
 
 
-            // ==================================================
+            // ----------------------------------------------
             // MOBILE CHECK
-            // ==================================================
+            // ----------------------------------------------
 
             if (
                 !isValidMobile(mobile)
@@ -241,25 +214,13 @@ if (loginForm) {
             }
 
 
-            // ==================================================
-            // CREATE INTERNAL AUTH EMAIL
-            // ==================================================
+            // ----------------------------------------------
+            // INTERNAL EMAIL
+            // ----------------------------------------------
 
             const authEmail =
-                createAuthEmail(
-                    mobile
-                );
+                createAuthEmail(mobile);
 
-
-            console.log(
-                "Login Auth Email:",
-                authEmail
-            );
-
-
-            // ==================================================
-            // FIREBASE LOGIN
-            // ==================================================
 
             try {
 
@@ -269,9 +230,9 @@ if (loginForm) {
                 );
 
 
-                // ------------------------------------------------
-                // SIGN IN WITH FIREBASE AUTH
-                // ------------------------------------------------
+                // ==========================================
+                // FIREBASE AUTH LOGIN
+                // ==========================================
 
                 const userCredential =
                     await signInWithEmailAndPassword(
@@ -285,15 +246,9 @@ if (loginForm) {
                     userCredential.user;
 
 
-                console.log(
-                    "Firebase User:",
-                    user.uid
-                );
-
-
-                // ==================================================
-                // GET COMPANY PROFILE
-                // ==================================================
+                // ==========================================
+                // COMPANY PROFILE
+                // ==========================================
 
                 const companyRef =
                     doc(
@@ -309,24 +264,14 @@ if (loginForm) {
                     );
 
 
-                // ==================================================
-                // COMPANY PROFILE NOT FOUND
-                // ==================================================
-
                 if (
                     !companySnapshot.exists()
                 ) {
 
-                    await signOut(
-                        auth
-                    );
-
+                    await signOut(auth);
 
                     showMessage(
-
-                        "❌ কোম্পানি Profile পাওয়া যায়নি। " +
-                        "Registration তথ্য পরীক্ষা করুন।"
-
+                        "❌ কোম্পানি Profile পাওয়া যায়নি।"
                     );
 
                     return;
@@ -334,33 +279,19 @@ if (loginForm) {
                 }
 
 
-                // ==================================================
-                // COMPANY DATA
-                // ==================================================
-
                 const company =
                     companySnapshot.data();
 
 
-                console.log(
-                    "Company Data:",
-                    company
-                );
-
-
-                // ==================================================
-                // BLOCKED CHECK
-                // ==================================================
+                // ==========================================
+                // BLOCKED
+                // ==========================================
 
                 if (
-                    company.blocked ===
-                    true
+                    company.blocked === true
                 ) {
 
-                    await signOut(
-                        auth
-                    );
-
+                    await signOut(auth);
 
                     showMessage(
                         "❌ আপনার কোম্পানি অ্যাকাউন্টটি Block করা হয়েছে।"
@@ -371,31 +302,16 @@ if (loginForm) {
                 }
 
 
-                // ==================================================
-                // STATUS CHECK
-                // ==================================================
-                //
-                // আপনার Registration System:
-                //
-                // status: "active"
-                // approved: true
-                //
-                // তাই নতুন Account সরাসরি Active হবে।
-                // ==================================================
-
-                const status =
-                    company.status ||
-                    "active";
-
+                // ==========================================
+                // ACTIVE STATUS
+                // ==========================================
 
                 if (
-                    status !== "active"
+                    company.status !==
+                    "active"
                 ) {
 
-                    await signOut(
-                        auth
-                    );
-
+                    await signOut(auth);
 
                     showMessage(
                         "⏳ আপনার কোম্পানি অ্যাকাউন্টটি বর্তমানে Active নয়।"
@@ -406,19 +322,9 @@ if (loginForm) {
                 }
 
 
-                // ==================================================
-                // APPROVAL CHECK
-                // ==================================================
-                //
-                // Admin Approval Required নয়।
-                //
-                // তাই approved === false হলে Login বন্ধ করা হবে না।
-                // ==================================================
-
-
-                // ==================================================
-                // CREATE LOGIN DATA
-                // ==================================================
+                // ==========================================
+                // LOGIN DATA
+                // ==========================================
 
                 const loginData = {
 
@@ -465,33 +371,19 @@ if (loginForm) {
                 };
 
 
-                // ==================================================
+                // ==========================================
                 // REMEMBER ME
-                // ==================================================
+                // ==========================================
 
                 if (
                     rememberMe &&
                     rememberMe.checked
                 ) {
 
-                    // ------------------------------------------------
-                    // SAVE TO LOCAL STORAGE
-                    // ------------------------------------------------
-
                     localStorage.setItem(
-
                         "employerLogin",
-
-                        JSON.stringify(
-                            loginData
-                        )
-
+                        JSON.stringify(loginData)
                     );
-
-
-                    // ------------------------------------------------
-                    // REMOVE OLD SESSION LOGIN
-                    // ------------------------------------------------
 
                     sessionStorage.removeItem(
                         "employerLogin"
@@ -501,24 +393,10 @@ if (loginForm) {
 
                 else {
 
-                    // ------------------------------------------------
-                    // SAVE TO SESSION STORAGE
-                    // ------------------------------------------------
-
                     sessionStorage.setItem(
-
                         "employerLogin",
-
-                        JSON.stringify(
-                            loginData
-                        )
-
+                        JSON.stringify(loginData)
                     );
-
-
-                    // ------------------------------------------------
-                    // REMOVE OLD LOCAL LOGIN
-                    // ------------------------------------------------
 
                     localStorage.removeItem(
                         "employerLogin"
@@ -527,19 +405,15 @@ if (loginForm) {
                 }
 
 
-                // ==================================================
+                // ==========================================
                 // SUCCESS
-                // ==================================================
+                // ==========================================
 
                 showMessage(
                     "✅ Login সফল হয়েছে। Dashboard-এ নেওয়া হচ্ছে...",
                     "green"
                 );
 
-
-                // ==================================================
-                // DASHBOARD
-                // ==================================================
 
                 setTimeout(
                     () => {
@@ -554,9 +428,10 @@ if (loginForm) {
 
             }
 
-            // ======================================================
-            // FIREBASE ERROR
-            // ======================================================
+
+            // ==============================================
+            // ERROR
+            // ==============================================
 
             catch (error) {
 
@@ -565,10 +440,6 @@ if (loginForm) {
                     error
                 );
 
-
-                // --------------------------------------------------
-                // WRONG PASSWORD / EMAIL
-                // --------------------------------------------------
 
                 if (
                     error.code ===
@@ -584,10 +455,6 @@ if (loginForm) {
                 }
 
 
-                // --------------------------------------------------
-                // WRONG PASSWORD
-                // --------------------------------------------------
-
                 if (
                     error.code ===
                     "auth/wrong-password"
@@ -601,10 +468,6 @@ if (loginForm) {
 
                 }
 
-
-                // --------------------------------------------------
-                // USER NOT FOUND
-                // --------------------------------------------------
 
                 if (
                     error.code ===
@@ -620,28 +483,6 @@ if (loginForm) {
                 }
 
 
-                // --------------------------------------------------
-                // INVALID EMAIL
-                // --------------------------------------------------
-
-                if (
-                    error.code ===
-                    "auth/invalid-email"
-                ) {
-
-                    showMessage(
-                        "❌ Login তথ্য সঠিক নয়।"
-                    );
-
-                    return;
-
-                }
-
-
-                // --------------------------------------------------
-                // TOO MANY REQUESTS
-                // --------------------------------------------------
-
                 if (
                     error.code ===
                     "auth/too-many-requests"
@@ -655,10 +496,6 @@ if (loginForm) {
 
                 }
 
-
-                // --------------------------------------------------
-                // NETWORK ERROR
-                // --------------------------------------------------
 
                 if (
                     error.code ===
@@ -674,10 +511,6 @@ if (loginForm) {
                 }
 
 
-                // --------------------------------------------------
-                // AUTH DISABLED
-                // --------------------------------------------------
-
                 if (
                     error.code ===
                     "auth/operation-not-allowed"
@@ -692,10 +525,6 @@ if (loginForm) {
                 }
 
 
-                // --------------------------------------------------
-                // DEFAULT ERROR
-                // --------------------------------------------------
-
                 showMessage(
                     "❌ Login করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।"
                 );
@@ -709,7 +538,7 @@ if (loginForm) {
 
 
 // ======================================================
-// AUTO LOGIN CHECK
+// AUTO LOGIN
 // ======================================================
 
 window.addEventListener(
@@ -720,7 +549,6 @@ window.addEventListener(
             localStorage.getItem(
                 "employerLogin"
             );
-
 
         const sessionLogin =
             sessionStorage.getItem(
@@ -774,55 +602,4 @@ window.addEventListener(
 // ======================================================
 // SK JOB BD
 // COMPANY LOGIN SYSTEM
-// Firebase Authentication
-// Mobile Number Login
 // ======================================================
-
-// ======================================================
-// PASSWORD SHOW / HIDE
-// ======================================================
-
-const passwordInput =
-    document.getElementById("password");
-
-const togglePassword =
-    document.getElementById("togglePassword");
-
-
-if (
-    passwordInput &&
-    togglePassword
-) {
-
-    togglePassword.textContent =
-        "👁️";
-
-    togglePassword.style.cursor =
-        "pointer";
-
-
-    togglePassword.addEventListener(
-        "click",
-        () => {
-
-            if (
-                passwordInput.type ===
-                "password"
-            ) {
-
-                passwordInput.type =
-                    "text";
-
-            }
-
-            else {
-
-                passwordInput.type =
-                    "password";
-
-            }
-
-        }
-    );
-
-}
