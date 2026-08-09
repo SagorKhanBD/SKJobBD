@@ -1,69 +1,593 @@
-import { db } from "./firebase.js";
+// =========================================================
+// SK JOB BD
+// EMPLOYER DASHBOARD
+// dashboard.js
+//
+// Firebase collection:
+// companies/{uid}
+//
+// Registration system অনুযায়ী:
+// companyName
+// institutionCode
+// ownerName
+// mobile
+// email
+// status
+// approved
+// subscription
+// wallet
+// =========================================================
+
+
+// =========================================================
+// FIREBASE
+// =========================================================
+
+import { db, auth } from "../firebase.js";
 
 import {
-    collection,
-    query,
-    where,
-    getDocs
+    doc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// LocalStorage থেকে মোবাইল নম্বর নিন
-const mobile = localStorage.getItem("userMobile");
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
-if (!mobile) {
-    window.location.href = "login.html";
+
+// =========================================================
+// HTML ELEMENTS
+// =========================================================
+
+const headerCompanyName =
+    document.getElementById("headerCompanyName");
+
+const companyTitle =
+    document.getElementById("companyTitle");
+
+const companyName =
+    document.getElementById("companyName");
+
+const ownerName =
+    document.getElementById("ownerName");
+
+const mobileNumber =
+    document.getElementById("mobileNumber");
+
+const emailAddress =
+    document.getElementById("emailAddress");
+
+const accountStatus =
+    document.getElementById("accountStatus");
+
+const subscriptionPlan =
+    document.getElementById("subscriptionPlan");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+// =========================================================
+// HELPER
+// =========================================================
+
+function setText(element, value) {
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        value !== undefined &&
+        value !== null &&
+        String(value).trim() !== ""
+            ? String(value)
+            : "-";
 }
 
-async function loadUser() {
+
+// =========================================================
+// SHOW LOADING
+// =========================================================
+
+function showLoading() {
+
+    setText(
+        headerCompanyName,
+        "Loading..."
+    );
+
+    setText(
+        companyTitle,
+        "Loading..."
+    );
+
+    setText(
+        companyName,
+        "Loading..."
+    );
+
+    setText(
+        ownerName,
+        "Loading..."
+    );
+
+    setText(
+        mobileNumber,
+        "Loading..."
+    );
+
+    setText(
+        emailAddress,
+        "Loading..."
+    );
+
+    setText(
+        accountStatus,
+        "Loading..."
+    );
+
+    setText(
+        subscriptionPlan,
+        "Loading..."
+    );
+}
+
+
+// =========================================================
+// SHOW ERROR
+// =========================================================
+
+function showError(messageText) {
+
+    console.error(
+        "SK Job BD Dashboard:",
+        messageText
+    );
+
+    setText(
+        headerCompanyName,
+        "-"
+    );
+
+    setText(
+        companyTitle,
+        "Employer"
+    );
+
+    setText(
+        companyName,
+        "-"
+    );
+
+    setText(
+        ownerName,
+        "-"
+    );
+
+    setText(
+        mobileNumber,
+        "-"
+    );
+
+    setText(
+        emailAddress,
+        "-"
+    );
+
+    setText(
+        accountStatus,
+        "-"
+    );
+
+    setText(
+        subscriptionPlan,
+        "Free"
+    );
+
+    alert(messageText);
+}
+
+
+// =========================================================
+// LOAD COMPANY PROFILE
+// =========================================================
+
+async function loadCompanyProfile(user) {
 
     try {
 
-        const q = query(
-            collection(db, "users"),
-            where("mobile", "==", mobile)
+        console.log(
+            "Loading company profile for UID:",
+            user.uid
         );
 
-        const snapshot = await getDocs(q);
 
-        if (snapshot.empty) {
+        // =================================================
+        // companies/{Firebase UID}
+        // =================================================
 
-            alert("User Not Found");
+        const companyRef =
+            doc(
+                db,
+                "companies",
+                user.uid
+            );
 
-            window.location.href = "login.html";
+
+        const companySnap =
+            await getDoc(
+                companyRef
+            );
+
+
+        // =================================================
+        // CHECK DOCUMENT
+        // =================================================
+
+        if (!companySnap.exists()) {
+
+            console.error(
+                "Company document not found:",
+                user.uid
+            );
+
+            showError(
+                "আপনার Company Profile পাওয়া যায়নি।"
+            );
 
             return;
         }
 
-        const user = snapshot.docs[0].data();
 
-        document.getElementById("userName").innerText = user.name || "";
+        // =================================================
+        // GET DATA
+        // =================================================
 
-        document.getElementById("userMobile").innerText = user.mobile || "";
+        const data =
+            companySnap.data();
 
-        document.getElementById("userType").innerText = user.accountType || "";
 
-        document.getElementById("userInstitution").innerText = user.institution || "";
+        console.log(
+            "Company Data:",
+            data
+        );
 
-        document.getElementById("userEmail").innerText = user.email || "Not Provided";
 
-        document.getElementById("userStatus").innerText = user.status || "";
+        // =================================================
+        // COMPANY NAME
+        // =================================================
 
-    } catch (error) {
+        const company =
+            data.companyName || "-";
 
-        console.error(error);
 
-        alert(error.message);
+        setText(
+            headerCompanyName,
+            company
+        );
+
+
+        setText(
+            companyTitle,
+            company
+        );
+
+
+        setText(
+            companyName,
+            company
+        );
+
+
+        // =================================================
+        // OWNER
+        // =================================================
+
+        setText(
+            ownerName,
+            data.ownerName
+        );
+
+
+        // =================================================
+        // MOBILE
+        // =================================================
+
+        setText(
+            mobileNumber,
+            data.mobile
+        );
+
+
+        // =================================================
+        // EMAIL
+        // =================================================
+
+        setText(
+            emailAddress,
+            data.email
+        );
+
+
+        // =================================================
+        // ACCOUNT STATUS
+        // =================================================
+
+        let statusText =
+            data.status || "active";
+
+
+        if (
+            statusText === "active"
+        ) {
+
+            statusText =
+                "Active";
+
+        }
+
+        else if (
+            statusText === "pending"
+        ) {
+
+            statusText =
+                "Pending";
+
+        }
+
+        else if (
+            statusText === "blocked"
+        ) {
+
+            statusText =
+                "Blocked";
+
+        }
+
+
+        setText(
+            accountStatus,
+            statusText
+        );
+
+
+        // =================================================
+        // SUBSCRIPTION
+        // =================================================
+
+        const subscription =
+            data.subscription || {};
+
+
+        setText(
+            subscriptionPlan,
+            subscription.plan || "Free"
+        );
+
+
+        // =================================================
+        // SAVE LOGIN INFORMATION
+        // =================================================
+
+        const loginData = {
+
+            uid:
+                user.uid,
+
+            companyName:
+                company,
+
+            ownerName:
+                data.ownerName || "",
+
+            mobile:
+                data.mobile || "",
+
+            email:
+                data.email || "",
+
+            status:
+                data.status || "active",
+
+            accountType:
+                data.accountType || "company"
+
+        };
+
+
+        localStorage.setItem(
+            "employerLogin",
+            JSON.stringify(loginData)
+        );
+
+
+        console.log(
+            "Company profile loaded successfully."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Company Profile Error:",
+            error
+        );
+
+
+        showError(
+            "Company Profile লোড করতে সমস্যা হয়েছে।"
+        );
 
     }
 
 }
 
-window.logout = function () {
 
-    localStorage.removeItem("userMobile");
+// =========================================================
+// AUTHENTICATION CHECK
+// =========================================================
 
-    window.location.href = "login.html";
+showLoading();
+
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        console.log(
+            "Firebase Auth User:",
+            user
+        );
+
+
+        // =================================================
+        // USER NOT LOGGED IN
+        // =================================================
+
+        if (!user) {
+
+            console.log(
+                "User is not logged in."
+            );
+
+
+            /*
+             * যদি Firebase Auth session না থাকে,
+             * তাহলে login page-এ পাঠানো হবে।
+             */
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        // =================================================
+        // USER LOGGED IN
+        // =================================================
+
+        await loadCompanyProfile(
+            user
+        );
+
+    }
+);
+
+
+// =========================================================
+// LOGOUT
+// =========================================================
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        async () => {
+
+            const confirmed =
+                confirm(
+                    "আপনি কি Logout করতে চান?"
+                );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            try {
+
+                await signOut(
+                    auth
+                );
+
+
+                localStorage.removeItem(
+                    "employerLogin"
+                );
+
+
+                sessionStorage.removeItem(
+                    "employerLogin"
+                );
+
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Logout Error:",
+                    error
+                );
+
+
+                alert(
+                    "Logout করতে সমস্যা হয়েছে।"
+                );
+
+            }
+
+        }
+    );
 
 }
 
-loadUser();
+
+// =========================================================
+// PREVENT BROKEN LINKS
+// =========================================================
+//
+// ভবিষ্যতে যেসব পেজ এখনো তৈরি হয়নি,
+// সেগুলোতে ক্লিক করলে পরিষ্কারভাবে জানাবে।
+// =========================================================
+
+const serviceLinks =
+    document.querySelectorAll(
+        ".serviceLinks a"
+    );
+
+
+serviceLinks.forEach(
+    (link) => {
+
+        link.addEventListener(
+            "click",
+            (event) => {
+
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
+
+
+                if (
+                    !href ||
+                    href === "#"
+                ) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "এই সেবাটি শীঘ্রই চালু করা হবে।"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+// =========================================================
+// END OF DASHBOARD.JS
+// =========================================================
