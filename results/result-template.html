@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Result Subject Setup | SK Job BD</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="result-template.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="resultHeader">
+
+        <div class="headerContent">
+
+            <h1>
+                SK Job BD
+            </h1>
+
+            <p>
+                Result Subject Setup
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="resultContainer">
+
+
+        <!-- =====================================
+             PAGE TITLE
+        ====================================== -->
+
+        <section class="pageTitle">
+
+            <h2>
+                ফলাফল বিষয় সেটআপ
+            </h2>
+
+            <p>
+                একটি শ্রেণির বিষয় একবার সংরক্ষণ করলে
+                পরবর্তীতে একই বিষয়গুলো স্বয়ংক্রিয়ভাবে ব্যবহার করা যাবে।
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             BASIC INFORMATION
+        ====================================== -->
+
+        <section class="setupCard">
+
+            <h3>
+                প্রতিষ্ঠানের ফলাফল সেটিং
+            </h3>
+
+
+            <!-- Institution -->
+
+            <div class="formGroup">
+
+                <label for="institutionName">
+                    প্রতিষ্ঠানের নাম
+                </label>
+
+                <input
+                    type="text"
+                    id="institutionName"
+                    placeholder="প্রতিষ্ঠানের নাম"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Class -->
+
+            <div class="formGroup">
+
+                <label for="className">
+                    শ্রেণি
+                </label>
+
+                <select
+                    id="className"
+                    required
+                >
+
+                    <option value="">
+                        শ্রেণি নির্বাচন করুন
+                    </option>
+
+                    <option value="nursery">
+                        Nursery
+                    </option>
+
+                    <option value="play">
+                        Play
+                    </option>
+
+                    <option value="kg">
+                        KG
+                    </option>
+
+                    <option value="class-1">
+                        ১ম শ্রেণি
+                    </option>
+
+                    <option value="class-2">
+                        ২য় শ্রেণি
+                    </option>
+
+                    <option value="class-3">
+                        ৩য় শ্রেণি
+                    </option>
+
+                    <option value="class-4">
+                        ৪র্থ শ্রেণি
+                    </option>
+
+                    <option value="class-5">
+                        ৫ম শ্রেণি
+                    </option>
+
+                    <option value="class-6">
+                        ৬ষ্ঠ শ্রেণি
+                    </option>
+
+                    <option value="class-7">
+                        ৭ম শ্রেণি
+                    </option>
+
+                    <option value="class-8">
+                        ৮ম শ্রেণি
+                    </option>
+
+                    <option value="class-9">
+                        ৯ম শ্রেণি
+                    </option>
+
+                    <option value="class-10">
+                        ১০ম শ্রেণি
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Exam -->
+
+            <div class="formGroup">
+
+                <label for="examName">
+                    পরীক্ষার নাম
+                </label>
+
+                <input
+                    type="text"
+                    id="examName"
+                    placeholder="যেমন: বার্ষিক পরীক্ষা"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Academic Year -->
+
+            <div class="formGroup">
+
+                <label for="academicYear">
+                    শিক্ষাবর্ষ
+                </label>
+
+                <input
+                    type="number"
+                    id="academicYear"
+                    placeholder="2026"
+                    min="2000"
+                    max="2100"
+                    required
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             EXISTING TEMPLATE
+        ====================================== -->
+
+        <section
+            class="existingCard"
+            id="existingTemplateCard"
+            hidden
+        >
+
+            <h3>
+                পূর্বে সংরক্ষিত বিষয় পাওয়া গেছে
+            </h3>
+
+            <p>
+                এই শ্রেণি, পরীক্ষা ও শিক্ষাবর্ষের
+                বিষয়গুলো আগে থেকেই সংরক্ষিত আছে।
+            </p>
+
+            <button
+                type="button"
+                id="loadExistingBtn"
+                class="secondaryButton"
+            >
+                সংরক্ষিত বিষয় ব্যবহার করুন
+            </button>
+
+        </section>
+
+
+        <!-- =====================================
+             SUBJECT SECTION
+        ====================================== -->
+
+        <section class="subjectCard">
+
+            <div class="subjectHeader">
+
+                <div>
+
+                    <h3>
+                        বিষয় তালিকা
+                    </h3>
+
+                    <p>
+                        Subject Code, Subject Name এবং Full Mark দিন।
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="addSubjectBtn"
+                    class="addButton"
+                >
+                    নতুন বিষয় যোগ করুন
+                </button>
+
+            </div>
+
+
+            <!-- Subject Table -->
+
+            <div class="tableWrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ক্রম
+                            </th>
+
+                            <th>
+                                Subject Code
+                            </th>
+
+                            <th>
+                                Subject Name
+                            </th>
+
+                            <th>
+                                Full Mark
+                            </th>
+
+                            <th>
+                                অপশন
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="subjectTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- Save -->
+
+            <div class="saveArea">
+
+                <button
+                    type="button"
+                    id="saveTemplateBtn"
+                    class="saveButton"
+                >
+                    Save Subject Template
+                </button>
+
+            </div>
+
+
+            <!-- Message -->
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+        </section>
+
+
+        <!-- =====================================
+             NOTE
+        ====================================== -->
+
+        <section class="noteCard">
+
+            <h3>
+                গুরুত্বপূর্ণ তথ্য
+            </h3>
+
+            <p>
+                একটি প্রতিষ্ঠানের একই শ্রেণি,
+                পরীক্ষার নাম এবং শিক্ষাবর্ষের জন্য
+                Subject Template একবার সংরক্ষণ করা হবে।
+            </p>
+
+            <p>
+                পরবর্তীতে শিক্ষার্থীর ফলাফল তৈরি করার সময়
+                এই বিষয়গুলো পুনরায় লিখতে হবে না।
+            </p>
+
+            <p>
+                প্রয়োজনে নতুন Subject যোগ করা বা
+                সংরক্ষিত Subject পরিবর্তন করা যাবে।
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="footer">
+
+        <p>
+            Powered by SK Job BD
+        </p>
+
+    </footer>
+
+
+    <!-- =========================================
+         SCRIPT
+    ========================================== -->
+
+    <script
+        type="module"
+        src="result-template.js"
+    ></script>
+
+
+</body>
+
+</html>
