@@ -1,1 +1,565 @@
+/* =========================================================
+   SK JOB BD
+   RESULT SUBJECT TEMPLATE
+   ========================================================= */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Hind Siliguri", "Poppins", sans-serif;
+    background: #f3f7fc;
+    color: #172033;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.resultHeader {
+    width: 100%;
+    background: linear-gradient(135deg, #0d6efd, #0756c9);
+    color: #ffffff;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(13, 110, 253, 0.20);
+}
+
+.headerContent {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.headerContent h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.headerContent p {
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.95;
+}
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.resultContainer {
+    width: min(1100px, calc(100% - 30px));
+    margin: 30px auto 50px;
+}
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.pageTitle {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.pageTitle h2 {
+    color: #0756c9;
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.pageTitle p {
+    max-width: 750px;
+    margin: 0 auto;
+    color: #5f6b7a;
+    font-size: 15px;
+}
+
+/* =========================================================
+   COMMON CARD
+   ========================================================= */
+
+.setupCard,
+.existingCard,
+.subjectCard,
+.noteCard {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 24px;
+    box-shadow: 0 7px 25px rgba(31, 56, 88, 0.10);
+    border: 1px solid #e5ebf3;
+}
+
+.setupCard h3,
+.existingCard h3,
+.subjectCard h3,
+.noteCard h3 {
+    color: #0756c9;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+/* =========================================================
+   BASIC FORM
+   ========================================================= */
+
+.formGroup {
+    margin-bottom: 18px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 7px;
+    color: #26364d;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.formGroup input,
+.formGroup select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #172033;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.formGroup input::placeholder {
+    color: #9aa5b4;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.10);
+}
+
+/* =========================================================
+   EXISTING TEMPLATE
+   ========================================================= */
+
+.existingCard {
+    background: #eef6ff;
+    border: 1px solid #b8d7ff;
+}
+
+.existingCard h3 {
+    margin-bottom: 8px;
+}
+
+.existingCard p {
+    color: #526173;
+    margin-bottom: 15px;
+}
+
+/* =========================================================
+   SUBJECT HEADER
+   ========================================================= */
+
+.subjectHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.subjectHeader h3 {
+    margin-bottom: 4px;
+}
+
+.subjectHeader p {
+    color: #657286;
+    font-size: 14px;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.addButton,
+.saveButton,
+.secondaryButton {
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.addButton {
+    flex-shrink: 0;
+    background: #0d6efd;
+    color: #ffffff;
+    padding: 11px 18px;
+}
+
+.addButton:hover {
+    background: #084fc0;
+    transform: translateY(-1px);
+}
+
+.secondaryButton {
+    background: #ffffff;
+    color: #0756c9;
+    border: 1px solid #0d6efd;
+    padding: 10px 17px;
+}
+
+.secondaryButton:hover {
+    background: #0d6efd;
+    color: #ffffff;
+}
+
+.saveButton {
+    background: #0756c9;
+    color: #ffffff;
+    padding: 12px 24px;
+    min-width: 220px;
+}
+
+.saveButton:hover {
+    background: #0648a8;
+    transform: translateY(-1px);
+}
+
+.addButton:active,
+.saveButton:active,
+.secondaryButton:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   SUBJECT TABLE
+   ========================================================= */
+
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dce4ee;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+thead {
+    background: #0756c9;
+    color: #ffffff;
+}
+
+th {
+    padding: 13px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+td {
+    padding: 10px;
+    border-top: 1px solid #e5eaf1;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8fbff;
+}
+
+tbody tr:hover {
+    background: #eef6ff;
+}
+
+/* =========================================================
+   SUBJECT INPUTS
+   ========================================================= */
+
+.subject-code-input,
+.subject-name-input,
+.full-mark-input {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    outline: none;
+    background: #ffffff;
+    color: #172033;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.subject-code-input {
+    min-width: 130px;
+}
+
+.subject-name-input {
+    min-width: 220px;
+}
+
+.full-mark-input {
+    min-width: 110px;
+}
+
+.subject-code-input:focus,
+.subject-name-input:focus,
+.full-mark-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.08);
+}
+
+/* =========================================================
+   DELETE / REMOVE BUTTON
+   ========================================================= */
+
+.removeSubjectBtn,
+.deleteSubjectBtn {
+    border: none;
+    background: #dc3545;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.removeSubjectBtn:hover,
+.deleteSubjectBtn:hover {
+    background: #b02a37;
+}
+
+/* =========================================================
+   SAVE AREA
+   ========================================================= */
+
+.saveArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.message {
+    margin-top: 18px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+}
+
+.message.success {
+    display: block;
+    background: #e8f7ee;
+    color: #146c43;
+    border: 1px solid #a8dfbd;
+}
+
+.message.error {
+    display: block;
+    background: #fff0f1;
+    color: #b02a37;
+    border: 1px solid #f1b0b7;
+}
+
+.message.info {
+    display: block;
+    background: #eef6ff;
+    color: #0756c9;
+    border: 1px solid #b8d7ff;
+}
+
+/* =========================================================
+   NOTE CARD
+   ========================================================= */
+
+.noteCard {
+    background: #f8fbff;
+}
+
+.noteCard h3 {
+    margin-bottom: 12px;
+}
+
+.noteCard p {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 9px;
+    color: #566477;
+    font-size: 14px;
+}
+
+.noteCard p::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0d6efd;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    width: 100%;
+    background: #172033;
+    color: #ffffff;
+    text-align: center;
+    padding: 18px 15px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.90;
+}
+
+/* =========================================================
+   HIDDEN ATTRIBUTE
+   ========================================================= */
+
+[hidden] {
+    display: none !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .resultHeader {
+        padding: 22px 15px;
+    }
+
+    .headerContent h1 {
+        font-size: 25px;
+    }
+
+    .headerContent p {
+        font-size: 14px;
+    }
+
+    .resultContainer {
+        width: min(100% - 20px, 700px);
+        margin-top: 20px;
+    }
+
+    .pageTitle h2 {
+        font-size: 23px;
+    }
+
+    .pageTitle p {
+        font-size: 14px;
+    }
+
+    .setupCard,
+    .existingCard,
+    .subjectCard,
+    .noteCard {
+        padding: 18px;
+        border-radius: 11px;
+    }
+
+    .subjectHeader {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .addButton {
+        width: 100%;
+    }
+
+    .saveButton {
+        width: 100%;
+    }
+
+    .tableWrapper {
+        margin-left: -2px;
+        margin-right: -2px;
+        width: calc(100% + 4px);
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .headerContent h1 {
+        font-size: 22px;
+    }
+
+    .headerContent p {
+        font-size: 13px;
+    }
+
+    .pageTitle h2 {
+        font-size: 21px;
+    }
+
+    .setupCard h3,
+    .existingCard h3,
+    .subjectCard h3,
+    .noteCard h3 {
+        font-size: 18px;
+    }
+
+    .formGroup label {
+        font-size: 14px;
+    }
+
+    .formGroup input,
+    .formGroup select {
+        min-height: 43px;
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        font-size: 13px;
+    }
+
+    .footer p {
+        font-size: 12px;
+    }
+}
