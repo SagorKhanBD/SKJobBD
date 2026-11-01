@@ -1,1032 +1,603 @@
+
 // ============================================================
 // SK Job BD
 // Result Subject Template System
 // File: results/result-template.js
+// Firebase: Cloud Firestore
 // ============================================================
+
+import { db } from "../firebase.js";
 
 import {
-    getDatabase,
-    ref,
-    get,
-    set
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-import { firebaseConfig } from "../config.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    doc,
+    getDoc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
 // ============================================================
-// Firebase
+// DOM ELEMENTS
 // ============================================================
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const institutionNameInput = document.getElementById("institutionName");
+const classNameSelect = document.getElementById("className");
+const examNameInput = document.getElementById("examName");
+const academicYearInput = document.getElementById("academicYear");
 
+const subjectTableBody = document.getElementById("subjectTableBody");
+const addSubjectBtn = document.getElementById("addSubjectBtn");
+const saveTemplateBtn = document.getElementById("saveTemplateBtn");
 
-// ============================================================
-// DOM Elements
-// ============================================================
-
-const institutionNameInput =
-    document.getElementById("institutionName");
-
-const classNameSelect =
-    document.getElementById("className");
-
-const examNameInput =
-    document.getElementById("examName");
-
-const academicYearInput =
-    document.getElementById("academicYear");
-
-const subjectTableBody =
-    document.getElementById("subjectTableBody");
-
-const addSubjectBtn =
-    document.getElementById("addSubjectBtn");
-
-const saveTemplateBtn =
-    document.getElementById("saveTemplateBtn");
-
-const messageBox =
-    document.getElementById("message");
-
-const existingTemplateCard =
-    document.getElementById("existingTemplateCard");
-
-const loadExistingBtn =
-    document.getElementById("loadExistingBtn");
+const messageBox = document.getElementById("message");
+const existingTemplateCard = document.getElementById("existingTemplateCard");
+const loadExistingBtn = document.getElementById("loadExistingBtn");
 
 
 // ============================================================
-// Variables
+// GLOBAL VARIABLES
 // ============================================================
 
 let subjects = [];
-
 let existingTemplate = null;
+let templateCheckNumber = 0;
 
 
 // ============================================================
-// Allowed Classes
+// ALLOWED CLASSES
 // ============================================================
 
 const allowedClasses = {
-
     nursery: "Nursery",
-
     play: "Play",
-
     kg: "KG",
-
     "class-1": "১ম শ্রেণি",
-
     "class-2": "২য় শ্রেণি",
-
     "class-3": "৩য় শ্রেণি",
-
     "class-4": "৪র্থ শ্রেণি",
-
     "class-5": "৫ম শ্রেণি",
-
     "class-6": "৬ষ্ঠ শ্রেণি",
-
     "class-7": "৭ম শ্রেণি",
-
     "class-8": "৮ম শ্রেণি",
-
     "class-9": "৯ম শ্রেণি",
-
     "class-10": "১০ম শ্রেণি"
-
 };
 
 
 // ============================================================
-// Show Message
+// MESSAGE FUNCTIONS
 // ============================================================
 
 function showMessage(text, type = "success") {
-
     if (!messageBox) return;
 
     messageBox.textContent = text;
-
-    messageBox.className = "message";
-
-    messageBox.classList.add(type);
-
+    messageBox.className = "message " + type;
 }
 
-
-// ============================================================
-// Clear Message
-// ============================================================
-
 function clearMessage() {
-
     if (!messageBox) return;
 
     messageBox.textContent = "";
-
     messageBox.className = "message";
-
 }
 
 
 // ============================================================
-// Create Subject
+// CREATE SUBJECT
 // ============================================================
 
-function createSubject(
-    code = "",
-    name = "",
-    fullMark = ""
-) {
-
+function createSubject(code = "", name = "", fullMark = "") {
     return {
-
         id:
             Date.now().toString() +
-            Math.random().toString(36).substring(2, 8),
+            Math.random().toString(36).substring(2, 9),
 
-        code: code,
-
-        name: name,
-
-        fullMark: fullMark
-
+        code,
+        name,
+        fullMark
     };
-
 }
 
 
 // ============================================================
-// Add Subject Row
+// ADD SUBJECT
 // ============================================================
 
-function addSubject(
-    code = "",
-    name = "",
-    fullMark = ""
-) {
-
+function addSubject(code = "", name = "", fullMark = "") {
     subjects.push(
-        createSubject(
-            code,
-            name,
-            fullMark
-        )
+        createSubject(code, name, fullMark)
     );
 
     renderSubjects();
-
 }
 
 
 // ============================================================
-// Render Subjects
+// RENDER SUBJECTS
 // ============================================================
 
 function renderSubjects() {
-
     if (!subjectTableBody) return;
 
     subjectTableBody.innerHTML = "";
 
-    subjects.forEach(
-        (subject, index) => {
+    subjects.forEach((subject, index) => {
+        const row = document.createElement("tr");
 
-            const row =
-                document.createElement("tr");
+        // Serial
+        const serialCell = document.createElement("td");
+        serialCell.textContent = index + 1;
 
+        // Subject Code
+        const codeCell = document.createElement("td");
+        const codeInput = document.createElement("input");
 
-            // ----------------------------------------
-            // Serial
-            // ----------------------------------------
+        codeInput.type = "text";
+        codeInput.placeholder = "যেমন: BAN";
+        codeInput.value = subject.code;
+        codeInput.className = "subjectInput";
 
-            const serialCell =
-                document.createElement("td");
+        codeInput.addEventListener("input", () => {
+            subject.code = codeInput.value.trim();
+        });
 
-            serialCell.textContent =
-                index + 1;
+        codeCell.appendChild(codeInput);
 
+        // Subject Name
+        const nameCell = document.createElement("td");
+        const nameInput = document.createElement("input");
 
-            // ----------------------------------------
-            // Code
-            // ----------------------------------------
+        nameInput.type = "text";
+        nameInput.placeholder = "যেমন: বাংলা";
+        nameInput.value = subject.name;
+        nameInput.className = "subjectInput";
 
-            const codeCell =
-                document.createElement("td");
+        nameInput.addEventListener("input", () => {
+            subject.name = nameInput.value.trim();
+        });
 
-            const codeInput =
-                document.createElement("input");
+        nameCell.appendChild(nameInput);
 
-            codeInput.type = "text";
+        // Full Mark
+        const markCell = document.createElement("td");
+        const markInput = document.createElement("input");
 
-            codeInput.placeholder =
-                "যেমন: BAN";
+        markInput.type = "number";
+        markInput.min = "1";
+        markInput.max = "1000";
+        markInput.step = "0.01";
+        markInput.placeholder = "100";
+        markInput.value = subject.fullMark;
+        markInput.className = "subjectInput";
 
-            codeInput.value =
-                subject.code;
+        markInput.addEventListener("input", () => {
+            subject.fullMark = markInput.value;
+        });
 
-            codeInput.className =
-                "subjectInput";
+        markCell.appendChild(markInput);
 
-            codeInput.addEventListener(
-                "input",
-                function () {
+        // Delete Button
+        const actionCell = document.createElement("td");
+        const deleteButton = document.createElement("button");
 
-                    subject.code =
-                        this.value.trim();
+        deleteButton.type = "button";
+        deleteButton.textContent = "মুছে ফেলুন";
+        deleteButton.className = "deleteButton";
 
-                }
+        deleteButton.addEventListener("click", () => {
+            subjects = subjects.filter(
+                item => item.id !== subject.id
             );
 
-            codeCell.appendChild(
-                codeInput
-            );
+            renderSubjects();
+        });
 
+        actionCell.appendChild(deleteButton);
 
-            // ----------------------------------------
-            // Subject Name
-            // ----------------------------------------
+        row.appendChild(serialCell);
+        row.appendChild(codeCell);
+        row.appendChild(nameCell);
+        row.appendChild(markCell);
+        row.appendChild(actionCell);
 
-            const nameCell =
-                document.createElement("td");
-
-            const nameInput =
-                document.createElement("input");
-
-            nameInput.type = "text";
-
-            nameInput.placeholder =
-                "যেমন: বাংলা";
-
-            nameInput.value =
-                subject.name;
-
-            nameInput.className =
-                "subjectInput";
-
-            nameInput.addEventListener(
-                "input",
-                function () {
-
-                    subject.name =
-                        this.value.trim();
-
-                }
-            );
-
-            nameCell.appendChild(
-                nameInput
-            );
-
-
-            // ----------------------------------------
-            // Full Mark
-            // ----------------------------------------
-
-            const markCell =
-                document.createElement("td");
-
-            const markInput =
-                document.createElement("input");
-
-            markInput.type =
-                "number";
-
-            markInput.min =
-                "1";
-
-            markInput.max =
-                "1000";
-
-            markInput.placeholder =
-                "100";
-
-            markInput.value =
-                subject.fullMark;
-
-            markInput.className =
-                "subjectInput";
-
-            markInput.addEventListener(
-                "input",
-                function () {
-
-                    subject.fullMark =
-                        this.value;
-
-                }
-            );
-
-            markCell.appendChild(
-                markInput
-            );
-
-
-            // ----------------------------------------
-            // Action
-            // ----------------------------------------
-
-            const actionCell =
-                document.createElement("td");
-
-            const deleteButton =
-                document.createElement("button");
-
-            deleteButton.type =
-                "button";
-
-            deleteButton.textContent =
-                "মুছে ফেলুন";
-
-            deleteButton.className =
-                "deleteButton";
-
-            deleteButton.addEventListener(
-                "click",
-                function () {
-
-                    subjects =
-                        subjects.filter(
-                            item =>
-                                item.id !==
-                                subject.id
-                        );
-
-                    renderSubjects();
-
-                }
-            );
-
-            actionCell.appendChild(
-                deleteButton
-            );
-
-
-            // ----------------------------------------
-            // Row
-            // ----------------------------------------
-
-            row.appendChild(
-                serialCell
-            );
-
-            row.appendChild(
-                codeCell
-            );
-
-            row.appendChild(
-                nameCell
-            );
-
-            row.appendChild(
-                markCell
-            );
-
-            row.appendChild(
-                actionCell
-            );
-
-
-            subjectTableBody.appendChild(
-                row
-            );
-
-        }
-    );
-
+        subjectTableBody.appendChild(row);
+    });
 }
 
 
 // ============================================================
-// Get Template Key
+// NORMALIZE TEXT
+// ============================================================
+
+function normalizeText(value) {
+    return String(value ?? "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "_");
+}
+
+
+// ============================================================
+// GET TEMPLATE KEY
 // ============================================================
 
 function getTemplateKey() {
-
-    const institution =
+    const institution = normalizeText(
         institutionNameInput?.value
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, "_");
-
-    const className =
-        classNameSelect?.value;
-
-    const exam =
-        examNameInput?.value
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, "_");
-
-    const year =
-        academicYearInput?.value;
-
-
-    if (
-        !institution ||
-        !className ||
-        !exam ||
-        !year
-    ) {
-
-        return null;
-
-    }
-
-
-    return (
-        institution +
-        "_" +
-        className +
-        "_" +
-        exam +
-        "_" +
-        year
     );
 
+    const className = classNameSelect?.value?.trim();
+
+    const exam = normalizeText(
+        examNameInput?.value
+    );
+
+    const year = academicYearInput?.value?.trim();
+
+    if (!institution || !className || !exam || !year) {
+        return null;
+    }
+
+    // Firebase Firestore document ID
+    return [
+        encodeURIComponent(institution),
+        encodeURIComponent(className),
+        encodeURIComponent(exam),
+        encodeURIComponent(year)
+    ].join("_");
 }
 
 
 // ============================================================
-// Check Existing Template
+// GET TEMPLATE REFERENCE
+// ============================================================
+
+function getTemplateReference() {
+    const key = getTemplateKey();
+
+    if (!key) return null;
+
+    return doc(db, "resultTemplates", key);
+}
+
+
+// ============================================================
+// CHECK EXISTING TEMPLATE
 // ============================================================
 
 async function checkExistingTemplate() {
-
     clearMessage();
 
     existingTemplate = null;
 
+    const requestNumber = ++templateCheckNumber;
+
     if (existingTemplateCard) {
-
-        existingTemplateCard.hidden =
-            true;
-
+        existingTemplateCard.hidden = true;
     }
 
+    const templateRef = getTemplateReference();
 
-    const key =
-        getTemplateKey();
-
-
-    if (!key) {
-
-        return;
-
-    }
-
+    if (!templateRef) return;
 
     try {
+        const snapshot = await getDoc(templateRef);
 
-        const templateRef =
-            ref(
-                db,
-                "resultTemplates/" +
-                key
-            );
+        // Ignore outdated requests
+        if (requestNumber !== templateCheckNumber) return;
 
-
-        const snapshot =
-            await get(
-                templateRef
-            );
-
-
-        if (
-            snapshot.exists()
-        ) {
-
-            existingTemplate =
-                snapshot.val();
-
+        if (snapshot.exists()) {
+            existingTemplate = {
+                id: snapshot.id,
+                ...snapshot.data()
+            };
 
             if (existingTemplateCard) {
-
-                existingTemplateCard.hidden =
-                    false;
-
+                existingTemplateCard.hidden = false;
             }
 
+            showMessage(
+                "এই তথ্যের জন্য আগে একটি Subject Template সংরক্ষণ করা আছে। চাইলে সেটি লোড করতে পারেন।",
+                "success"
+            );
         }
+    } catch (error) {
+        console.error("Template check error:", error);
 
+        if (requestNumber === templateCheckNumber) {
+            showMessage(
+                "আগের Template পরীক্ষা করা যায়নি। Firebase সংযোগ পরীক্ষা করুন।",
+                "error"
+            );
+        }
     }
-    catch (error) {
-
-        console.error(
-            "Template check error:",
-            error
-        );
-
-    }
-
 }
 
 
 // ============================================================
-// Load Existing Template
+// LOAD EXISTING TEMPLATE
 // ============================================================
 
 function loadExistingTemplate() {
-
     if (
         !existingTemplate ||
-        !Array.isArray(
-            existingTemplate.subjects
-        )
+        !Array.isArray(existingTemplate.subjects)
     ) {
-
         showMessage(
             "কোনো সংরক্ষিত বিষয় পাওয়া যায়নি।",
             "error"
         );
 
         return;
-
     }
 
-
-    subjects =
-        existingTemplate.subjects.map(
-            subject => {
-
-                return {
-
-                    id:
-                        Date.now().toString() +
-                        Math.random()
-                            .toString(36)
-                            .substring(2, 8),
-
-                    code:
-                        subject.code || "",
-
-                    name:
-                        subject.name || "",
-
-                    fullMark:
-                        subject.fullMark || ""
-
-                };
-
-            }
+    subjects = existingTemplate.subjects.map(subject => {
+        return createSubject(
+            subject.code ?? subject.subjectCode ?? "",
+            subject.name ?? subject.subjectName ?? "",
+            subject.fullMark ?? subject.fullMarks ?? ""
         );
-
+    });
 
     renderSubjects();
 
-
     showMessage(
-        "সংরক্ষিত বিষয়গুলো সফলভাবে লোড হয়েছে।",
+        "সংরক্ষিত বিষয়গুলো সফলভাবে লোড হয়েছে। প্রয়োজন হলে পরিবর্তন করে আবার সংরক্ষণ করুন।",
         "success"
     );
-
 }
 
 
 // ============================================================
-// Validate Basic Information
+// VALIDATE BASIC INFORMATION
 // ============================================================
 
 function validateBasicInformation() {
-
-    const institution =
-        institutionNameInput?.value
-            .trim();
-
-    const className =
-        classNameSelect?.value;
-
-    const exam =
-        examNameInput?.value
-            .trim();
-
-    const year =
-        academicYearInput?.value;
-
+    const institution = institutionNameInput?.value.trim();
+    const className = classNameSelect?.value;
+    const exam = examNameInput?.value.trim();
+    const year = academicYearInput?.value.trim();
 
     if (!institution) {
-
-        showMessage(
-            "প্রতিষ্ঠানের নাম লিখুন।",
-            "error"
-        );
-
+        showMessage("প্রতিষ্ঠানের নাম লিখুন।", "error");
         institutionNameInput?.focus();
-
         return false;
-
     }
-
 
     if (!className) {
-
-        showMessage(
-            "শ্রেণি নির্বাচন করুন।",
-            "error"
-        );
-
+        showMessage("শ্রেণি নির্বাচন করুন।", "error");
         classNameSelect?.focus();
-
         return false;
-
     }
 
-
-    if (
-        !allowedClasses[
-            className
-        ]
-    ) {
-
-        showMessage(
-            "এই শ্রেণি অনুমোদিত নয়।",
-            "error"
-        );
-
+    if (!allowedClasses[className]) {
+        showMessage("এই শ্রেণি অনুমোদিত নয়।", "error");
+        classNameSelect?.focus();
         return false;
-
     }
-
 
     if (!exam) {
-
-        showMessage(
-            "পরীক্ষার নাম লিখুন।",
-            "error"
-        );
-
+        showMessage("পরীক্ষার নাম লিখুন।", "error");
         examNameInput?.focus();
-
         return false;
-
     }
 
+    const yearNumber = Number(year);
 
-    if (!year) {
-
-        showMessage(
-            "শিক্ষাবর্ষ লিখুন।",
-            "error"
-        );
-
+    if (
+        !year ||
+        !Number.isInteger(yearNumber) ||
+        yearNumber < 2000 ||
+        yearNumber > 2100
+    ) {
+        showMessage("সঠিক শিক্ষাবর্ষ লিখুন।", "error");
         academicYearInput?.focus();
-
         return false;
-
     }
-
 
     return true;
-
 }
 
 
 // ============================================================
-// Validate Subjects
+// VALIDATE SUBJECTS
 // ============================================================
 
 function validateSubjects() {
-
-    if (
-        subjects.length === 0
-    ) {
-
-        showMessage(
-            "কমপক্ষে একটি বিষয় যোগ করুন।",
-            "error"
-        );
-
+    if (subjects.length === 0) {
+        showMessage("কমপক্ষে একটি বিষয় যোগ করুন।", "error");
         return false;
-
     }
 
+    for (let i = 0; i < subjects.length; i++) {
+        const subject = subjects[i];
 
-    for (
-        let i = 0;
-        i < subjects.length;
-        i++
-    ) {
-
-        const subject =
-            subjects[i];
-
-
-        if (!subject.code) {
-
+        if (!subject.code.trim()) {
             showMessage(
                 `বিষয় ${i + 1}-এর Subject Code লিখুন।`,
                 "error"
             );
 
             return false;
-
         }
 
-
-        if (!subject.name) {
-
+        if (!subject.name.trim()) {
             showMessage(
                 `বিষয় ${i + 1}-এর Subject Name লিখুন।`,
                 "error"
             );
 
             return false;
-
         }
 
-
-        const mark =
-            Number(
-                subject.fullMark
-            );
-
+        const mark = Number(subject.fullMark);
 
         if (
-            !mark ||
-            mark <= 0
+            !Number.isFinite(mark) ||
+            mark <= 0 ||
+            mark > 1000
         ) {
-
             showMessage(
-                `বিষয় ${i + 1}-এর Full Mark সঠিকভাবে দিন।`,
+                `বিষয় ${i + 1}-এর Full Mark ১ থেকে ১০০০-এর মধ্যে দিন।`,
                 "error"
             );
 
             return false;
-
         }
-
     }
 
-
     return true;
-
 }
 
 
 // ============================================================
-// Check Duplicate Subject Code
+// CHECK DUPLICATE SUBJECT CODE
 // ============================================================
 
 function hasDuplicateSubjectCode() {
-
-    const codes =
-        subjects.map(
-            subject =>
-                subject.code
-                    .trim()
-                    .toLowerCase()
-        );
-
-
-    return (
-        new Set(codes).size !==
-        codes.length
+    const codes = subjects.map(subject =>
+        subject.code.trim().toLowerCase()
     );
 
+    return new Set(codes).size !== codes.length;
 }
 
 
 // ============================================================
-// Save Template
+// SAVE TEMPLATE TO FIRESTORE
 // ============================================================
 
 async function saveTemplate() {
-
     clearMessage();
 
+    if (!validateBasicInformation()) return;
 
-    if (
-        !validateBasicInformation()
-    ) {
+    if (!validateSubjects()) return;
 
-        return;
-
-    }
-
-
-    if (
-        !validateSubjects()
-    ) {
-
-        return;
-
-    }
-
-
-    if (
-        hasDuplicateSubjectCode()
-    ) {
-
+    if (hasDuplicateSubjectCode()) {
         showMessage(
             "একই Subject Code একাধিকবার ব্যবহার করা যাবে না।",
             "error"
         );
 
         return;
-
     }
 
+    const templateRef = getTemplateReference();
 
-    const key =
-        getTemplateKey();
-
-
-    if (!key) {
-
-        showMessage(
-            "Template Key তৈরি করা যায়নি।",
-            "error"
-        );
-
+    if (!templateRef) {
+        showMessage("Template Key তৈরি করা যায়নি।", "error");
         return;
-
     }
-
 
     const templateData = {
+        institutionName: institutionNameInput.value.trim(),
 
-        institutionName:
-            institutionNameInput.value
-                .trim(),
+        className: classNameSelect.value,
 
-        className:
-            classNameSelect.value,
+        classLabel: allowedClasses[classNameSelect.value],
 
-        classLabel:
-            allowedClasses[
-                classNameSelect.value
-            ],
+        examName: examNameInput.value.trim(),
 
-        examName:
-            examNameInput.value
-                .trim(),
+        academicYear: Number(academicYearInput.value),
 
-        academicYear:
-            Number(
-                academicYearInput.value
-            ),
+        subjects: subjects.map((subject, index) => ({
+            serial: index + 1,
+            code: subject.code.trim(),
+            name: subject.name.trim(),
+            fullMark: Number(subject.fullMark)
+        })),
 
-        subjects:
-            subjects.map(
-                (subject, index) => {
-
-                    return {
-
-                        serial:
-                            index + 1,
-
-                        code:
-                            subject.code
-                                .trim(),
-
-                        name:
-                            subject.name
-                                .trim(),
-
-                        fullMark:
-                            Number(
-                                subject.fullMark
-                            )
-
-                    };
-
-                }
-            ),
-
-        updatedAt:
-            new Date()
-                .toISOString()
-
+        updatedAt: new Date().toISOString()
     };
 
+    const originalButtonText = saveTemplateBtn
+        ? saveTemplateBtn.textContent
+        : "";
 
     try {
-
-        saveTemplateBtn.disabled =
-            true;
-
-        saveTemplateBtn.textContent =
-            "সংরক্ষণ হচ্ছে...";
-
-
-        const templateRef =
-            ref(
-                db,
-                "resultTemplates/" +
-                key
-            );
-
-
-        await set(
-            templateRef,
-            templateData
-        );
-
-
-        existingTemplate =
-            templateData;
-
-
-        if (existingTemplateCard) {
-
-            existingTemplateCard.hidden =
-                false;
-
+        if (saveTemplateBtn) {
+            saveTemplateBtn.disabled = true;
+            saveTemplateBtn.textContent = "সংরক্ষণ হচ্ছে...";
         }
 
+        // Same institution + class + exam + year
+        // will update the same Firestore document.
+        await setDoc(templateRef, templateData);
+
+        existingTemplate = {
+            id: templateRef.id,
+            ...templateData
+        };
+
+        if (existingTemplateCard) {
+            existingTemplateCard.hidden = false;
+        }
 
         showMessage(
-            "Subject Template সফলভাবে সংরক্ষণ হয়েছে।",
+            "Subject Template সফলভাবে Firestore-এ সংরক্ষণ হয়েছে। এখন Result Entry পেজে বিষয়গুলো লোড করতে পারবেন।",
             "success"
         );
-
-    }
-    catch (error) {
-
-        console.error(
-            "Save template error:",
-            error
-        );
-
+    } catch (error) {
+        console.error("Save template error:", error);
 
         showMessage(
-            "Subject Template সংরক্ষণ করা যায়নি। Firebase configuration পরীক্ষা করুন।",
+            "Subject Template সংরক্ষণ করা যায়নি। Firebase Firestore সংযোগ ও Rules পরীক্ষা করুন।",
             "error"
         );
-
+    } finally {
+        if (saveTemplateBtn) {
+            saveTemplateBtn.disabled = false;
+            saveTemplateBtn.textContent =
+                originalButtonText || "Save Subject Template";
+        }
     }
-    finally {
-
-        saveTemplateBtn.disabled =
-            false;
-
-        saveTemplateBtn.textContent =
-            "Save Subject Template";
-
-    }
-
 }
 
 
 // ============================================================
-// Input Change Events
+// INPUT CHANGE EVENTS
 // ============================================================
 
 institutionNameInput?.addEventListener(
-    "input",
+    "change",
     checkExistingTemplate
 );
-
 
 classNameSelect?.addEventListener(
     "change",
     checkExistingTemplate
 );
 
-
 examNameInput?.addEventListener(
-    "input",
+    "change",
     checkExistingTemplate
 );
-
 
 academicYearInput?.addEventListener(
-    "input",
+    "change",
     checkExistingTemplate
 );
 
 
 // ============================================================
-// Add Subject Button
+// ADD SUBJECT BUTTON
 // ============================================================
 
-addSubjectBtn?.addEventListener(
-    "click",
-    function () {
-
-        addSubject();
-
-    }
-);
+addSubjectBtn?.addEventListener("click", () => {
+    addSubject();
+});
 
 
 // ============================================================
-// Save Button
+// SAVE TEMPLATE BUTTON
 // ============================================================
 
-saveTemplateBtn?.addEventListener(
-    "click",
-    saveTemplate
-);
+saveTemplateBtn?.addEventListener("click", saveTemplate);
 
 
 // ============================================================
-// Load Existing Button
+// LOAD EXISTING TEMPLATE BUTTON
 // ============================================================
 
 loadExistingBtn?.addEventListener(
@@ -1036,23 +607,18 @@ loadExistingBtn?.addEventListener(
 
 
 // ============================================================
-// Initial Subject
+// INITIAL SUBJECT ROW
 // ============================================================
 
-addSubject();
-
-
-// ============================================================
-// Initial Render
-// ============================================================
-
-renderSubjects();
+if (subjectTableBody) {
+    addSubject();
+}
 
 
 // ============================================================
-// Console
+// INITIAL CONSOLE
 // ============================================================
 
 console.log(
-    "SK Job BD Result Subject Template System Loaded"
+    "SK Job BD Result Subject Template System Loaded - Firestore"
 );
