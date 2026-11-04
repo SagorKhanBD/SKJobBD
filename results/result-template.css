@@ -3,7 +3,10 @@
    SK JOB BD
    RESULT SUBJECT TEMPLATE
    File: results/result-template.css
+   Bengali Font: Noto Sans Bengali
    ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -16,15 +19,21 @@ html {
 }
 
 body {
-    font-family: "Hind Siliguri", "Poppins", sans-serif;
+    font-family: "Noto Sans Bengali", "Inter", sans-serif;
     background: #f3f7fc;
     color: #172033;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
+button,
+input,
+select,
+textarea,
+table {
+    font-family: "Noto Sans Bengali", "Inter", sans-serif;
+}
+
+/* HEADER */
 
 .resultHeader {
     width: 100%;
@@ -41,31 +50,25 @@ body {
 }
 
 .headerContent h1 {
-    font-family: "Poppins", sans-serif;
+    font-family: "Noto Sans Bengali", "Inter", sans-serif;
     font-size: 30px;
     font-weight: 700;
-    letter-spacing: 0.5px;
     margin-bottom: 4px;
 }
 
 .headerContent p {
     font-size: 16px;
     font-weight: 500;
-    opacity: 0.95;
 }
 
-/* =========================================================
-   MAIN CONTAINER
-   ========================================================= */
+/* MAIN CONTAINER */
 
 .resultContainer {
     width: min(1100px, calc(100% - 30px));
     margin: 30px auto 50px;
 }
 
-/* =========================================================
-   PAGE TITLE
-   ========================================================= */
+/* PAGE TITLE */
 
 .pageTitle {
     text-align: center;
@@ -86,9 +89,7 @@ body {
     font-size: 15px;
 }
 
-/* =========================================================
-   COMMON CARD
-   ========================================================= */
+/* COMMON CARD */
 
 .setupCard,
 .existingCard,
@@ -112,9 +113,7 @@ body {
     margin-bottom: 18px;
 }
 
-/* =========================================================
-   BASIC FORM
-   ========================================================= */
+/* BASIC FORM */
 
 .formGroup {
     margin-bottom: 18px;
@@ -137,7 +136,6 @@ body {
     border-radius: 8px;
     background: #ffffff;
     color: #172033;
-    font-family: inherit;
     font-size: 15px;
     outline: none;
     transition: 0.2s ease;
@@ -153,9 +151,7 @@ body {
     box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.10);
 }
 
-/* =========================================================
-   EXISTING TEMPLATE
-   ========================================================= */
+/* EXISTING TEMPLATE */
 
 .existingCard {
     background: #eef6ff;
@@ -171,9 +167,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* =========================================================
-   SUBJECT HEADER
-   ========================================================= */
+/* SUBJECT HEADER */
 
 .subjectHeader {
     display: flex;
@@ -192,16 +186,13 @@ body {
     font-size: 14px;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+/* BUTTONS */
 
 .addButton,
 .saveButton,
 .secondaryButton {
     border: none;
     border-radius: 8px;
-    font-family: inherit;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -258,9 +249,7 @@ body {
     transform: none;
 }
 
-/* =========================================================
-   SUBJECT TABLE
-   ========================================================= */
+/* SUBJECT TABLE */
 
 .tableWrapper {
     width: 100%;
@@ -305,10 +294,7 @@ tbody tr:hover {
     background: #eef6ff;
 }
 
-/* =========================================================
-   SUBJECT INPUTS
-   Matches JavaScript class: subjectInput
-   ========================================================= */
+/* SUBJECT INPUTS */
 
 .subjectInput {
     width: 100%;
@@ -319,7 +305,6 @@ tbody tr:hover {
     outline: none;
     background: #ffffff;
     color: #172033;
-    font-family: inherit;
     font-size: 14px;
     transition: 0.2s ease;
 }
@@ -341,10 +326,7 @@ td:nth-child(4) .subjectInput {
     min-width: 100px;
 }
 
-/* =========================================================
-   DELETE BUTTON
-   Matches JavaScript class: deleteButton
-   ========================================================= */
+/* DELETE BUTTON */
 
 .deleteButton {
     border: none;
@@ -352,7 +334,6 @@ td:nth-child(4) .subjectInput {
     color: #ffffff;
     border-radius: 6px;
     padding: 7px 12px;
-    font-family: inherit;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -368,9 +349,7 @@ td:nth-child(4) .subjectInput {
     transform: scale(0.97);
 }
 
-/* =========================================================
-   SAVE AREA
-   ========================================================= */
+/* SAVE AREA */
 
 .saveArea {
     display: flex;
@@ -379,9 +358,7 @@ td:nth-child(4) .subjectInput {
     margin-top: 25px;
 }
 
-/* =========================================================
-   MESSAGE
-   ========================================================= */
+/* MESSAGE */
 
 .message {
     margin-top: 18px;
@@ -414,9 +391,7 @@ td:nth-child(4) .subjectInput {
     border: 1px solid #b8d7ff;
 }
 
-/* =========================================================
-   NOTE CARD
-   ========================================================= */
+/* NOTE CARD */
 
 .noteCard {
     background: #f8fbff;
@@ -445,9 +420,7 @@ td:nth-child(4) .subjectInput {
     background: #0d6efd;
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+/* FOOTER */
 
 .footer {
     width: 100%;
@@ -463,17 +436,13 @@ td:nth-child(4) .subjectInput {
     opacity: 0.90;
 }
 
-/* =========================================================
-   HIDDEN ATTRIBUTE
-   ========================================================= */
+/* HIDDEN */
 
 [hidden] {
     display: none !important;
 }
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+/* MOBILE */
 
 @media (max-width: 768px) {
     .resultHeader {
@@ -515,10 +484,7 @@ td:nth-child(4) .subjectInput {
         gap: 14px;
     }
 
-    .addButton {
-        width: 100%;
-    }
-
+    .addButton,
     .saveButton {
         width: 100%;
     }
@@ -530,9 +496,7 @@ td:nth-child(4) .subjectInput {
     }
 }
 
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
+/* SMALL MOBILE */
 
 @media (max-width: 480px) {
     .headerContent h1 {
