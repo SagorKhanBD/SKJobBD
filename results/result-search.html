@@ -28,7 +28,9 @@
             flex-direction: column;
         }
 
+        /* Header */
         .header {
+            position: relative;
             background: linear-gradient(135deg, #073b75, #0877bd);
             color: white;
             text-align: center;
@@ -46,6 +48,31 @@
             color: #e5f2ff;
         }
 
+        /* Home Page Button */
+        .home-link {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 7px 12px;
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 6px;
+            background: rgba(255,255,255,0.12);
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            background: white;
+            color: #07518b;
+        }
+
+        /* Main Container */
         .container {
             width: 92%;
             max-width: 900px;
@@ -62,6 +89,7 @@
             margin-bottom: 25px;
         }
 
+        /* Form */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -100,6 +128,7 @@
             box-shadow: 0 0 0 2px rgba(8, 119, 189, 0.12);
         }
 
+        /* Buttons */
         .search-button,
         .print-button {
             border: none;
@@ -128,6 +157,7 @@
             cursor: not-allowed;
         }
 
+        /* Message */
         .message {
             text-align: center;
             margin-top: 18px;
@@ -142,6 +172,7 @@
             color: #16803c;
         }
 
+        /* Result Section */
         .result-card {
             display: none;
         }
@@ -219,6 +250,7 @@
             margin: 22px auto 0;
         }
 
+        /* Footer */
         .footer {
             background: #073b75;
             color: white;
@@ -228,9 +260,21 @@
             font-weight: 600;
         }
 
+        /* Mobile Responsive */
         @media (max-width: 600px) {
+
+            .header {
+                padding: 65px 15px 25px;
+            }
+
             .header h1 {
                 font-size: 25px;
+            }
+
+            .home-link {
+                top: 12px;
+                left: 12px;
+                font-size: 14px;
             }
 
             .form-grid,
@@ -248,7 +292,9 @@
             }
         }
 
+        /* Print */
         @media print {
+
             body {
                 background: white;
             }
@@ -276,13 +322,24 @@
 
 <body>
 
+    <!-- Header -->
     <header class="header">
+
+        <a href="../index.html" class="home-link">
+            <span aria-hidden="true">⌂</span>
+            হোম পেজ
+        </a>
+
         <h1>পরীক্ষার ফলাফল দেখুন</h1>
+
         <p>প্রয়োজনীয় তথ্য দিয়ে আপনার ফলাফল অনুসন্ধান করুন</p>
+
     </header>
 
+    <!-- Main Content -->
     <main class="container">
 
+        <!-- Search Form -->
         <section class="search-card">
 
             <form id="resultSearchForm">
@@ -290,16 +347,27 @@
                 <div class="form-grid">
 
                     <div class="form-group full">
-                        <label for="institution">শিক্ষাপ্রতিষ্ঠানের নাম</label>
+
+                        <label for="institution">
+                            শিক্ষাপ্রতিষ্ঠানের নাম
+                        </label>
+
                         <select id="institution" required>
-                            <option value="">প্রতিষ্ঠান নির্বাচন করুন</option>
+                            <option value="">
+                                প্রতিষ্ঠান নির্বাচন করুন
+                            </option>
                         </select>
+
                     </div>
 
                     <div class="form-group">
+
                         <label for="studentClass">শ্রেণি</label>
+
                         <select id="studentClass" required>
+
                             <option value="">শ্রেণি নির্বাচন করুন</option>
+
                             <option value="play">প্লে</option>
                             <option value="kg">কেজি</option>
                             <option value="class-1">প্রথম শ্রেণি</option>
@@ -312,13 +380,19 @@
                             <option value="class-8">অষ্টম শ্রেণি</option>
                             <option value="class-9">নবম শ্রেণি</option>
                             <option value="class-10">দশম শ্রেণি</option>
+
                         </select>
+
                     </div>
 
                     <div class="form-group">
+
                         <label for="examName">পরীক্ষার নাম</label>
+
                         <select id="examName" required>
+
                             <option value="">পরীক্ষা নির্বাচন করুন</option>
+
                             <option value="প্রথম সাময়িক পরীক্ষা">প্রথম সাময়িক পরীক্ষা</option>
                             <option value="দ্বিতীয় সাময়িক পরীক্ষা">দ্বিতীয় সাময়িক পরীক্ষা</option>
                             <option value="অর্ধবার্ষিক পরীক্ষা">অর্ধবার্ষিক পরীক্ষা</option>
@@ -330,13 +404,19 @@
                             <option value="টেস্ট পরীক্ষা">টেস্ট পরীক্ষা</option>
                             <option value="বিশেষ পরীক্ষা">বিশেষ পরীক্ষা</option>
                             <option value="অন্যান্য">অন্যান্য</option>
+
                         </select>
+
                     </div>
 
                     <div class="form-group">
+
                         <label for="examYear">শিক্ষাবর্ষ</label>
+
                         <select id="examYear" required>
+
                             <option value="">বছর নির্বাচন করুন</option>
+
                             <option value="2020">2020</option>
                             <option value="2021">2021</option>
                             <option value="2022">2022</option>
@@ -348,33 +428,46 @@
                             <option value="2028">2028</option>
                             <option value="2029">2029</option>
                             <option value="2030">2030</option>
+
                         </select>
+
                     </div>
 
                     <div class="form-group">
+
                         <label for="roll">শিক্ষার্থীর রোল নম্বর</label>
+
                         <input
                             type="text"
                             id="roll"
                             placeholder="রোল নম্বর লিখুন"
                             required
                         >
+
                     </div>
 
                 </div>
 
-                <button type="submit" class="search-button" id="searchButton">
+                <button
+                    type="submit"
+                    class="search-button"
+                    id="searchButton"
+                >
                     ফলাফল অনুসন্ধান করুন
                 </button>
 
                 <div id="message" class="message"></div>
 
             </form>
+
         </section>
 
+        <!-- Result Display -->
         <section class="result-card" id="resultCard">
 
-            <h2 class="result-heading">পরীক্ষার ফলাফল</h2>
+            <h2 class="result-heading">
+                পরীক্ষার ফলাফল
+            </h2>
 
             <div class="student-info">
 
@@ -413,7 +506,9 @@
             <h3 class="marks-title">বিষয়ভিত্তিক নম্বর</h3>
 
             <div class="table-wrapper">
+
                 <table>
+
                     <thead>
                         <tr>
                             <th>ক্রমিক</th>
@@ -424,10 +519,13 @@
                     </thead>
 
                     <tbody id="subjectTable"></tbody>
+
                 </table>
+
             </div>
 
             <div class="total-box">
+
                 <p>
                     মোট পূর্ণমান:
                     <strong id="totalFullMark">-</strong>
@@ -447,9 +545,13 @@
                     ফলাফল:
                     <span class="final-result" id="finalResult">-</span>
                 </p>
+
             </div>
 
-            <button class="print-button" onclick="window.print()">
+            <button
+                class="print-button"
+                onclick="window.print()"
+            >
                 ফলাফল প্রিন্ট করুন
             </button>
 
@@ -457,10 +559,12 @@
 
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         <p>Powered By SK BD</p>
     </footer>
 
+    <!-- Firebase & Result Search -->
     <script type="module">
 
         import { db } from "../firebase.js";
@@ -473,25 +577,47 @@
             limit
         } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-        const institutionSelect = document.getElementById("institution");
-        const form = document.getElementById("resultSearchForm");
-        const message = document.getElementById("message");
-        const resultCard = document.getElementById("resultCard");
-        const searchButton = document.getElementById("searchButton");
 
+        const institutionSelect =
+            document.getElementById("institution");
+
+        const form =
+            document.getElementById("resultSearchForm");
+
+        const message =
+            document.getElementById("message");
+
+        const resultCard =
+            document.getElementById("resultCard");
+
+        const searchButton =
+            document.getElementById("searchButton");
+
+
+        // Message
         function showMessage(text, type = "error") {
+
             message.textContent = text;
+
             message.className = "message " + type;
+
         }
 
+
+        // Text Display
         function setText(id, value) {
+
             document.getElementById(id).textContent =
                 value !== undefined && value !== null && value !== ""
                     ? value
                     : "-";
+
         }
 
+
+        // Class Names
         const classNames = {
+
             "play": "প্লে",
             "kg": "কেজি",
             "class-1": "প্রথম শ্রেণি",
@@ -504,15 +630,21 @@
             "class-8": "অষ্টম শ্রেণি",
             "class-9": "নবম শ্রেণি",
             "class-10": "দশম শ্রেণি"
+
         };
 
+
+        // Load Approved Institutions
         async function loadInstitutions() {
 
             try {
 
                 const institutionQuery = query(
+
                     collection(db, "resultInstitutions"),
+
                     where("active", "==", true)
+
                 );
 
                 const snapshot = await getDocs(institutionQuery);
@@ -529,6 +661,7 @@
                     const option = document.createElement("option");
 
                     option.value = data.institutionName;
+
                     option.textContent = data.institutionName;
 
                     institutionSelect.appendChild(option);
@@ -536,9 +669,11 @@
                 });
 
                 if (snapshot.empty) {
+
                     showMessage(
                         "বর্তমানে কোনো অনুমোদিত ফলাফল প্রকাশকারী প্রতিষ্ঠান পাওয়া যায়নি।"
                     );
+
                 }
 
             } catch (error) {
@@ -553,6 +688,8 @@
 
         }
 
+
+        // Search Result
         form.addEventListener("submit", async (event) => {
 
             event.preventDefault();
@@ -560,12 +697,20 @@
             resultCard.style.display = "none";
 
             const institutionName = institutionSelect.value.trim();
-            const className = document.getElementById("studentClass").value;
-            const examName = document.getElementById("examName").value;
+
+            const className =
+                document.getElementById("studentClass").value;
+
+            const examName =
+                document.getElementById("examName").value;
+
             const academicYear = Number(
                 document.getElementById("examYear").value
             );
-            const studentRoll = document.getElementById("roll").value.trim();
+
+            const studentRoll =
+                document.getElementById("roll").value.trim();
+
 
             if (
                 !institutionName ||
@@ -576,30 +721,45 @@
             ) {
 
                 showMessage("সব তথ্য সঠিকভাবে পূরণ করুন।");
+
                 return;
 
             }
 
+
             searchButton.disabled = true;
+
             searchButton.textContent = "অনুসন্ধান চলছে...";
 
-            showMessage("ফলাফল অনুসন্ধান করা হচ্ছে...", "success");
+            showMessage(
+                "ফলাফল অনুসন্ধান করা হচ্ছে...",
+                "success"
+            );
+
 
             try {
 
                 const resultQuery = query(
+
                     collection(db, "studentResults"),
 
                     where("institutionName", "==", institutionName),
+
                     where("className", "==", className),
+
                     where("examName", "==", examName),
+
                     where("academicYear", "==", academicYear),
+
                     where("studentRoll", "==", studentRoll),
 
                     limit(2)
+
                 );
 
+
                 const snapshot = await getDocs(resultQuery);
+
 
                 if (snapshot.empty) {
 
@@ -611,6 +771,7 @@
 
                 }
 
+
                 if (snapshot.size > 1) {
 
                     showMessage(
@@ -621,18 +782,26 @@
 
                 }
 
+
                 const data = snapshot.docs[0].data();
 
                 displayResult(data);
 
-                showMessage("ফলাফল সফলভাবে পাওয়া গেছে।", "success");
+                showMessage(
+                    "ফলাফল সফলভাবে পাওয়া গেছে।",
+                    "success"
+                );
 
                 resultCard.style.display = "block";
 
                 resultCard.scrollIntoView({
+
                     behavior: "smooth",
+
                     block: "start"
+
                 });
+
 
             } catch (error) {
 
@@ -645,28 +814,38 @@
             } finally {
 
                 searchButton.disabled = false;
+
                 searchButton.textContent = "ফলাফল অনুসন্ধান করুন";
 
             }
 
         });
 
+
+        // Display Result
         function displayResult(data) {
 
             setText("showInstitution", data.institutionName);
+
             setText("showName", data.studentName);
 
             setText(
                 "showClass",
-                data.classDisplayName || classNames[data.className] || data.className
+                data.classDisplayName ||
+                classNames[data.className] ||
+                data.className
             );
 
             setText("showRoll", data.studentRoll);
+
             setText("showExam", data.examName);
+
             setText("showYear", data.academicYear);
 
             setText("totalFullMark", data.totalFullMark);
+
             setText("totalObtained", data.totalObtained);
+
 
             setText(
                 "percentage",
@@ -675,11 +854,15 @@
                     : "-"
             );
 
+
             setText("finalResult", data.result);
 
-            const subjectTable = document.getElementById("subjectTable");
+
+            const subjectTable =
+                document.getElementById("subjectTable");
 
             subjectTable.innerHTML = "";
+
 
             if (Array.isArray(data.subjects)) {
 
@@ -688,11 +871,17 @@
                     const row = document.createElement("tr");
 
                     const values = [
+
                         index + 1,
+
                         subject.subjectName || "-",
+
                         subject.fullMark ?? "-",
+
                         subject.obtainedMark ?? "-"
+
                     ];
+
 
                     values.forEach((value) => {
 
@@ -704,6 +893,7 @@
 
                     });
 
+
                     subjectTable.appendChild(row);
 
                 });
@@ -712,6 +902,8 @@
 
         }
 
+
+        // Initialize
         loadInstitutions();
 
     </script>
