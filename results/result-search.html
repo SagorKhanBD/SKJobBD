@@ -62,19 +62,6 @@
             margin-bottom: 25px;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 23px;
-            color: #07518b;
-            margin-bottom: 8px;
-        }
-
-        .section-description {
-            text-align: center;
-            color: #687783;
-            margin-bottom: 25px;
-        }
-
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -298,12 +285,6 @@
 
         <section class="search-card">
 
-            <h2 class="section-title">ফলাফল অনুসন্ধান</h2>
-
-            <p class="section-description">
-                সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন।
-            </p>
-
             <form id="resultSearchForm">
 
                 <div class="form-grid">
@@ -525,7 +506,6 @@
             "class-10": "দশম শ্রেণি"
         };
 
-        // অনুমোদিত শিক্ষাপ্রতিষ্ঠানের তালিকা
         async function loadInstitutions() {
 
             try {
@@ -573,7 +553,6 @@
 
         }
 
-        // ফলাফল অনুসন্ধান
         form.addEventListener("submit", async (event) => {
 
             event.preventDefault();
@@ -672,15 +651,16 @@
 
         });
 
-        // ফলাফল প্রদর্শন
         function displayResult(data) {
 
             setText("showInstitution", data.institutionName);
             setText("showName", data.studentName);
+
             setText(
                 "showClass",
                 data.classDisplayName || classNames[data.className] || data.className
             );
+
             setText("showRoll", data.studentRoll);
             setText("showExam", data.examName);
             setText("showYear", data.academicYear);
