@@ -1,16 +1,17 @@
 
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>পরীক্ষার ফলাফল দেখুন | SK Job BD</title>
+    <title>Student Result | SK Job BD</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -20,136 +21,116 @@
         }
 
         body {
-            font-family: "Hind Siliguri", sans-serif;
-            background: #f3f6fb;
-            color: #263238;
+            font-family: "Inter", "Hind Siliguri", sans-serif;
+            background: #f2f5fa;
+            color: #202b3c;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* Header */
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
         .header {
-            position: relative;
-            background: linear-gradient(135deg, #073b75, #0877bd);
+            background: linear-gradient(135deg, #123c70, #1769aa);
             color: white;
+            padding: 30px 16px;
             text-align: center;
-            padding: 35px 15px;
         }
 
         .header h1 {
-            font-size: 30px;
-            font-weight: 700;
-            margin-bottom: 7px;
+            font-size: 27px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
 
         .header p {
-            font-size: 16px;
-            color: #e5f2ff;
+            font-size: 14px;
+            opacity: 0.9;
         }
 
-        /* Home Page Button */
-        .home-link {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 7px 12px;
-            border: 1px solid rgba(255,255,255,0.5);
-            border-radius: 6px;
-            background: rgba(255,255,255,0.12);
-            transition: 0.3s;
-        }
-
-        .home-link:hover {
+        .home-button {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 10px 20px;
+            border-radius: 7px;
+            color: #123c70;
             background: white;
-            color: #07518b;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
         }
 
-        /* Main Container */
         .container {
-            width: 92%;
-            max-width: 900px;
+            width: min(950px, 94%);
             margin: 30px auto;
-            flex: 1;
         }
 
-        .search-card,
-        .result-card {
+        .search-card {
             background: white;
             padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
-            margin-bottom: 25px;
+            border-radius: 13px;
+            box-shadow: 0 5px 22px rgba(25, 50, 80, 0.07);
         }
 
-        /* Form */
+        .search-card h2 {
+            color: #173f70;
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 17px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
+            gap: 7px;
         }
 
-        .form-group.full {
-            grid-column: 1 / -1;
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #34445a;
         }
 
-        label {
-            font-weight: 600;
-            margin-bottom: 7px;
-        }
-
-        input,
-        select {
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccd5df;
+            height: 45px;
+            padding: 0 12px;
+            border: 1px solid #d5deea;
             border-radius: 7px;
-            font-family: inherit;
-            font-size: 16px;
+            background: #fff;
+            color: #26374d;
             outline: none;
-            background: white;
         }
 
-        input:focus,
-        select:focus {
-            border-color: #0877bd;
-            box-shadow: 0 0 0 2px rgba(8, 119, 189, 0.12);
-        }
-
-        /* Buttons */
-        .search-button,
-        .print-button {
-            border: none;
-            background: #0877bd;
-            color: white;
-            padding: 13px 25px;
-            border-radius: 7px;
-            font-family: inherit;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2675c5;
+            box-shadow: 0 0 0 3px rgba(38, 117, 197, 0.10);
         }
 
         .search-button {
             width: 100%;
             margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #1769aa;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
         }
 
-        .search-button:hover,
-        .print-button:hover {
-            background: #07518b;
+        .search-button:hover {
+            background: #10548e;
         }
 
         .search-button:disabled {
@@ -157,146 +138,340 @@
             cursor: not-allowed;
         }
 
-        /* Message */
         .message {
-            text-align: center;
-            margin-top: 18px;
-            font-weight: 600;
+            display: none;
+            margin-top: 17px;
+            padding: 12px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        .error {
-            color: #d32f2f;
+        .message.show {
+            display: block;
         }
 
-        .success {
-            color: #16803c;
+        .message.error {
+            background: #fff0f0;
+            color: #b42318;
         }
 
-        /* Result Section */
+        .message.success {
+            background: #eaf8ef;
+            color: #18743a;
+        }
+
+        .message.info {
+            background: #edf5ff;
+            color: #17569a;
+        }
+
+        /* RESULT CARD */
+
         .result-card {
             display: none;
+            margin-top: 28px;
+            padding: 32px;
+            background: white;
+            border-radius: 13px;
+            box-shadow: 0 5px 22px rgba(25, 50, 80, 0.08);
+        }
+
+        .result-card.active {
+            display: block;
+        }
+
+        .institution-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #1c568e;
+        }
+
+        .institution-header h2 {
+            color: #153e6b;
+            font-size: 27px;
+            font-weight: 800;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
         }
 
         .result-heading {
             text-align: center;
-            color: #07518b;
-            font-size: 25px;
-            margin-bottom: 20px;
+            margin: 20px 0;
+        }
+
+        .result-heading h3 {
+            font-size: 21px;
+            color: #183f6b;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .result-heading p {
+            margin-top: 5px;
+            color: #68778a;
+            font-size: 12px;
         }
 
         .student-info {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
 
         .info-item {
-            background: #f5f8fc;
             padding: 12px;
-            border-radius: 6px;
-            border-left: 3px solid #0877bd;
+            background: #f4f7fb;
+            border-radius: 7px;
+            border-left: 3px solid #2874b9;
+            min-width: 0;
+        }
+
+        .info-item span {
+            display: block;
+            color: #69788c;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
 
         .info-item strong {
-            color: #34495e;
             display: block;
-            margin-bottom: 3px;
-        }
-
-        .marks-title {
-            margin-bottom: 12px;
-            color: #07518b;
+            color: #25374d;
+            font-size: 14px;
+            overflow-wrap: anywhere;
         }
 
         .table-wrapper {
+            width: 100%;
             overflow-x: auto;
+            margin-top: 10px;
         }
 
-        table {
+        .result-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 450px;
+            min-width: 570px;
         }
 
-        th,
-        td {
-            border: 1px solid #dce3eb;
-            padding: 11px;
-            text-align: center;
-        }
-
-        th {
-            background: #eaf3fb;
-            color: #07518b;
-        }
-
-        .total-box {
-            margin-top: 20px;
-            padding: 17px;
-            background: #eef6ff;
-            border-radius: 7px;
-            line-height: 2;
-        }
-
-        .final-result {
-            font-size: 21px;
-            font-weight: 700;
-            color: #16803c;
-        }
-
-        .print-button {
-            display: block;
-            margin: 22px auto 0;
-        }
-
-        /* Footer */
-        .footer {
-            background: #073b75;
+        .result-table th {
+            background: #174b7d;
             color: white;
+            padding: 12px 9px;
+            font-size: 12px;
             text-align: center;
-            padding: 17px;
-            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        .result-table td {
+            padding: 11px 9px;
+            border: 1px solid #dce4ed;
+            font-size: 12px;
+            text-align: center;
+            color: #34445a;
+        }
+
+        .result-table td.subject-name {
+            text-align: left;
             font-weight: 600;
         }
 
-        /* Mobile Responsive */
+        .result-table tbody tr:nth-child(even) {
+            background: #f6f9fc;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            min-width: 35px;
+            padding: 4px 7px;
+            border-radius: 5px;
+            background: #e7f1ff;
+            color: #15579a;
+            font-weight: 800;
+        }
+
+        .grade-f {
+            background: #ffe8e8;
+            color: #bd2525;
+        }
+
+        .summary-title {
+            margin: 25px 0 13px;
+            color: #173f70;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .summary-item {
+            padding: 15px;
+            border: 1px solid #dce5ef;
+            border-radius: 8px;
+            background: #fbfcfe;
+        }
+
+        .summary-item span {
+            display: block;
+            color: #69788c;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .summary-item strong {
+            display: block;
+            color: #173f70;
+            font-size: 19px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .final-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 17px;
+            border-radius: 8px;
+            background: #eaf8ef;
+            border: 1px solid #bce6c9;
+        }
+
+        .final-result.failed {
+            background: #fff0f0;
+            border-color: #f2c2c2;
+        }
+
+        .final-result span {
+            display: block;
+            color: #526477;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .final-result strong {
+            font-size: 23px;
+            color: #18743a;
+        }
+
+        .final-result.failed strong {
+            color: #b42318;
+        }
+
+        .result-footer {
+            text-align: center;
+            margin-top: 27px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e6ee;
+            color: #66768b;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .print-button {
+            display: none;
+            width: 100%;
+            margin-top: 18px;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #18834a;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .print-button.active {
+            display: block;
+        }
+
+        .footer {
+            padding: 22px 12px;
+            text-align: center;
+            color: #718096;
+            font-size: 12px;
+        }
+
         @media (max-width: 600px) {
 
-            .header {
-                padding: 65px 15px 25px;
-            }
-
             .header h1 {
-                font-size: 25px;
+                font-size: 22px;
             }
 
-            .home-link {
-                top: 12px;
-                left: 12px;
-                font-size: 14px;
-            }
-
-            .form-grid,
-            .student-info {
+            .form-grid {
                 grid-template-columns: 1fr;
             }
 
-            .search-card,
-            .result-card {
-                padding: 18px;
+            .search-card {
+                padding: 19px;
             }
 
-            .container {
-                margin: 20px auto;
+            .result-card {
+                padding: 18px 12px;
             }
+
+            .institution-header h2 {
+                font-size: 21px;
+            }
+
+            .result-heading h3 {
+                font-size: 17px;
+            }
+
+            .student-info,
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .info-item {
+                padding: 9px;
+            }
+
+            .info-item strong {
+                font-size: 12px;
+            }
+
+            .summary-item {
+                padding: 11px;
+            }
+
+            .summary-item strong {
+                font-size: 16px;
+            }
+
         }
 
-        /* Print */
+        /* PRINT SETTINGS */
+
         @media print {
 
+            @page {
+                size: A4 portrait;
+                margin: 12mm;
+            }
+
+            html,
             body {
-                background: white;
+                background: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                color: #111 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body * {
+                visibility: hidden !important;
+            }
+
+            .result-card,
+            .result-card * {
+                visibility: visible !important;
             }
 
             .header,
@@ -307,139 +482,220 @@
             }
 
             .container {
-                width: 100%;
-                margin: 0;
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
             .result-card {
                 display: block !important;
-                box-shadow: none;
-                border: 1px solid #ccc;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 8px !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
             }
+
+            .institution-header h2 {
+                font-size: 24px !important;
+            }
+
+            .result-table {
+                min-width: 0 !important;
+                width: 100% !important;
+            }
+
+            .result-table th,
+            .result-table td {
+                font-size: 10px !important;
+                padding: 8px 5px !important;
+            }
+
+            .info-item,
+            .summary-item,
+            .final-result {
+                break-inside: avoid;
+            }
+
+            .table-wrapper {
+                overflow: visible !important;
+            }
+
         }
+
     </style>
+
 </head>
 
 <body>
 
-    <!-- Header -->
+    <!-- HEADER -->
+
     <header class="header">
 
-        <a href="../index.html" class="home-link">
-            <span aria-hidden="true">⌂</span>
-            হোম পেজ
+        <h1>Examination Result</h1>
+
+        <p>Search and View Student Academic Results</p>
+
+        <a href="../index.html" class="home-button">
+            Home
         </a>
-
-        <h1>পরীক্ষার ফলাফল দেখুন</h1>
-
-        <p>প্রয়োজনীয় তথ্য দিয়ে আপনার ফলাফল অনুসন্ধান করুন</p>
 
     </header>
 
-    <!-- Main Content -->
+
     <main class="container">
 
-        <!-- Search Form -->
+        <!-- SEARCH FORM -->
+
         <section class="search-card">
+
+            <h2>পরীক্ষার ফলাফল দেখুন</h2>
 
             <form id="resultSearchForm">
 
                 <div class="form-grid">
 
-                    <div class="form-group full">
+                    <div class="form-group">
 
-                        <label for="institution">
-                            শিক্ষাপ্রতিষ্ঠানের নাম
+                        <label for="institutionName">
+                            প্রতিষ্ঠানের নাম
                         </label>
 
-                        <select id="institution" required>
+                        <select id="institutionName" required>
+
                             <option value="">
                                 প্রতিষ্ঠান নির্বাচন করুন
                             </option>
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="studentClass">শ্রেণি</label>
-
-                        <select id="studentClass" required>
-
-                            <option value="">শ্রেণি নির্বাচন করুন</option>
-
-                            <option value="play">প্লে</option>
-                            <option value="kg">কেজি</option>
-                            <option value="class-1">প্রথম শ্রেণি</option>
-                            <option value="class-2">দ্বিতীয় শ্রেণি</option>
-                            <option value="class-3">তৃতীয় শ্রেণি</option>
-                            <option value="class-4">চতুর্থ শ্রেণি</option>
-                            <option value="class-5">পঞ্চম শ্রেণি</option>
-                            <option value="class-6">ষষ্ঠ শ্রেণি</option>
-                            <option value="class-7">সপ্তম শ্রেণি</option>
-                            <option value="class-8">অষ্টম শ্রেণি</option>
-                            <option value="class-9">নবম শ্রেণি</option>
-                            <option value="class-10">দশম শ্রেণি</option>
 
                         </select>
 
                     </div>
 
+
                     <div class="form-group">
 
-                        <label for="examName">পরীক্ষার নাম</label>
+                        <label for="className">
+                            শ্রেণি
+                        </label>
+
+                        <select id="className" required>
+
+                            <option value="">
+                                শ্রেণি নির্বাচন করুন
+                            </option>
+
+                            <option value="play">Play</option>
+                            <option value="kg">KG</option>
+
+                            <option value="class-1">১ম শ্রেণি</option>
+                            <option value="class-2">২য় শ্রেণি</option>
+                            <option value="class-3">৩য় শ্রেণি</option>
+                            <option value="class-4">৪র্থ শ্রেণি</option>
+                            <option value="class-5">৫ম শ্রেণি</option>
+                            <option value="class-6">৬ষ্ঠ শ্রেণি</option>
+                            <option value="class-7">৭ম শ্রেণি</option>
+                            <option value="class-8">৮ম শ্রেণি</option>
+                            <option value="class-9">৯ম শ্রেণি</option>
+                            <option value="class-10">১০ম শ্রেণি</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="examName">
+                            পরীক্ষার নাম
+                        </label>
 
                         <select id="examName" required>
 
-                            <option value="">পরীক্ষা নির্বাচন করুন</option>
+                            <option value="">
+                                পরীক্ষা নির্বাচন করুন
+                            </option>
 
-                            <option value="প্রথম সাময়িক পরীক্ষা">প্রথম সাময়িক পরীক্ষা</option>
-                            <option value="দ্বিতীয় সাময়িক পরীক্ষা">দ্বিতীয় সাময়িক পরীক্ষা</option>
-                            <option value="অর্ধবার্ষিক পরীক্ষা">অর্ধবার্ষিক পরীক্ষা</option>
-                            <option value="বার্ষিক পরীক্ষা">বার্ষিক পরীক্ষা</option>
-                            <option value="নির্বাচনী পরীক্ষা">নির্বাচনী পরীক্ষা</option>
-                            <option value="মডেল টেস্ট পরীক্ষা">মডেল টেস্ট পরীক্ষা</option>
-                            <option value="প্রাক-নির্বাচনী পরীক্ষা">প্রাক-নির্বাচনী পরীক্ষা</option>
-                            <option value="প্রাক-নির্বাচনী মডেল টেস্ট">প্রাক-নির্বাচনী মডেল টেস্ট</option>
-                            <option value="টেস্ট পরীক্ষা">টেস্ট পরীক্ষা</option>
-                            <option value="বিশেষ পরীক্ষা">বিশেষ পরীক্ষা</option>
-                            <option value="অন্যান্য">অন্যান্য</option>
+                            <option value="প্রথম সাময়িক পরীক্ষা">
+                                প্রথম সাময়িক পরীক্ষা
+                            </option>
+
+                            <option value="দ্বিতীয় সাময়িক পরীক্ষা">
+                                দ্বিতীয় সাময়িক পরীক্ষা
+                            </option>
+
+                            <option value="অর্ধবার্ষিক পরীক্ষা">
+                                অর্ধবার্ষিক পরীক্ষা
+                            </option>
+
+                            <option value="বার্ষিক পরীক্ষা">
+                                বার্ষিক পরীক্ষা
+                            </option>
+
+                            <option value="নির্বাচনী পরীক্ষা">
+                                নির্বাচনী পরীক্ষা
+                            </option>
+
+                            <option value="মডেল টেস্ট">
+                                মডেল টেস্ট
+                            </option>
+
+                            <option value="প্রাক-নির্বাচনী পরীক্ষা">
+                                প্রাক-নির্বাচনী পরীক্ষা
+                            </option>
+
+                            <option value="প্রাক-নির্বাচনী মডেল টেস্ট">
+                                প্রাক-নির্বাচনী মডেল টেস্ট
+                            </option>
+
+                            <option value="টেস্ট পরীক্ষা">
+                                টেস্ট পরীক্ষা
+                            </option>
+
+                            <option value="বিশেষ পরীক্ষা">
+                                বিশেষ পরীক্ষা
+                            </option>
+
+                            <option value="অন্যান্য">
+                                অন্যান্য
+                            </option>
 
                         </select>
 
                     </div>
 
+
                     <div class="form-group">
 
-                        <label for="examYear">শিক্ষাবর্ষ</label>
+                        <label for="academicYear">
+                            শিক্ষাবর্ষ
+                        </label>
 
-                        <select id="examYear" required>
+                        <select id="academicYear" required>
 
-                            <option value="">বছর নির্বাচন করুন</option>
-
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                            <option value="2026">2026</option>
-                            <option value="2027">2027</option>
-                            <option value="2028">2028</option>
-                            <option value="2029">2029</option>
-                            <option value="2030">2030</option>
+                            <option value="">
+                                শিক্ষাবর্ষ নির্বাচন করুন
+                            </option>
 
                         </select>
 
                     </div>
 
+
                     <div class="form-group">
 
-                        <label for="roll">শিক্ষার্থীর রোল নম্বর</label>
+                        <label for="studentRoll">
+                            শিক্ষার্থীর রোল নম্বর
+                        </label>
 
                         <input
                             type="text"
-                            id="roll"
+                            id="studentRoll"
                             placeholder="রোল নম্বর লিখুন"
                             required
                         >
@@ -448,123 +704,207 @@
 
                 </div>
 
+
                 <button
                     type="submit"
                     class="search-button"
                     id="searchButton"
                 >
-                    ফলাফল অনুসন্ধান করুন
+                    ফলাফল খুঁজুন
                 </button>
-
-                <div id="message" class="message"></div>
 
             </form>
 
+
+            <div id="message" class="message"></div>
+
         </section>
 
-        <!-- Result Display -->
+
+        <!-- RESULT CARD -->
+
         <section class="result-card" id="resultCard">
 
-            <h2 class="result-heading">
-                পরীক্ষার ফলাফল
-            </h2>
+            <div class="institution-header">
+
+                <h2 id="showInstitution"></h2>
+
+            </div>
+
+
+            <div class="result-heading">
+
+                <h3>STUDENT ACADEMIC RESULT</h3>
+
+                <p>OFFICIAL STUDENT RESULT STATEMENT</p>
+
+            </div>
+
+
+            <!-- STUDENT INFORMATION -->
 
             <div class="student-info">
 
                 <div class="info-item">
-                    <strong>প্রতিষ্ঠানের নাম</strong>
-                    <span id="showInstitution">-</span>
+
+                    <span>Student Name</span>
+
+                    <strong id="showName"></strong>
+
                 </div>
 
-                <div class="info-item">
-                    <strong>শিক্ষার্থীর নাম</strong>
-                    <span id="showName">-</span>
-                </div>
 
                 <div class="info-item">
-                    <strong>শ্রেণি</strong>
-                    <span id="showClass">-</span>
+
+                    <span>Class</span>
+
+                    <strong id="showClass"></strong>
+
                 </div>
 
-                <div class="info-item">
-                    <strong>রোল নম্বর</strong>
-                    <span id="showRoll">-</span>
-                </div>
 
                 <div class="info-item">
-                    <strong>পরীক্ষার নাম</strong>
-                    <span id="showExam">-</span>
+
+                    <span>Roll Number</span>
+
+                    <strong id="showRoll"></strong>
+
                 </div>
 
+
                 <div class="info-item">
-                    <strong>শিক্ষাবর্ষ</strong>
-                    <span id="showYear">-</span>
+
+                    <span>Examination</span>
+
+                    <strong id="showExam"></strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span>Academic Year</span>
+
+                    <strong id="showYear"></strong>
+
                 </div>
 
             </div>
 
-            <h3 class="marks-title">বিষয়ভিত্তিক নম্বর</h3>
+
+            <!-- SUBJECT RESULT -->
 
             <div class="table-wrapper">
 
-                <table>
+                <table class="result-table">
 
                     <thead>
+
                         <tr>
-                            <th>ক্রমিক</th>
-                            <th>বিষয়ের নাম</th>
-                            <th>পূর্ণমান</th>
-                            <th>প্রাপ্ত নম্বর</th>
+
+                            <th>SL</th>
+                            <th>Subject</th>
+                            <th>Full Marks</th>
+                            <th>Obtained Marks</th>
+                            <th>Letter Grade</th>
+                            <th>Grade Point</th>
+
                         </tr>
+
                     </thead>
 
-                    <tbody id="subjectTable"></tbody>
+                    <tbody id="subjectTableBody"></tbody>
 
                 </table>
 
             </div>
 
-            <div class="total-box">
 
-                <p>
-                    মোট পূর্ণমান:
-                    <strong id="totalFullMark">-</strong>
-                </p>
+            <!-- RESULT SUMMARY -->
 
-                <p>
-                    মোট প্রাপ্ত নম্বর:
-                    <strong id="totalObtained">-</strong>
-                </p>
+            <h3 class="summary-title">
+                FINAL RESULT SUMMARY
+            </h3>
 
-                <p>
-                    শতকরা নম্বর:
-                    <strong id="percentage">-</strong>
-                </p>
 
-                <p>
-                    ফলাফল:
-                    <span class="final-result" id="finalResult">-</span>
-                </p>
+            <div class="summary-grid">
+
+                <div class="summary-item">
+
+                    <span>Total Full Marks</span>
+
+                    <strong id="showTotalFull"></strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>Total Obtained Marks</span>
+
+                    <strong id="showTotalObtained"></strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>Overall GPA</span>
+
+                    <strong id="showGPA"></strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>Overall Letter Grade</span>
+
+                    <strong id="showOverallGrade"></strong>
+
+                </div>
+
+
+                <div class="final-result" id="finalResultBox">
+
+                    <span>FINAL RESULT</span>
+
+                    <strong id="showFinalResult"></strong>
+
+                </div>
 
             </div>
 
-            <button
-                class="print-button"
-                onclick="window.print()"
-            >
-                ফলাফল প্রিন্ট করুন
-            </button>
+
+            <!-- FOOTER -->
+
+            <div class="result-footer">
+                Powered By SK BD
+            </div>
 
         </section>
 
+
+        <!-- PRINT BUTTON -->
+
+        <button
+            type="button"
+            class="print-button"
+            id="printButton"
+        >
+            Print / Download PDF
+        </button>
+
     </main>
 
-    <!-- Footer -->
+
     <footer class="footer">
-        <p>Powered By SK BD</p>
+        SK Job BD
     </footer>
 
-    <!-- Firebase & Result Search -->
+
+    <!-- FIREBASE AND RESULT SEARCH -->
+
     <script type="module">
 
         import { db } from "../firebase.js";
@@ -578,11 +918,30 @@
         } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
-        const institutionSelect =
-            document.getElementById("institution");
+        // ====================================================
+        // ELEMENTS
+        // ====================================================
 
-        const form =
+        const institutionSelect =
+            document.getElementById("institutionName");
+
+        const classSelect =
+            document.getElementById("className");
+
+        const examSelect =
+            document.getElementById("examName");
+
+        const yearSelect =
+            document.getElementById("academicYear");
+
+        const rollInput =
+            document.getElementById("studentRoll");
+
+        const searchForm =
             document.getElementById("resultSearchForm");
+
+        const searchButton =
+            document.getElementById("searchButton");
 
         const message =
             document.getElementById("message");
@@ -590,98 +949,115 @@
         const resultCard =
             document.getElementById("resultCard");
 
-        const searchButton =
-            document.getElementById("searchButton");
+        const printButton =
+            document.getElementById("printButton");
+
+        const subjectTableBody =
+            document.getElementById("subjectTableBody");
 
 
-        // Message
-        function showMessage(text, type = "error") {
+        // ====================================================
+        // ACADEMIC YEAR OPTIONS
+        // ====================================================
 
-            message.textContent = text;
+        for (let year = 2030; year >= 2020; year--) {
 
-            message.className = "message " + type;
+            const option = document.createElement("option");
 
-        }
+            option.value = year;
+            option.textContent = year;
 
-
-        // Text Display
-        function setText(id, value) {
-
-            document.getElementById(id).textContent =
-                value !== undefined && value !== null && value !== ""
-                    ? value
-                    : "-";
+            yearSelect.appendChild(option);
 
         }
 
 
-        // Class Names
-        const classNames = {
+        // ====================================================
+        // LOAD INSTITUTIONS
+        // ====================================================
 
-            "play": "প্লে",
-            "kg": "কেজি",
-            "class-1": "প্রথম শ্রেণি",
-            "class-2": "দ্বিতীয় শ্রেণি",
-            "class-3": "তৃতীয় শ্রেণি",
-            "class-4": "চতুর্থ শ্রেণি",
-            "class-5": "পঞ্চম শ্রেণি",
-            "class-6": "ষষ্ঠ শ্রেণি",
-            "class-7": "সপ্তম শ্রেণি",
-            "class-8": "অষ্টম শ্রেণি",
-            "class-9": "নবম শ্রেণি",
-            "class-10": "দশম শ্রেণি"
-
-        };
-
-
-        // Load Approved Institutions
         async function loadInstitutions() {
 
             try {
 
+                const institutionsRef =
+                    collection(db, "resultInstitutions");
+
                 const institutionQuery = query(
-
-                    collection(db, "resultInstitutions"),
-
+                    institutionsRef,
                     where("active", "==", true)
-
                 );
 
-                const snapshot = await getDocs(institutionQuery);
+                const snapshot =
+                    await getDocs(institutionQuery);
 
-                institutionSelect.innerHTML =
-                    '<option value="">প্রতিষ্ঠান নির্বাচন করুন</option>';
+                institutionSelect.innerHTML = "";
 
-                snapshot.forEach((doc) => {
+                const defaultOption =
+                    document.createElement("option");
+
+                defaultOption.value = "";
+                defaultOption.textContent =
+                    "প্রতিষ্ঠান নির্বাচন করুন";
+
+                institutionSelect.appendChild(defaultOption);
+
+
+                const institutionNames = [];
+
+                snapshot.forEach(doc => {
 
                     const data = doc.data();
 
-                    if (!data.institutionName) return;
+                    if (
+                        data.institutionName &&
+                        !institutionNames.includes(data.institutionName)
+                    ) {
 
-                    const option = document.createElement("option");
+                        institutionNames.push(data.institutionName);
 
-                    option.value = data.institutionName;
+                    }
 
-                    option.textContent = data.institutionName;
+                });
+
+
+                institutionNames.sort((a, b) =>
+                    a.localeCompare(b)
+                );
+
+
+                institutionNames.forEach(name => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = name;
+                    option.textContent = name;
 
                     institutionSelect.appendChild(option);
 
                 });
 
-                if (snapshot.empty) {
+
+                if (institutionNames.length === 0) {
 
                     showMessage(
-                        "বর্তমানে কোনো অনুমোদিত ফলাফল প্রকাশকারী প্রতিষ্ঠান পাওয়া যায়নি।"
+                        "বর্তমানে কোনো প্রতিষ্ঠান ফলাফল প্রকাশের জন্য পাওয়া যায়নি।",
+                        "info"
                     );
 
                 }
 
             } catch (error) {
 
-                console.error("Institution loading error:", error);
+                console.error(
+                    "Institution loading error:",
+                    error
+                );
 
                 showMessage(
-                    "প্রতিষ্ঠানের তালিকা লোড করা যায়নি। পরে আবার চেষ্টা করুন।"
+                    "প্রতিষ্ঠানের তালিকা লোড করা যায়নি। পরে আবার চেষ্টা করুন।",
+                    "error"
                 );
 
             }
@@ -689,27 +1065,187 @@
         }
 
 
-        // Search Result
-        form.addEventListener("submit", async (event) => {
+        // ====================================================
+        // PASS MARK
+        // ====================================================
+
+        function getPassMark(fullMark) {
+
+            if (fullMark === 50) {
+                return 16;
+            }
+
+            return fullMark * 0.33;
+
+        }
+
+
+        // ====================================================
+        // PASS CHECK
+        // ====================================================
+
+        function isSubjectPassed(obtainedMark, fullMark) {
+
+            return obtainedMark >= getPassMark(fullMark);
+
+        }
+
+
+        // ====================================================
+        // GRADE POINT
+        // ====================================================
+
+        function calculateGradePoint(obtainedMark, fullMark) {
+
+            if (
+                !Number.isFinite(obtainedMark) ||
+                !Number.isFinite(fullMark) ||
+                fullMark <= 0
+            ) {
+
+                return 0;
+
+            }
+
+            return Number(
+                ((obtainedMark / fullMark) * 5).toFixed(2)
+            );
+
+        }
+
+
+        // ====================================================
+        // LETTER GRADE
+        // ====================================================
+
+        function getLetterGrade(gradePoint, passed = true) {
+
+            if (!passed) return "F";
+
+            if (gradePoint >= 4.50) return "A+";
+            if (gradePoint >= 4.00) return "A";
+            if (gradePoint >= 3.50) return "A-";
+            if (gradePoint >= 3.00) return "B";
+            if (gradePoint >= 2.00) return "C";
+            if (gradePoint >= 1.00) return "D";
+
+            return "F";
+
+        }
+
+
+        // ====================================================
+        // FORMAT NUMBER
+        // ====================================================
+
+        function formatNumber(value) {
+
+            const number = Number(value);
+
+            if (!Number.isFinite(number)) {
+                return "0";
+            }
+
+            if (Number.isInteger(number)) {
+                return String(number);
+            }
+
+            return number.toFixed(2);
+
+        }
+
+
+        // ====================================================
+        // CLASS DISPLAY
+        // ====================================================
+
+        function getClassDisplayName(className) {
+
+            const classNames = {
+
+                nursery: "Nursery",
+                play: "Play",
+                kg: "KG",
+
+                "class-1": "Class 1",
+                "class-2": "Class 2",
+                "class-3": "Class 3",
+                "class-4": "Class 4",
+                "class-5": "Class 5",
+                "class-6": "Class 6",
+                "class-7": "Class 7",
+                "class-8": "Class 8",
+                "class-9": "Class 9",
+                "class-10": "Class 10"
+
+            };
+
+            return classNames[className] ?? className;
+
+        }
+
+
+        // ====================================================
+        // MESSAGE
+        // ====================================================
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+
+            message.className =
+                "message show " + type;
+
+        }
+
+
+        function hideMessage() {
+
+            message.textContent = "";
+            message.className = "message";
+
+        }
+
+
+        // ====================================================
+        // SAFE TEXT
+        // ====================================================
+
+        function setText(id, value) {
+
+            document.getElementById(id).textContent =
+                value ?? "";
+
+        }
+
+
+        // ====================================================
+        // SEARCH RESULT
+        // ====================================================
+
+        searchForm.addEventListener("submit", async event => {
 
             event.preventDefault();
 
-            resultCard.style.display = "none";
+            hideMessage();
 
-            const institutionName = institutionSelect.value.trim();
+            resultCard.classList.remove("active");
+            printButton.classList.remove("active");
+
+            const institutionName =
+                institutionSelect.value;
 
             const className =
-                document.getElementById("studentClass").value;
+                classSelect.value;
 
             const examName =
-                document.getElementById("examName").value;
+                examSelect.value;
 
-            const academicYear = Number(
-                document.getElementById("examYear").value
-            );
+            const academicYear =
+                Number(yearSelect.value);
 
             const studentRoll =
-                document.getElementById("roll").value.trim();
+                rollInput.value.trim();
 
 
             if (
@@ -720,7 +1256,10 @@
                 !studentRoll
             ) {
 
-                showMessage("সব তথ্য সঠিকভাবে পূরণ করুন।");
+                showMessage(
+                    "সব তথ্য পূরণ করে আবার চেষ্টা করুন।",
+                    "error"
+                );
 
                 return;
 
@@ -729,42 +1268,61 @@
 
             searchButton.disabled = true;
 
-            searchButton.textContent = "অনুসন্ধান চলছে...";
-
-            showMessage(
-                "ফলাফল অনুসন্ধান করা হচ্ছে...",
-                "success"
-            );
+            searchButton.textContent =
+                "ফলাফল খোঁজা হচ্ছে...";
 
 
             try {
 
+                const resultsRef =
+                    collection(db, "studentResults");
+
                 const resultQuery = query(
+                    resultsRef,
 
-                    collection(db, "studentResults"),
+                    where(
+                        "institutionName",
+                        "==",
+                        institutionName
+                    ),
 
-                    where("institutionName", "==", institutionName),
+                    where(
+                        "className",
+                        "==",
+                        className
+                    ),
 
-                    where("className", "==", className),
+                    where(
+                        "examName",
+                        "==",
+                        examName
+                    ),
 
-                    where("examName", "==", examName),
+                    where(
+                        "academicYear",
+                        "==",
+                        academicYear
+                    ),
 
-                    where("academicYear", "==", academicYear),
-
-                    where("studentRoll", "==", studentRoll),
+                    where(
+                        "studentRoll",
+                        "==",
+                        studentRoll
+                    ),
 
                     limit(2)
-
                 );
 
 
-                const snapshot = await getDocs(resultQuery);
+                const snapshot =
+                    await getDocs(resultQuery);
 
 
                 if (snapshot.empty) {
 
                     showMessage(
-                        "দুঃখিত! আপনার দেওয়া তথ্য অনুযায়ী কোনো ফলাফল পাওয়া যায়নি।"
+                        "এই তথ্য অনুযায়ী কোনো ফলাফল পাওয়া যায়নি।",
+                        "error"
                     );
 
                     return;
@@ -775,7 +1333,8 @@
                 if (snapshot.size > 1) {
 
                     showMessage(
-                        "একাধিক ফলাফল পাওয়া গেছে। অনুগ্রহ করে প্রতিষ্ঠানের সঙ্গে যোগাযোগ করুন।"
+                        "একাধিক ফলাফল পাওয়া গেছে। অনুগ্রহ করে প্রতিষ্ঠানের কাছে যোগাযোগ করুন।",
+                        "error"
                     );
 
                     return;
@@ -783,127 +1342,340 @@
                 }
 
 
-                const data = snapshot.docs[0].data();
+                const resultData =
+                    snapshot.docs[0].data();
 
-                displayResult(data);
+
+                displayResult(resultData);
+
 
                 showMessage(
                     "ফলাফল সফলভাবে পাওয়া গেছে।",
                     "success"
                 );
 
-                resultCard.style.display = "block";
-
-                resultCard.scrollIntoView({
-
-                    behavior: "smooth",
-
-                    block: "start"
-
-                });
-
 
             } catch (error) {
 
-                console.error("Result search error:", error);
+                console.error(
+                    "Result search error:",
+                    error
+                );
 
                 showMessage(
-                    "ফলাফল অনুসন্ধান করা যায়নি। Firebase সংযোগ ও Firestore Index পরীক্ষা করুন।"
+                    "ফলাফল খুঁজতে সমস্যা হয়েছে। Firebase সংযোগ বা Firestore Index পরীক্ষা করুন।",
+                    "error"
                 );
 
             } finally {
 
                 searchButton.disabled = false;
 
-                searchButton.textContent = "ফলাফল অনুসন্ধান করুন";
+                searchButton.textContent =
+                    "ফলাফল খুঁজুন";
 
             }
 
         });
 
 
-        // Display Result
+        // ====================================================
+        // DISPLAY RESULT
+        // ====================================================
+
         function displayResult(data) {
 
-            setText("showInstitution", data.institutionName);
+            const subjects = Array.isArray(data.subjects)
+                ? data.subjects
+                : [];
 
-            setText("showName", data.studentName);
+
+            if (subjects.length === 0) {
+
+                showMessage(
+                    "এই ফলাফলে কোনো বিষয়ের তথ্য পাওয়া যায়নি।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            // -----------------------------------------------
+            // STUDENT INFORMATION
+            // -----------------------------------------------
+
+            setText(
+                "showInstitution",
+                data.institutionName
+            );
+
+            setText(
+                "showName",
+                data.studentName
+            );
 
             setText(
                 "showClass",
-                data.classDisplayName ||
-                classNames[data.className] ||
-                data.className
+                getClassDisplayName(data.className)
             );
-
-            setText("showRoll", data.studentRoll);
-
-            setText("showExam", data.examName);
-
-            setText("showYear", data.academicYear);
-
-            setText("totalFullMark", data.totalFullMark);
-
-            setText("totalObtained", data.totalObtained);
-
 
             setText(
-                "percentage",
-                data.percentage !== undefined
-                    ? Number(data.percentage).toFixed(2) + "%"
-                    : "-"
+                "showRoll",
+                data.studentRoll
+            );
+
+            setText(
+                "showExam",
+                data.examName
+            );
+
+            setText(
+                "showYear",
+                data.academicYear
             );
 
 
-            setText("finalResult", data.result);
+            // -----------------------------------------------
+            // SUBJECT TABLE
+            // -----------------------------------------------
+
+            subjectTableBody.innerHTML = "";
+
+            let totalFull = 0;
+            let totalObtained = 0;
+            let totalGradePoint = 0;
+
+            let hasFailedSubject = false;
 
 
-            const subjectTable =
-                document.getElementById("subjectTable");
+            subjects.forEach((subject, index) => {
 
-            subjectTable.innerHTML = "";
+                const fullMark = Number(
+                    subject.fullMark ??
+                    subject.fullMarks ??
+                    subject.full_mark ??
+                    0
+                );
 
+                const obtainedMark = Number(
+                    subject.obtainedMark ?? 0
+                );
 
-            if (Array.isArray(data.subjects)) {
+                if (
+                    !Number.isFinite(fullMark) ||
+                    !Number.isFinite(obtainedMark) ||
+                    fullMark <= 0
+                ) {
 
-                data.subjects.forEach((subject, index) => {
+                    return;
 
-                    const row = document.createElement("tr");
-
-                    const values = [
-
-                        index + 1,
-
-                        subject.subjectName || "-",
-
-                        subject.fullMark ?? "-",
-
-                        subject.obtainedMark ?? "-"
-
-                    ];
-
-
-                    values.forEach((value) => {
-
-                        const cell = document.createElement("td");
-
-                        cell.textContent = value;
-
-                        row.appendChild(cell);
-
-                    });
+                }
 
 
-                    subjectTable.appendChild(row);
+                const gradePoint =
+                    calculateGradePoint(
+                        obtainedMark,
+                        fullMark
+                    );
+
+
+                const passed =
+                    isSubjectPassed(
+                        obtainedMark,
+                        fullMark
+                    );
+
+
+                const letterGrade =
+                    getLetterGrade(
+                        gradePoint,
+                        passed
+                    );
+
+
+                if (!passed) {
+                    hasFailedSubject = true;
+                }
+
+
+                totalFull += fullMark;
+                totalObtained += obtainedMark;
+                totalGradePoint += gradePoint;
+
+
+                const row =
+                    document.createElement("tr");
+
+
+                const values = [
+
+                    index + 1,
+
+                    subject.subjectName ??
+                    subject.name ??
+                    subject.subject_name ??
+                    "",
+
+                    formatNumber(fullMark),
+
+                    formatNumber(obtainedMark)
+
+                ];
+
+
+                values.forEach((value, cellIndex) => {
+
+                    const cell =
+                        document.createElement("td");
+
+                    cell.textContent = value;
+
+                    if (cellIndex === 1) {
+                        cell.className = "subject-name";
+                    }
+
+                    row.appendChild(cell);
 
                 });
 
+
+                const gradeCell =
+                    document.createElement("td");
+
+                const gradeBadge =
+                    document.createElement("span");
+
+                gradeBadge.className =
+                    letterGrade === "F"
+                        ? "grade-badge grade-f"
+                        : "grade-badge";
+
+                gradeBadge.textContent =
+                    letterGrade;
+
+                gradeCell.appendChild(gradeBadge);
+
+                row.appendChild(gradeCell);
+
+
+                const pointCell =
+                    document.createElement("td");
+
+                pointCell.textContent =
+                    gradePoint.toFixed(2);
+
+                row.appendChild(pointCell);
+
+
+                subjectTableBody.appendChild(row);
+
+            });
+
+
+            // -----------------------------------------------
+            // FINAL CALCULATION
+            // -----------------------------------------------
+
+            if (totalFull <= 0) {
+
+                showMessage(
+                    "ফলাফলের নম্বরের তথ্য সঠিক নয়।",
+                    "error"
+                );
+
+                return;
+
             }
+
+
+            const overallGPA = Number(
+                (totalGradePoint / subjects.length).toFixed(2)
+            );
+
+
+            const overallGrade = getLetterGrade(
+                overallGPA,
+                !hasFailedSubject
+            );
+
+
+            const finalResult = hasFailedSubject
+                ? "FAILED"
+                : "PASSED";
+
+
+            // -----------------------------------------------
+            // SUMMARY
+            // -----------------------------------------------
+
+            setText(
+                "showTotalFull",
+                formatNumber(totalFull)
+            );
+
+            setText(
+                "showTotalObtained",
+                formatNumber(totalObtained)
+            );
+
+            setText(
+                "showGPA",
+                overallGPA.toFixed(2)
+            );
+
+            setText(
+                "showOverallGrade",
+                overallGrade
+            );
+
+            setText(
+                "showFinalResult",
+                finalResult
+            );
+
+
+            const finalResultBox =
+                document.getElementById("finalResultBox");
+
+            finalResultBox.classList.toggle(
+                "failed",
+                hasFailedSubject
+            );
+
+
+            // -----------------------------------------------
+            // SHOW RESULT
+            // -----------------------------------------------
+
+            resultCard.classList.add("active");
+
+            printButton.classList.add("active");
+
+            resultCard.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
         }
 
 
-        // Initialize
+        // ====================================================
+        // PRINT RESULT
+        // ====================================================
+
+        printButton.addEventListener("click", () => {
+
+            window.print();
+
+        });
+
+
+        // ====================================================
+        // INITIAL LOAD
+        // ====================================================
+
         loadInstitutions();
 
     </script>
